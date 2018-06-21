@@ -59,15 +59,16 @@ class Editor extends Component {
       value: newValue
     })
   }
-  onClick() {
+  onPlayback() {
     let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b)
 
-    timeStampKeys.forEach((currentKey, index) => {
+    for (let i = 0; i < timeStampKeys.length; i++) {
       setTimeout(() => {
-        this.setState({value: this.timeStampObject[currentKey]})
-      }, index * 250)
-    })
+        this.setState({value: this.timeStampObject[timeStampKeys[i]]})
+      }, timeStampKeys[i] - timeStampKeys[0])
+    }
   }
+  onPause() {}
 
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
@@ -125,7 +126,7 @@ class Editor extends Component {
     this.onChange = this.onChange.bind(this)
     this.setFontSize = this.setFontSize.bind(this)
     this.setBoolean = this.setBoolean.bind(this)
-    this.onClick = this.onClick.bind(this)
+    this.onPlayback = this.onPlayback.bind(this)
   }
   render() {
     console.log('current state value', this.state.value)
@@ -133,9 +134,10 @@ class Editor extends Component {
       <div className="columns">
         <div className="column">
           <div className="field">
-            <button type="button" onClick={this.onClick}>
+            <button type="button" onClick={this.onPlayback}>
               Playback
             </button>
+            <button>Pause</button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
