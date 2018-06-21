@@ -46,32 +46,41 @@ themes.forEach(theme => {
 import 'brace/ext/language_tools'
 import 'brace/ext/searchbox'
 
-const defaultValue = `function onLoad(editor) {
-  console.log("i've loaded");
-}`
+const defaultValue = ``
 class Editor extends Component {
   onLoad() {
-    console.log("i've loaded")
+    // console.log("i've loaded")
   }
   onChange(newValue) {
-    console.log('change', newValue)
+    // console.log('change', newValue)
+    this.timeStampObject[Date.now() - this.startTime] = newValue
+    console.log('time stamp obj', this.timeStampObject)
     this.setState({
       value: newValue
     })
   }
+  onClick() {
+    let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b)
+
+    timeStampKeys.forEach((currentKey, index) => {
+      setTimeout(() => {
+        this.setState({value: this.timeStampObject[currentKey]})
+      }, index * 250)
+    })
+  }
 
   onSelectionChange(newValue, event) {
-    console.log('select-change', newValue)
-    console.log('select-change-event', event)
+    // console.log('select-change', newValue)
+    // console.log('select-change-event', event)
   }
 
   onCursorChange(newValue, event) {
-    console.log('cursor-change', newValue)
-    console.log('cursor-change-event', event)
+    // console.log('cursor-change', newValue)
+    // console.log('cursor-change-event', event)
   }
 
   onValidate(annotations) {
-    console.log('onValidate', annotations)
+    // console.log('onValidate', annotations)
   }
 
   setTheme(e) {
@@ -109,17 +118,24 @@ class Editor extends Component {
       enableSnippets: false,
       showLineNumbers: true
     }
+    this.timeStampObject = {}
+    this.startTime = Date.now()
     this.setTheme = this.setTheme.bind(this)
     this.setMode = this.setMode.bind(this)
     this.onChange = this.onChange.bind(this)
     this.setFontSize = this.setFontSize.bind(this)
     this.setBoolean = this.setBoolean.bind(this)
+    this.onClick = this.onClick.bind(this)
   }
   render() {
+    console.log('current state value', this.state.value)
     return (
       <div className="columns">
         <div className="column">
           <div className="field">
+            <button type="button" onClick={this.onClick}>
+              Playback
+            </button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
@@ -305,40 +321,9 @@ class Editor extends Component {
             }}
           />
         </div>
-        <div className="column">
-          <h2>Code</h2>
-          <AceEditor
-            mode="jsx"
-            theme="monokai"
-            readOnly={true}
-            value={`<AceEditor
-                mode="${this.state.mode}"
-                theme="${this.state.theme}"
-                name="blah2"
-                onLoad={this.onLoad}
-                onChange={this.onChange}
-                fontSize={${this.state.fontSize}}
-                showPrintMargin={${this.state.showPrintMargin}}
-                showGutter={${this.state.showGutter}}
-                highlightActiveLine={${this.state.highlightActiveLine}}
-                value={\`${this.state.value}\`}
-                setOptions={{
-                enableBasicAutocompletion: ${
-                  this.state.enableBasicAutocompletion
-                },
-                enableLiveAutocompletion: ${
-                  this.state.enableLiveAutocompletion
-                },
-                enableSnippets: ${this.state.enableSnippets},
-                showLineNumbers: ${this.state.showLineNumbers},
-                tabSize: 2,
-                }}/>
-            `}
-          />
-        </div>
       </div>
     )
   }
 }
 
-export default Editor;
+export default Editor
