@@ -61,7 +61,6 @@ class Editor extends Component {
   }
   onPlayback() {
     let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b)
-
     for (let i = 0; i < timeStampKeys.length; i++) {
       setTimeout(() => {
         this.setState({value: this.timeStampObject[timeStampKeys[i]]})
