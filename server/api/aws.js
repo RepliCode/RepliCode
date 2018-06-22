@@ -2,7 +2,7 @@ const router = require('express').Router();
 let AWS = require('aws-sdk');
 let fs = require('fs');
 let path = require('path');
-let configPath = path.join(__dirname, '../../secrets.js').awsConfig;
+let configPath = path.join(__dirname, '../../secrets.json');
 module.exports = router;
 
 //set up AWS config
@@ -15,18 +15,21 @@ let s3 = new AWS.S3();
 //POST route for '/api/aws/upload'
 router.post('/upload', function(req, res) {
   //s3 request will contain the file to upload
-  var s3request = {
-    Body: '', //actual file turned into a string,
-    Bucket: 'replicode',
-    Key: req.files.uploadedFile.name, //filename
-  };
+  console.log('this body', req.body);
 
-  s3.putObject(s3request, function(err, data) {
-    if (err) {
-      console.error(err);
-    }
-    res.send('Uploaded successfully');
-  });
+  // var s3request = {
+  //   Body: req.body.blob, //actual file turned into a string,
+  //   Bucket: 'replicode',
+  //   Key: 'testfile1', //filename
+  //   ContentType: 'audio/webm',
+  // };
+
+  // s3.putObject(s3request, function(err, data) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   res.send('Uploaded successfully');
+  // });
 });
 
 //GET request for list of objects in bucket
