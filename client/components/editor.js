@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import AceEditor from './src/ace.js'
-import 'brace/mode/jsx'
+import React, { Component } from 'react';
+import AceEditor from '../src/ace.js';
+import 'brace/mode/jsx';
 
 const languages = [
   'javascript',
@@ -18,8 +18,8 @@ const languages = [
   'csharp',
   'elixir',
   'typescript',
-  'css'
-]
+  'css',
+];
 
 const themes = [
   'monokai',
@@ -31,40 +31,40 @@ const themes = [
   'textmate',
   'solarized_dark',
   'solarized_light',
-  'terminal'
-]
+  'terminal',
+];
 
 languages.forEach(lang => {
-  require(`brace/mode/${lang}`)
-  require(`brace/snippets/${lang}`)
-})
+  require(`brace/mode/${lang}`);
+  require(`brace/snippets/${lang}`);
+});
 
 themes.forEach(theme => {
-  require(`brace/theme/${theme}`)
-})
+  require(`brace/theme/${theme}`);
+});
 /*eslint-disable no-alert, no-console */
-import 'brace/ext/language_tools'
-import 'brace/ext/searchbox'
+import 'brace/ext/language_tools';
+import 'brace/ext/searchbox';
 
-const defaultValue = ``
+const defaultValue = ``;
 class Editor extends Component {
   onLoad() {
     // console.log("i've loaded")
   }
   onChange(newValue) {
     // console.log('change', newValue)
-    this.timeStampObject[Date.now() - this.startTime] = newValue
-    console.log('time stamp obj', this.timeStampObject)
+    this.timeStampObject[Date.now() - this.startTime] = newValue;
+    console.log('time stamp obj', this.timeStampObject);
     this.setState({
-      value: newValue
-    })
+      value: newValue,
+    });
   }
   onPlayback() {
-    let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b)
+    let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b);
     for (let i = 0; i < timeStampKeys.length; i++) {
       setTimeout(() => {
-        this.setState({value: this.timeStampObject[timeStampKeys[i]]})
-      }, timeStampKeys[i] - timeStampKeys[0])
+        this.setState({ value: this.timeStampObject[timeStampKeys[i]] });
+      }, timeStampKeys[i] - timeStampKeys[0]);
     }
   }
   onPause() {}
@@ -85,26 +85,26 @@ class Editor extends Component {
 
   setTheme(e) {
     this.setState({
-      theme: e.target.value
-    })
+      theme: e.target.value,
+    });
   }
   setMode(e) {
     this.setState({
-      mode: e.target.value
-    })
+      mode: e.target.value,
+    });
   }
   setBoolean(name, value) {
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
   }
   setFontSize(e) {
     this.setState({
-      fontSize: parseInt(e.target.value, 10)
-    })
+      fontSize: parseInt(e.target.value, 10),
+    });
   }
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       value: defaultValue,
       theme: 'monokai',
@@ -116,19 +116,19 @@ class Editor extends Component {
       showPrintMargin: true,
       highlightActiveLine: true,
       enableSnippets: false,
-      showLineNumbers: true
-    }
-    this.timeStampObject = {}
-    this.startTime = Date.now()
-    this.setTheme = this.setTheme.bind(this)
-    this.setMode = this.setMode.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.setFontSize = this.setFontSize.bind(this)
-    this.setBoolean = this.setBoolean.bind(this)
-    this.onPlayback = this.onPlayback.bind(this)
+      showLineNumbers: true,
+    };
+    this.timeStampObject = {};
+    this.startTime = Date.now();
+    this.setTheme = this.setTheme.bind(this);
+    this.setMode = this.setMode.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.setFontSize = this.setFontSize.bind(this);
+    this.setBoolean = this.setBoolean.bind(this);
+    this.onPlayback = this.onPlayback.bind(this);
   }
   render() {
-    console.log('current state value', this.state.value)
+    console.log('current state value', this.state.value);
     return (
       <div className="columns">
         <div className="column">
@@ -140,11 +140,7 @@ class Editor extends Component {
             <label>Mode:</label>
             <p className="control">
               <span className="select">
-                <select
-                  name="mode"
-                  onChange={this.setMode}
-                  value={this.state.mode}
-                >
+                <select name="mode" onChange={this.setMode} value={this.state.mode}>
                   {languages.map(lang => (
                     <option key={lang} value={lang}>
                       {lang}
@@ -159,11 +155,7 @@ class Editor extends Component {
             <label>Theme:</label>
             <p className="control">
               <span className="select">
-                <select
-                  name="Theme"
-                  onChange={this.setTheme}
-                  value={this.state.theme}
-                >
+                <select name="Theme" onChange={this.setTheme} value={this.state.theme}>
                   {themes.map(lang => (
                     <option key={lang} value={lang}>
                       {lang}
@@ -178,11 +170,7 @@ class Editor extends Component {
             <label>Font Size:</label>
             <p className="control">
               <span className="select">
-                <select
-                  name="Font Size"
-                  onChange={this.setFontSize}
-                  value={this.state.fontSize}
-                >
+                <select name="Font Size" onChange={this.setFontSize} value={this.state.fontSize}>
                   {[14, 16, 18, 20, 24, 28, 32, 40].map(lang => (
                     <option key={lang} value={lang}>
                       {lang}
@@ -198,12 +186,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.enableBasicAutocompletion}
-                  onChange={e =>
-                    this.setBoolean(
-                      'enableBasicAutocompletion',
-                      e.target.checked
-                    )
-                  }
+                  onChange={e => this.setBoolean('enableBasicAutocompletion', e.target.checked)}
                 />
                 Enable Basic Autocomplete
               </label>
@@ -215,12 +198,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.enableLiveAutocompletion}
-                  onChange={e =>
-                    this.setBoolean(
-                      'enableLiveAutocompletion',
-                      e.target.checked
-                    )
-                  }
+                  onChange={e => this.setBoolean('enableLiveAutocompletion', e.target.checked)}
                 />
                 Enable Live Autocomplete
               </label>
@@ -232,9 +210,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.showGutter}
-                  onChange={e =>
-                    this.setBoolean('showGutter', e.target.checked)
-                  }
+                  onChange={e => this.setBoolean('showGutter', e.target.checked)}
                 />
                 Show Gutter
               </label>
@@ -246,9 +222,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.showPrintMargin}
-                  onChange={e =>
-                    this.setBoolean('showPrintMargin', e.target.checked)
-                  }
+                  onChange={e => this.setBoolean('showPrintMargin', e.target.checked)}
                 />
                 Show Print Margin
               </label>
@@ -260,9 +234,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.highlightActiveLine}
-                  onChange={e =>
-                    this.setBoolean('highlightActiveLine', e.target.checked)
-                  }
+                  onChange={e => this.setBoolean('highlightActiveLine', e.target.checked)}
                 />
                 Highlight Active Line
               </label>
@@ -274,9 +246,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.enableSnippets}
-                  onChange={e =>
-                    this.setBoolean('enableSnippets', e.target.checked)
-                  }
+                  onChange={e => this.setBoolean('enableSnippets', e.target.checked)}
                 />
                 Enable Snippets
               </label>
@@ -288,9 +258,7 @@ class Editor extends Component {
                 <input
                   type="checkbox"
                   checked={this.state.showLineNumbers}
-                  onChange={e =>
-                    this.setBoolean('showLineNumbers', e.target.checked)
-                  }
+                  onChange={e => this.setBoolean('showLineNumbers', e.target.checked)}
                 />
                 Show Line Numbers
               </label>
@@ -318,13 +286,13 @@ class Editor extends Component {
               enableLiveAutocompletion: this.state.enableLiveAutocompletion,
               enableSnippets: this.state.enableSnippets,
               showLineNumbers: this.state.showLineNumbers,
-              tabSize: 2
+              tabSize: 2,
             }}
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Editor
+export default Editor;
