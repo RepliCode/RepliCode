@@ -34,7 +34,6 @@ export default class Recorder extends React.Component {
 
     blobToBase64(recordedBlob.blob, function(error, base64) {
       if (!error) {
-        // document.querySelector('.result').innerHTML = base64
         axios
           .post('/api/aws/upload', base64)
           .then(res => res.data)

@@ -15,21 +15,23 @@ let s3 = new AWS.S3();
 //POST route for '/api/aws/upload'
 router.post('/upload', (req, res) => {
   //s3 request will contain the file to upload
-  var s3request = {
-    Body: 'placeholder', //actual file turned into a string,
-    Bucket: 'replicode',
-    Key: 'testfile64.webm', //filename
-    ContentType: 'audio/webm',
-    ContentEncoding: 'base64', //encoding scheme
-    ACL: 'public-read',
-  };
+  console.log('req body', req.body);
 
-  s3.putObject(s3request, function(err, data) {
-    if (err) {
-      console.error(err);
-    }
-    res.send('Uploaded successfully');
-  });
+  // var s3request = {
+  //   Body: 'placeholder', //actual file turned into a string,
+  //   Bucket: 'replicode',
+  //   Key: 'testfile64.webm', //filename
+  //   ContentType: 'audio/webm',
+  //   ContentEncoding: 'base64', //encoding scheme
+  //   ACL: 'public-read',
+  // };
+
+  // s3.putObject(s3request, function(err, data) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   res.send('Uploaded successfully');
+  // });
 });
 
 //GET request for list of objects in bucket
