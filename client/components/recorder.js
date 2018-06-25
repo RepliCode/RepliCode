@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
 import axios from 'axios';
+import blobToBase64 from 'blob-to-base64';
 
 export default class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       record: false,
+      blob: '',
     };
     this.startRecording = this.startRecording.bind(this);
     this.stopRecording = this.stopRecording.bind(this);
@@ -29,16 +31,18 @@ export default class Recorder extends React.Component {
 
   onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
-    let reader = new FileReader();
-    reader.addEventListener('loadend', () => {
-      axios
-        .post('/api/aws/upload', { blob: reader.result })
-        .then(res => res.data)
-        .then(result => {
-          console.log(result);
-        });
+
+    blobToBase64(recordedBlob.blob, function(error, base64) {
+      if (!error) {
+        // document.querySelector('.result').innerHTML = base64
+        axios
+          .post('/api/aws/upload', base64)
+          .then(res => res.data)
+          .then(result => {
+            console.log(result);
+          });
+      }
     });
-    reader.readAsArrayBuffer(recordedBlob.blob);
   }
 
   render() {
@@ -58,8 +62,7 @@ export default class Recorder extends React.Component {
           Stop
         </button>
         <button>
-          playback{' '}
-          <audio controls src="https://s3.us-east-2.amazonaws.com/replicode/testfile.webm" />
+          playback <audio controls src="#" />
         </button>
       </div>
     );
