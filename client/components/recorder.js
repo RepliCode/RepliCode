@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
 import axios from 'axios';
-import { startRec, stopRec } from '../store';
+import { startRec, stopRec, getBlob } from '../store';
 
 class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      blob: '',
       blobURL: '',
     };
     this.startStopRecording = this.startStopRecording.bind(this);
@@ -27,12 +26,13 @@ class Recorder extends React.Component {
 
   onStop(recordedBlob) {
     let { blob, blobURL } = recordedBlob;
-    this.setState({ blob, blobURL });
+    this.props.saveBlob(blob);
+    this.setState({ blobURL });
   }
 
   onSubmit() {
     let formData = new FormData();
-    formData.append('theAudio', this.state.blob);
+    formData.append('theAudio', this.props.blob);
 
     let request = {
       url: 'http://localhost:8080/api/aws/upload',
@@ -80,6 +80,7 @@ const mapState = state => {
   return {
     isRecord: state.recorder.isRecord,
     startTime: state.recorder.startTime,
+    blob: state.recorder.blob,
   };
 };
 
@@ -87,6 +88,7 @@ const mapDispatch = dispatch => {
   return {
     start: startTime => dispatch(startRec(startTime)),
     stop: () => dispatch(stopRec()),
+    saveBlob: blob => dispatch(getBlob(blob)),
   };
 };
 
