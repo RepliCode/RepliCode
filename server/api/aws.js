@@ -20,20 +20,20 @@ router.post('/upload', upload.any(), function(req, res, next) {
   let formData = req.body;
   let files = req.files;
   console.log('form data', formData, 'files', files[0].buffer);
-  let s3request = {
-    Body: files[0].buffer, //actual file as a buffer,
-    Bucket: 'replicode',
-    Key: 'testfile81', //filename
-    ContentType: 'audio/webm',
-    ACL: 'public-read',
-  };
+  // let s3request = {
+  //   Body: files[0].buffer, //actual file as a buffer,
+  //   Bucket: 'replicode',
+  //   Key: 'testfile81', //filename
+  //   ContentType: 'audio/webm',
+  //   ACL: 'public-read',
+  // };
 
-  s3.putObject(s3request, function(err, data) {
-    if (err) {
-      console.error(err);
-    }
-    res.send('Uploaded successfully');
-  });
+  // s3.putObject(s3request, function(err, data) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   res.send('Uploaded successfully');
+  // });
 });
 
 //GET request for list of objects in bucket
