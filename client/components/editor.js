@@ -50,12 +50,19 @@ import 'brace/ext/searchbox';
 
 const defaultValue = ``;
 class Editor extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.isRecord !== prevProps.isRecord && this.props.isRecord) {
+      // this may or may not work. Look here if errors occur
+      this.timeStampObject = {};
+      this.onChange(this.state.value);
+    }
+  }
   onLoad() {
     // console.log("i've loaded")
   }
   onChange(newValue) {
     // change this.state to this.props when  redux is plugged in
-    if (this.state.isRecording) {
+    if (this.state.isRecord) {
       this.timeStampObject[Date.now() - this.state.startTime] = newValue;
       console.log('time stamp obj', this.timeStampObject);
     }
@@ -71,11 +78,18 @@ class Editor extends Component {
       }, timeStampKeys[i] - timeStampKeys[0]);
     }
   }
-  onPause() {}
+  onPause() {
+    this.setState({
+      isRecord: false,
+    });
+  }
 
   onRecord() {
+    if (!this.state.isRecord) {
+      this.timeStampObject = {};
+    }
     this.setState({
-      isRecording: true,
+      isRecord: true,
       startTime: Date.now(),
     });
   }
@@ -91,12 +105,6 @@ class Editor extends Component {
 
   onValidate(annotations) {
     // console.log('onValidate', annotations)
-  }
-  componentDidUpdate(prevProps) {
-    if (this.props.isRecording !== prevProps.isRecording && this.props.isRecording) {
-      // this may or may not work. Look here if errors occur
-      this.onChange(this.state.value);
-    }
   }
   setTheme(e) {
     this.setState({
@@ -134,7 +142,7 @@ class Editor extends Component {
       showLineNumbers: true,
       // remove these once redux is set
       startTime: '',
-      isRecording: false,
+      isRecord: false,
     };
     this.timeStampObject = {};
     // this.startTime = Date.now();
@@ -145,6 +153,7 @@ class Editor extends Component {
     this.setBoolean = this.setBoolean.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
     this.onRecord = this.onRecord.bind(this);
+    this.onPause = this.onPause.bind(this);
   }
   render() {
     console.log('current editor', this.state.value);
@@ -158,7 +167,9 @@ class Editor extends Component {
             <button type="button" onClick={this.onPlayback}>
               Playback
             </button>
-            <button>Pause</button>
+            <button type="button" onClick={this.onPause}>
+              Pause
+            </button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
@@ -322,7 +333,7 @@ class Editor extends Component {
  */
 const mapState = state => {
   return {
-    //expect isRecording boolean and startTime.
+    //expect isRecord boolean and startTime.
   };
 };
 
