@@ -143,9 +143,6 @@ class Editor extends Component {
       highlightActiveLine: true,
       enableSnippets: false,
       showLineNumbers: true,
-      // remove these once redux is set
-      startTime: '',
-      isRecord: false,
     };
     this.timeStampObject = {};
     this.setTheme = this.setTheme.bind(this);
