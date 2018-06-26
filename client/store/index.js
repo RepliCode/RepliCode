@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import recorder from './recorder';
+import editor from './editor';
 
-const reducer = combineReducers({ user, recorder });
+const reducer = combineReducers({ user, recorder, editor });
 const middleware = composeWithDevTools(
   applyMiddleware(
     thunkMiddleware,
@@ -19,3 +20,4 @@ const store = createStore(reducer, middleware);
 export default store;
 export * from './user';
 export * from './recorder';
+export * from './editor';

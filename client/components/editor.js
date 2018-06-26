@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setTextState } from '../store';
 import AceEditor from '../src/ace.js';
 import 'brace/mode/jsx';
 
@@ -48,13 +50,25 @@ import 'brace/ext/searchbox';
 
 const defaultValue = ``;
 class Editor extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && this.props.recorder.isRecord) {
+      // this may or may not work. Look here if errors occur
+      this.timeStampObject = {};
+      this.onChange(this.state.value);
+    }
+    else if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && !this.props.recorder.isRecord) {
+      this.props.setTimestamps(this.timeStampObject)
+    }
+  }
   onLoad() {
     // console.log("i've loaded")
   }
   onChange(newValue) {
-    // console.log('change', newValue)
-    this.timeStampObject[Date.now() - this.startTime] = newValue;
-    console.log('time stamp obj', this.timeStampObject);
+    // change this.state to this.props when  redux is plugged in
+    if (this.props.recorder.isRecord) {
+      this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
+      console.log('time stamp obj', this.timeStampObject);
+    }
     this.setState({
       value: newValue,
     });
@@ -67,8 +81,21 @@ class Editor extends Component {
       }, timeStampKeys[i] - timeStampKeys[0]);
     }
   }
-  onPause() {}
+  // onPause() {
+  //   this.setState({
+  //     isRecord: false,
+  //   });
+  // }
 
+  // onRecord() {
+  //   if (!this.props.recorder.isRecord) {
+  //     this.timeStampObject = {};
+  //   }
+  //   this.setState({
+  //     isRecord: true,
+  //     startTime: Date.now(),
+  //   });
+  // }
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
     // console.log('select-change-event', event)
@@ -82,7 +109,6 @@ class Editor extends Component {
   onValidate(annotations) {
     // console.log('onValidate', annotations)
   }
-
   setTheme(e) {
     this.setState({
       theme: e.target.value,
@@ -119,7 +145,6 @@ class Editor extends Component {
       showLineNumbers: true,
     };
     this.timeStampObject = {};
-    this.startTime = Date.now();
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -128,15 +153,20 @@ class Editor extends Component {
     this.onPlayback = this.onPlayback.bind(this);
   }
   render() {
-    console.log('current state value', this.state.value);
+    console.log('PRIZZOPS', this.props);
     return (
       <div className="columns">
         <div className="column">
           <div className="field">
+            <button type="button" onClick={this.onRecord}>
+              Record
+            </button>
             <button type="button" onClick={this.onPlayback}>
               Playback
             </button>
-            <button>Pause</button>
+            <button type="button" onClick={this.onPause}>
+              Pause
+            </button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
@@ -295,4 +325,22 @@ class Editor extends Component {
   }
 }
 
-export default Editor;
+/**
+ * CONTAINER
+ */
+const mapState = state => {
+  return {
+    recorder: state.recorder,
+    editor: state.editor
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    setTimestamps(timestamps){
+      dispatch(setTextState(timestamps))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Editor);
