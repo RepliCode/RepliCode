@@ -56,6 +56,9 @@ class Editor extends Component {
       this.timeStampObject = {};
       this.onChange(this.state.value);
     }
+    else if (this.props.isRecord !== prevProps.isRecord && !this.props.isRecord) {
+      // fire action creator to send timestamps to store
+    }
   }
   onLoad() {
     // console.log("i've loaded")
