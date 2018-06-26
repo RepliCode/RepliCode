@@ -30,7 +30,7 @@ export const stopRec = () => ({
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {};
+// export const me = () => async dispatch => {};
 
 /**
  * REDUCER

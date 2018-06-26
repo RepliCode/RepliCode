@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
 import axios from 'axios';
-import { startRec, stopRec } from '../store/recorder';
+import { startRec, stopRec } from '../store';
 
 class Recorder extends React.Component {
   constructor(props) {
