@@ -6,6 +6,7 @@ import history from '../history';
  */
 const START_REC = 'START_REC';
 const STOP_REC = 'STOP_REC';
+const GET_BLOB = 'GET_BLOB';
 
 /**
  * INITIAL STATE
@@ -13,6 +14,7 @@ const STOP_REC = 'STOP_REC';
 const initialState = {
   isRecord: false,
   startTime: '',
+  blob: {},
 };
 
 /**
@@ -20,11 +22,17 @@ const initialState = {
  */
 export const startRec = startTime => ({
   type: START_REC,
-  state: { isRecord: true, startTime },
+  isRecord: true,
+  startTime,
 });
 export const stopRec = () => ({
   type: STOP_REC,
   bool: false,
+});
+
+export const getBlob = blob => ({
+  type: GET_BLOB,
+  blob,
 });
 
 /**
@@ -38,11 +46,20 @@ export const stopRec = () => ({
 export default function(state = initialState, action) {
   switch (action.type) {
     case START_REC:
-      return action.state;
+      return {
+        ...state,
+        isRecord: action.isRecord,
+        startTime: action.startTime,
+      };
     case STOP_REC:
       return {
         ...state,
         isRecord: action.bool,
+      };
+    case GET_BLOB:
+      return {
+        ...state,
+        blob: action.blob,
       };
     default:
       return state;
