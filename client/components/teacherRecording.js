@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { startRec, stopRec, getBlob } from '../store';
-import { Recorder } from './index';
+import { Recorder, Editor } from './index';
+import { Container, Row, Col } from 'reactstrap';
 
 class TeacherRecording extends Component {
   constructor(props) {
@@ -40,18 +41,23 @@ class TeacherRecording extends Component {
 
   render() {
     return (
-      <div>
-        <Recorder />
-        <button onClick={this.startStopRecording} type="button">
-          Start/Stop
-        </button>
-        <button onClick={this.onSubmit} type="button">
-          Submit
-        </button>
-        <button>
-          playback {/*<audio controls src={this.state.blobURL} />*/}
-        </button>
-      </div>
+      <Container>
+        <Row>
+        <Col xs="6">
+          <Editor />
+        </Col>
+          <Col xs="6">
+            <Recorder />
+            <button onClick={this.startStopRecording} type="button">
+              Start/Stop
+            </button>
+            <button onClick={this.onSubmit} type="button">
+              Submit
+            </button>
+            <button>playback {/*<audio controls src={this.state.blobURL} />*/}</button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
@@ -65,7 +71,7 @@ const mapState = state => {
     startTime: state.recorder.startTime,
     blob: state.recorder.blob,
     blobURL: state.recorder.blobURL,
-    timestamps: state.editor
+    timestamps: state.editor,
   };
 };
 
