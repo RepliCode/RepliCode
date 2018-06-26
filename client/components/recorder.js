@@ -14,6 +14,7 @@ class Recorder extends React.Component {
     };
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onStop = this.onStop.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   startStopRecording = () => {
@@ -27,8 +28,11 @@ class Recorder extends React.Component {
   onStop(recordedBlob) {
     let { blob, blobURL } = recordedBlob;
     this.setState({ blob, blobURL });
+  }
+
+  onSubmit() {
     let formData = new FormData();
-    formData.append('theAudio', blob);
+    formData.append('theAudio', this.state.blob);
 
     let request = {
       url: 'http://localhost:8080/api/aws/upload',
@@ -57,6 +61,9 @@ class Recorder extends React.Component {
         />
         <button onClick={this.startStopRecording} type="button">
           Start/Stop
+        </button>
+        <button onClick={this.onSubmit} type="button">
+          Submit
         </button>
         <button>
           playback <audio controls src={this.state.blobURL} />
