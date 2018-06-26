@@ -15,6 +15,7 @@ const initialState = {
   isRecord: false,
   startTime: '',
   blob: {},
+  blobURL: ''
 };
 
 /**
@@ -30,9 +31,9 @@ export const stopRec = () => ({
   bool: false,
 });
 
-export const getBlob = blob => ({
+export const getBlob = (blob, blobURL) => ({
   type: GET_BLOB,
-  blob,
+  blob, blobURL
 });
 
 /**
@@ -60,6 +61,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         blob: action.blob,
+        blobURL: action.blobURL
       };
     default:
       return state;
