@@ -10,6 +10,7 @@ class Recorder extends React.Component {
     super(props);
     this.state = {
       blob: '',
+      blobURL: '',
     };
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onStop = this.onStop.bind(this);
@@ -24,7 +25,8 @@ class Recorder extends React.Component {
   };
 
   onStop(recordedBlob) {
-    let { blob } = recordedBlob;
+    let { blob, blobURL } = recordedBlob;
+    this.setState({ blob, blobURL });
     let formData = new FormData();
     formData.append('theAudio', blob);
 
@@ -57,7 +59,7 @@ class Recorder extends React.Component {
           Start/Stop
         </button>
         <button>
-          playback <audio controls src="#" />
+          playback <audio controls src={this.state.blobURL} />
         </button>
       </div>
     );
