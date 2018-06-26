@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
 import axios from 'axios';
-import blobToBase64 from 'blob-to-base64';
 
 export default class Recorder extends React.Component {
   constructor(props) {
@@ -30,18 +29,22 @@ export default class Recorder extends React.Component {
   };
 
   onStop(recordedBlob) {
-    console.log('recordedBlob is: ', recordedBlob);
+    let { blob } = recordedBlob;
+    let formData = new FormData();
+    formData.append('theAudio', blob);
 
-    blobToBase64(recordedBlob.blob, function(error, base64) {
-      if (!error) {
-        axios
-          .post('/api/aws/upload', base64)
-          .then(res => res.data)
-          .then(result => {
-            console.log(result);
-          });
-      }
-    });
+    let request = {
+      url: 'http://localhost:8080/api/aws/upload',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+    };
+    axios(request)
+      .then(res => res.data)
+      .then(result => {
+        console.log(result);
+      });
   }
 
   render() {
