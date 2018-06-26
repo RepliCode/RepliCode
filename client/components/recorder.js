@@ -10,6 +10,7 @@ export default class Recorder extends React.Component {
     this.state = {
       record: false,
       blob: '',
+      blobURL: '',
     };
     this.startRecording = this.startRecording.bind(this);
     this.stopRecording = this.stopRecording.bind(this);
@@ -29,7 +30,8 @@ export default class Recorder extends React.Component {
   };
 
   onStop(recordedBlob) {
-    let { blob } = recordedBlob;
+    let { blob, blobURL } = recordedBlob;
+    this.setState({ blob, blobURL });
     let formData = new FormData();
     formData.append('theAudio', blob);
 
@@ -64,7 +66,7 @@ export default class Recorder extends React.Component {
           Stop
         </button>
         <button>
-          playback <audio controls src="#" />
+          playback <audio controls src={this.state.blobURL} />
         </button>
       </div>
     );
