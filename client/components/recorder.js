@@ -3,29 +3,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactMic } from 'react-mic';
 import axios from 'axios';
+import { startRec, stopRec } from '../store';
 
-export default class Recorder extends React.Component {
+class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      record: false,
       blob: '',
     };
-    this.startRecording = this.startRecording.bind(this);
-    this.stopRecording = this.stopRecording.bind(this);
+    this.startStopRecording = this.startStopRecording.bind(this);
     this.onStop = this.onStop.bind(this);
   }
 
-  startRecording = () => {
-    this.setState({
-      record: true,
-    });
-  };
-
-  stopRecording = () => {
-    this.setState({
-      record: false,
-    });
+  startStopRecording = () => {
+    if (this.props.isRecord) {
+      this.props.stop();
+    } else {
+      this.props.start(Date.now());
+    }
   };
 
   onStop(recordedBlob) {
@@ -48,20 +43,18 @@ export default class Recorder extends React.Component {
   }
 
   render() {
+    console.log('*****', this.props);
     return (
       <div>
         <ReactMic
-          record={this.state.record}
+          record={this.props.isRecord}
           className="sound-wave"
           onStop={this.onStop}
           strokeColor="#000000"
           backgroundColor="#FF4081"
         />
-        <button onClick={this.startRecording} type="button">
-          Start
-        </button>
-        <button onClick={this.stopRecording} type="button">
-          Stop
+        <button onClick={this.startStopRecording} type="button">
+          Start/Stop
         </button>
         <button>
           playback <audio controls src="#" />
@@ -74,14 +67,18 @@ export default class Recorder extends React.Component {
 /**
  * CONTAINER
  */
-// const mapState = state => {
-//   return {
-//   }
-// }
+const mapState = state => {
+  return {
+    isRecord: state.recorder.isRecord,
+    startTime: state.recorder.startTime,
+  };
+};
 
-// const mapDispatch = dispatch => {
-//   return {
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    start: startTime => dispatch(startRec(startTime)),
+    stop: () => dispatch(stopRec()),
+  };
+};
 
-// export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Recorder);
