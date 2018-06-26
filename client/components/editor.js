@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AceEditor from '../src/ace.js';
 import 'brace/mode/jsx';
 
@@ -52,9 +54,11 @@ class Editor extends Component {
     // console.log("i've loaded")
   }
   onChange(newValue) {
-    // console.log('change', newValue)
-    this.timeStampObject[Date.now() - this.startTime] = newValue;
-    console.log('time stamp obj', this.timeStampObject);
+    // change this.state to this.props when  redux is plugged in
+    if (this.state.isRecording) {
+      this.timeStampObject[Date.now() - this.state.startTime] = newValue;
+      console.log('time stamp obj', this.timeStampObject);
+    }
     this.setState({
       value: newValue,
     });
@@ -69,6 +73,12 @@ class Editor extends Component {
   }
   onPause() {}
 
+  onRecord() {
+    this.setState({
+      isRecording: true,
+      startTime: Date.now(),
+    });
+  }
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
     // console.log('select-change-event', event)
@@ -82,7 +92,12 @@ class Editor extends Component {
   onValidate(annotations) {
     // console.log('onValidate', annotations)
   }
-
+  componentDidUpdate(prevProps) {
+    if (this.props.isRecording !== prevProps.isRecording && this.props.isRecording) {
+      // this may or may not work. Look here if errors occur
+      this.onChange(this.state.value);
+    }
+  }
   setTheme(e) {
     this.setState({
       theme: e.target.value,
@@ -117,22 +132,29 @@ class Editor extends Component {
       highlightActiveLine: true,
       enableSnippets: false,
       showLineNumbers: true,
+      // remove these once redux is set
+      startTime: '',
+      isRecording: false,
     };
     this.timeStampObject = {};
-    this.startTime = Date.now();
+    // this.startTime = Date.now();
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setFontSize = this.setFontSize.bind(this);
     this.setBoolean = this.setBoolean.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
+    this.onRecord = this.onRecord.bind(this);
   }
   render() {
-    console.log('current state value', this.state.value);
+    console.log('current editor', this.state.value);
     return (
       <div className="columns">
         <div className="column">
           <div className="field">
+            <button type="button" onClick={this.onRecord}>
+              Record
+            </button>
             <button type="button" onClick={this.onPlayback}>
               Playback
             </button>
@@ -295,4 +317,18 @@ class Editor extends Component {
   }
 }
 
-export default Editor;
+/**
+ * CONTAINER
+ */
+const mapState = state => {
+  return {
+    //expect isRecording boolean and startTime.
+  };
+};
+
+// const mapDispatch = dispatch => {
+//   return {
+//   }
+// }
+
+export default connect(mapState, null)(Editor);
