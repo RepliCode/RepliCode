@@ -2,7 +2,7 @@ const router = require('express').Router();
 let AWS = require('aws-sdk');
 let fs = require('fs');
 let path = require('path');
-let configPath = path.join(__dirname, '../../secrets.js').awsConfig;
+let configPath = path.join(__dirname, '../../secrets.json');
 module.exports = router;
 
 //set up AWS config
@@ -13,20 +13,25 @@ let s3 = new AWS.S3();
 
 //mounted on /api/aws
 //POST route for '/api/aws/upload'
-router.post('/upload', function(req, res) {
+router.post('/upload', (req, res) => {
   //s3 request will contain the file to upload
-  var s3request = {
-    Body: '', //actual file turned into a string,
-    Bucket: 'replicode',
-    Key: req.files.uploadedFile.name, //filename
-  };
+  console.log('req body', req.body);
 
-  s3.putObject(s3request, function(err, data) {
-    if (err) {
-      console.error(err);
-    }
-    res.send('Uploaded successfully');
-  });
+  // var s3request = {
+  //   Body: 'placeholder', //actual file turned into a string,
+  //   Bucket: 'replicode',
+  //   Key: 'testfile64.webm', //filename
+  //   ContentType: 'audio/webm',
+  //   ContentEncoding: 'base64', //encoding scheme
+  //   ACL: 'public-read',
+  // };
+
+  // s3.putObject(s3request, function(err, data) {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  //   res.send('Uploaded successfully');
+  // });
 });
 
 //GET request for list of objects in bucket
