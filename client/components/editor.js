@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { setTextState } from '../store';
 import AceEditor from '../src/ace.js';
 import 'brace/mode/jsx';
 
@@ -51,13 +51,13 @@ import 'brace/ext/searchbox';
 const defaultValue = ``;
 class Editor extends Component {
   componentDidUpdate(prevProps) {
-    if (this.props.isRecord !== prevProps.isRecord && this.props.isRecord) {
+    if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && this.props.recorder.isRecord) {
       // this may or may not work. Look here if errors occur
       this.timeStampObject = {};
       this.onChange(this.state.value);
     }
-    else if (this.props.isRecord !== prevProps.isRecord && !this.props.isRecord) {
-      // fire action creator to send timestamps to store
+    else if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && !this.props.recorder.isRecord) {
+      this.props.setTimestamps(this.timeStampObject)
     }
   }
   onLoad() {
@@ -65,8 +65,8 @@ class Editor extends Component {
   }
   onChange(newValue) {
     // change this.state to this.props when  redux is plugged in
-    if (this.state.isRecord) {
-      this.timeStampObject[Date.now() - this.state.startTime] = newValue;
+    if (this.props.recorder.isRecord) {
+      this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
       console.log('time stamp obj', this.timeStampObject);
     }
     this.setState({
@@ -81,21 +81,21 @@ class Editor extends Component {
       }, timeStampKeys[i] - timeStampKeys[0]);
     }
   }
-  onPause() {
-    this.setState({
-      isRecord: false,
-    });
-  }
+  // onPause() {
+  //   this.setState({
+  //     isRecord: false,
+  //   });
+  // }
 
-  onRecord() {
-    if (!this.state.isRecord) {
-      this.timeStampObject = {};
-    }
-    this.setState({
-      isRecord: true,
-      startTime: Date.now(),
-    });
-  }
+  // onRecord() {
+  //   if (!this.props.recorder.isRecord) {
+  //     this.timeStampObject = {};
+  //   }
+  //   this.setState({
+  //     isRecord: true,
+  //     startTime: Date.now(),
+  //   });
+  // }
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
     // console.log('select-change-event', event)
@@ -148,18 +148,15 @@ class Editor extends Component {
       isRecord: false,
     };
     this.timeStampObject = {};
-    // this.startTime = Date.now();
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setFontSize = this.setFontSize.bind(this);
     this.setBoolean = this.setBoolean.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
-    this.onRecord = this.onRecord.bind(this);
-    this.onPause = this.onPause.bind(this);
   }
   render() {
-    console.log('current editor', this.state.value);
+    console.log('PRIZZOPS', this.props);
     return (
       <div className="columns">
         <div className="column">
@@ -336,13 +333,17 @@ class Editor extends Component {
  */
 const mapState = state => {
   return {
-    //expect isRecord boolean and startTime.
+    recorder: state.recorder,
+    editor: state.editor
   };
 };
 
-// const mapDispatch = dispatch => {
-//   return {
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    setTimestamps(timestamps){
+      dispatch(setTextState(timestamps))
+    }
+  }
+}
 
-export default connect(mapState, null)(Editor);
+export default connect(mapState, mapDispatch)(Editor);

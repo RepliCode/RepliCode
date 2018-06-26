@@ -17,7 +17,7 @@ const defaultState = {}
  * ACTION CREATORS
  */
 const getTextState = timestamps => ({type: GET_TEXT_STATE, timestamps})
-const setTextState = timestamps => ({type: SET_TEXT_STATE, timestamps})
+export const setTextState = timestamps => ({type: SET_TEXT_STATE, timestamps})
 
 /**
  * THUNK CREATORS
