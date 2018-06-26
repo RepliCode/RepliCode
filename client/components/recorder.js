@@ -64,7 +64,7 @@ export default class Recorder extends React.Component {
           Stop
         </button>
         <button>
-          playback <audio controls src="https://s3.us-east-2.amazonaws.com/replicode/testfile81" />
+          playback <audio controls src="#" />
         </button>
       </div>
     );
