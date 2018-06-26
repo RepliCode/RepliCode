@@ -8,48 +8,16 @@ import { startRec, stopRec, getBlob } from '../store';
 class Recorder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      blobURL: '',
-    };
-    this.startStopRecording = this.startStopRecording.bind(this);
     this.onStop = this.onStop.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
-
-  startStopRecording = () => {
-    if (this.props.isRecord) {
-      this.props.stop();
-    } else {
-      this.props.start(Date.now());
-    }
-  };
 
   onStop(recordedBlob) {
     let { blob, blobURL } = recordedBlob;
-    this.props.saveBlob(blob);
-    this.setState({ blobURL });
-  }
+    this.props.saveBlob(blob, blobURL);
 
-  onSubmit() {
-    let formData = new FormData();
-    formData.append('theAudio', this.props.blob);
-
-    let request = {
-      url: 'http://localhost:8080/api/aws/upload',
-      method: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-    };
-    axios(request)
-      .then(res => res.data)
-      .then(result => {
-        console.log(result);
-      });
   }
 
   render() {
-    console.log('*****', this.props);
     return (
       <div>
         <ReactMic
@@ -59,15 +27,6 @@ class Recorder extends React.Component {
           strokeColor="#000000"
           backgroundColor="#FF4081"
         />
-        <button onClick={this.startStopRecording} type="button">
-          Start/Stop
-        </button>
-        <button onClick={this.onSubmit} type="button">
-          Submit
-        </button>
-        <button>
-          playback <audio controls src={this.state.blobURL} />
-        </button>
       </div>
     );
   }
@@ -88,7 +47,7 @@ const mapDispatch = dispatch => {
   return {
     start: startTime => dispatch(startRec(startTime)),
     stop: () => dispatch(stopRec()),
-    saveBlob: blob => dispatch(getBlob(blob)),
+    saveBlob: (blob, blobURL) => dispatch(getBlob(blob, blobURL)),
   };
 };
 

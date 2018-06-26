@@ -8,3 +8,4 @@ export { default as UserHome } from './user-home';
 export { Login, Signup } from './auth-form';
 export { default as Editor } from './editor';
 export { default as Recorder } from './recorder';
+export { default as TeacherRecording } from './teacherRecording';
