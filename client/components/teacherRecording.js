@@ -25,10 +25,6 @@ class TeacherRecording extends Component {
     }
   };
 
-  runCode = () => {
-    console.log('hey');
-  };
-
   onSubmit() {
     let formData = new FormData();
     formData.append('theAudio', this.props.blob);
