@@ -64,43 +64,41 @@ class Editor extends Component {
     ) {
       this.props.setTimestamps(this.timeStampObject);
     }
+    if (this.props.isPlayback) {
+      this.togglePlayback();
+    }
   }
   onLoad() {
     // console.log("i've loaded")
   }
   onChange(newValue) {
-    // change this.state to this.props when  redux is plugged in
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
-      console.log('time stamp obj', this.timeStampObject);
     }
     this.setState({
       value: newValue,
     });
   }
-  onPlayback() {
-    let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b);
+  togglePlayback() {
+    this.audioIntervals.push(this.props.playbackTime);
+    let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
+    let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
+    let currentInterval = currentTime - previousTime;
+    let timeStampKeys;
+    if (this.props.isPlayback) {
+      timeStampKeys = Object.keys(this.props.editor)
+        .map(time => Number(time))
+        .sort((a, b) => a - b)
+        .filter(time => time >= previousTime && time <= currentTime);
+    }
     for (let i = 0; i < timeStampKeys.length; i++) {
+      let currentTimeout = currentInterval / timeStampKeys.length;
       setTimeout(() => {
-        this.setState({ value: this.timeStampObject[timeStampKeys[i]] });
-      }, timeStampKeys[i] - timeStampKeys[0]);
+        this.setState({ value: this.props.editor[timeStampKeys[i]] });
+      }, currentTimeout * (i + 1));
     }
   }
-  // onPause() {
-  //   this.setState({
-  //     isRecord: false,
-  //   });
-  // }
 
-  // onRecord() {
-  //   if (!this.props.recorder.isRecord) {
-  //     this.timeStampObject = {};
-  //   }
-  //   this.setState({
-  //     isRecord: true,
-  //     startTime: Date.now(),
-  //   });
-  // }
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
     // console.log('select-change-event', event)
@@ -150,28 +148,20 @@ class Editor extends Component {
       showLineNumbers: true,
     };
     this.timeStampObject = {};
+    this.audioIntervals = [0];
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setFontSize = this.setFontSize.bind(this);
     this.setBoolean = this.setBoolean.bind(this);
-    this.onPlayback = this.onPlayback.bind(this);
+    this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
-    console.log('PRIZZOPS', this.props);
+    // console.log('PRIZZOPS', this.props);
     return (
       <div className="columns">
         <div className="column">
           <div className="field">
-            <button type="button" onClick={this.onRecord}>
-              Record
-            </button>
-            <button type="button" onClick={this.onPlayback}>
-              Playback
-            </button>
-            <button type="button" onClick={this.onPause}>
-              Pause
-            </button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
@@ -337,6 +327,7 @@ const mapState = state => {
   return {
     recorder: state.recorder,
     editor: state.editor,
+    isPlayback: state.recorder.isPlayback,
   };
 };
 
