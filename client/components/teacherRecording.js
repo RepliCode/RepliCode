@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { startRec, stopRec, getBlob, startPlay, stopPlay } from '../store';
-import { Recorder, Editor } from './index';
+import {
+  startRec,
+  stopRec,
+  getBlob,
+  startPlay,
+  stopPlay,
+  deleteBlob,
+  deleteTextState,
+} from '../store';
+import { Recorder, Editor, RecordingForm } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
 
 class TeacherRecording extends Component {
@@ -46,9 +54,6 @@ class TeacherRecording extends Component {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
-  onRestart() {
-    //dispatch something to delete blob, bloburl, timestamps
-  }
 
   render() {
     return (
@@ -69,10 +74,14 @@ class TeacherRecording extends Component {
                   onPause={this.props.stopPlay}
                 />
                 <p>Are you happy with your recording?</p>
-                <Button onClick={this.onSubmit} type="button">
-                  Yes, continue
-                </Button>
-                <Button onClick={this.onRestart} type="button">
+                <RecordingForm />
+                <Button
+                  onClick={() => {
+                    this.props.deleteBlob();
+                    this.props.deleteTextState();
+                  }}
+                  type="button"
+                >
                   No, try again
                 </Button>
               </Col>
@@ -112,6 +121,8 @@ const mapDispatch = dispatch => {
     saveBlob: blob => dispatch(getBlob(blob)),
     startPlay: () => dispatch(startPlay()),
     stopPlay: () => dispatch(stopPlay()),
+    deleteBlob: () => dispatch(deleteBlob()),
+    deleteTextState: () => dispatch(deleteTextState()),
   };
 };
 

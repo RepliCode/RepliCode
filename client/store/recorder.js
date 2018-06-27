@@ -86,6 +86,7 @@ export default function(state = initialState, action) {
         ...state,
         blob: {},
         blobURL: '',
+        startTime: '',
       };
     case START_PLAY:
       return {

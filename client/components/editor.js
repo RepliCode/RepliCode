@@ -68,6 +68,12 @@ class Editor extends Component {
     if (this.props.isPlayback) {
       this.togglePlayback();
     }
+    if (
+      this.props.recorder.blobURL !== prevProps.recorder.blobURL &&
+      !this.props.recorder.blobURL
+    ) {
+      this.onChange('');
+    }
   }
   onLoad() {
     // console.log("i've loaded")
