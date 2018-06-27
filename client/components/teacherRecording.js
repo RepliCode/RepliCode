@@ -46,17 +46,21 @@ class TeacherRecording extends Component {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
+  onRestart() {
+    //dispatch something to delete blob, bloburl, timestamps
+  }
 
   render() {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col xs="6">
             <Editor playbackTime={this.state.playbackTime} />
           </Col>
-          <Col>
+          <Col xs="6">
             {this.props.blobURL ? (
               <div>
+                <p>Preview Recording: </p>
                 <audio
                   controls
                   src={this.props.blobURL}
@@ -64,9 +68,12 @@ class TeacherRecording extends Component {
                   onPlay={this.props.startPlay}
                   onPause={this.props.stopPlay}
                 />
+                <p>Are you happy with your recording?</p>
                 <button onClick={this.onSubmit} type="button">
-                  {' '}
-                  Submit{' '}
+                  Yes, continue
+                </button>
+                <button onClick={this.onRestart} type="button">
+                  No, try again
                 </button>
               </div>
             ) : (
