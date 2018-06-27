@@ -43,18 +43,24 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-        <Col xs="6">
-          <Editor />
-        </Col>
+          <Col xs="6">
+            <Editor />
+          </Col>
           <Col xs="6">
             <Recorder />
-            <button onClick={this.startStopRecording} type="button">
-              Start/Stop
-            </button>
-            <button onClick={this.onSubmit} type="button">
-              Submit
-            </button>
-            <button>playback {/*<audio controls src={this.state.blobURL} />*/}</button>
+            {this.props.blobURL ? (
+              <div>
+                <audio controls src={this.props.blobURL} />
+                <button onClick={this.onSubmit} type="button">
+                  {' '}
+                  Submit{' '}
+                </button>
+              </div>
+            ) : (
+              <button onClick={this.startStopRecording} type="button">
+                Start/Stop
+              </button>
+            )}
           </Col>
         </Row>
       </Container>
