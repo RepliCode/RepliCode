@@ -81,27 +81,27 @@ class Editor extends Component {
   }
   async togglePlayback() {
     try {
-    this.audioIntervals.push(this.props.playbackTime);
-    let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
-    let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
-    let currentInterval = currentTime - previousTime;
-    let timeStampKeys;
-    if (this.props.isPlayback) {
-      timeStampKeys = Object.keys(this.props.editor)
-        .map(time => Number(time))
-        .sort((a, b) => a - b)
-        .filter(time => time >= previousTime && time <= currentTime);
+      this.audioIntervals.push(this.props.playbackTime);
+      let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
+      let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
+      let currentInterval = currentTime - previousTime;
+      let timeStampKeys;
+      if (this.props.isPlayback) {
+        timeStampKeys = Object.keys(this.props.editor)
+          .map(time => Number(time))
+          .sort((a, b) => a - b)
+          .filter(time => time >= previousTime && time <= currentTime);
+      }
+      for (let i = 0; i < timeStampKeys.length; i++) {
+        let currentTimeout = currentInterval / timeStampKeys.length;
+        await setTimeout(() => {
+          console.log('im in the timeout zone,', timeStampKeys[i]);
+          this.setState({ value: this.props.editor[timeStampKeys[i]] });
+        }, currentTimeout);
+      }
+    } catch (err) {
+      console.error(err);
     }
-    for (let i = 0; i < timeStampKeys.length; i++) {
-      let currentTimeout = currentInterval / timeStampKeys.length;
-      await setTimeout(() => {
-        console.log('im in the timeout zone,', timeStampKeys[i])
-        this.setState({ value: this.props.editor[timeStampKeys[i]] });
-      }, currentTimeout);
-    }
-  } catch (err){
-    console.error(err);
-  }
   }
   // onPause() {
   //   this.setState({

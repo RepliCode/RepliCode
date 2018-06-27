@@ -54,10 +54,10 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-          <Col xs="6">
+          <Col>
             <Editor playbackTime={this.state.playbackTime} />
           </Col>
-          <Col xs="6">
+          <Col>
             <Recorder />
             {this.props.blobURL ? (
               <div>
