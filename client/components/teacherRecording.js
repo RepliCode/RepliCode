@@ -11,6 +11,7 @@ class TeacherRecording extends Component {
     super(props);
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.runCode = this.runCode.bind(this);
   }
 
   startStopRecording = () => {
@@ -19,6 +20,10 @@ class TeacherRecording extends Component {
     } else {
       this.props.start(Date.now());
     }
+  };
+
+  runCode = () => {
+    console.log('hey');
   };
 
   onSubmit() {
@@ -43,9 +48,9 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-        <Col xs="6">
-          <Editor />
-        </Col>
+          <Col xs="6">
+            <Editor />
+          </Col>
           <Col xs="6">
             <Recorder />
             <button onClick={this.startStopRecording} type="button">
@@ -54,6 +59,7 @@ class TeacherRecording extends Component {
             <button onClick={this.onSubmit} type="button">
               Submit
             </button>
+            <button onClick={this.runCode}>Run Code!</button>
             <button>playback {/*<audio controls src={this.state.blobURL} />*/}</button>
           </Col>
         </Row>
