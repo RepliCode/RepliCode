@@ -80,6 +80,7 @@ class Editor extends Component {
     });
   }
   async togglePlayback() {
+    try {
     this.audioIntervals.push(this.props.playbackTime);
     let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
     let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
@@ -98,6 +99,9 @@ class Editor extends Component {
         this.setState({ value: this.props.editor[timeStampKeys[i]] });
       }, currentTimeout);
     }
+  } catch (err){
+    console.error(err);
+  }
   }
   // onPause() {
   //   this.setState({
