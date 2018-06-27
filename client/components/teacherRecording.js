@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { startRec, stopRec, getBlob, startPlay, stopPlay } from '../store';
-import { Recorder, Editor } from './index';
-import { Container, Row, Col } from 'reactstrap';
+import {
+  startRec,
+  stopRec,
+  getBlob,
+  startPlay,
+  stopPlay,
+  deleteBlob,
+  deleteTextState,
+} from '../store';
+import { Recorder, Editor, RecordingForm } from './index';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 class TeacherRecording extends Component {
   constructor(props) {
@@ -51,12 +59,13 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col xs="6">
             <Editor playbackTime={this.state.playbackTime} />
           </Col>
-          <Col>
+          <Col xs="6">
             {this.props.blobURL ? (
-              <div>
+              <Col>
+                <p>Preview Recording: </p>
                 <audio
                   controls
                   src={this.props.blobURL}
@@ -64,18 +73,25 @@ class TeacherRecording extends Component {
                   onPlay={this.props.startPlay}
                   onPause={this.props.stopPlay}
                 />
-                <button onClick={this.onSubmit} type="button">
-                  {' '}
-                  Submit{' '}
-                </button>
-              </div>
+                <p>Are you happy with your recording?</p>
+                <RecordingForm />
+                <Button
+                  onClick={() => {
+                    this.props.deleteBlob();
+                    this.props.deleteTextState();
+                  }}
+                  type="button"
+                >
+                  No, try again
+                </Button>
+              </Col>
             ) : (
-              <div>
+              <Col>
                 <Recorder />
-                <button onClick={this.startStopRecording} type="button">
+                <Button onClick={this.startStopRecording} type="button">
                   Start/Stop
-                </button>
-              </div>
+                </Button>
+              </Col>
             )}
           </Col>
         </Row>
@@ -105,6 +121,8 @@ const mapDispatch = dispatch => {
     saveBlob: blob => dispatch(getBlob(blob)),
     startPlay: () => dispatch(startPlay()),
     stopPlay: () => dispatch(stopPlay()),
+    deleteBlob: () => dispatch(deleteBlob()),
+    deleteTextState: () => dispatch(deleteTextState()),
   };
 };
 

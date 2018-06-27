@@ -9,6 +9,7 @@ const STOP_REC = 'STOP_REC';
 const GET_BLOB = 'GET_BLOB';
 const START_PLAY = 'START_PLAY';
 const STOP_PLAY = 'STOP_PLAY';
+const DELETE_BLOB = 'DELETE_BLOB';
 
 /**
  * INITIAL STATE
@@ -38,6 +39,9 @@ export const getBlob = (blob, blobURL) => ({
   type: GET_BLOB,
   blob,
   blobURL,
+});
+export const deleteBlob = () => ({
+  type: DELETE_BLOB,
 });
 
 export const startPlay = () => ({
@@ -76,6 +80,13 @@ export default function(state = initialState, action) {
         ...state,
         blob: action.blob,
         blobURL: action.blobURL,
+      };
+    case DELETE_BLOB:
+      return {
+        ...state,
+        blob: {},
+        blobURL: '',
+        startTime: '',
       };
     case START_PLAY:
       return {
