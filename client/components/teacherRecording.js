@@ -46,7 +46,9 @@ class TeacherRecording extends Component {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
-
+  togglePlayback() {
+    // dispatch something to update onPlay;
+  }
   render() {
     return (
       <Container>
@@ -58,7 +60,12 @@ class TeacherRecording extends Component {
             <Recorder />
             {this.props.blobURL ? (
               <div>
-                <audio controls src={this.props.blobURL} onTimeUpdate={this.onPlayback} />
+                <audio
+                  controls
+                  src={this.props.blobURL}
+                  onTimeUpdate={this.onPlayback}
+                  onPlay={console.log}
+                />
                 <button onClick={this.onSubmit} type="button">
                   {' '}
                   Submit{' '}
