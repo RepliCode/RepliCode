@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { startRec, stopRec, getBlob, startPlay, stopPlay } from '../store';
 import { Recorder, Editor } from './index';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 class TeacherRecording extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class TeacherRecording extends Component {
           </Col>
           <Col xs="6">
             {this.props.blobURL ? (
-              <div>
+              <Col>
                 <p>Preview Recording: </p>
                 <audio
                   controls
@@ -69,20 +69,20 @@ class TeacherRecording extends Component {
                   onPause={this.props.stopPlay}
                 />
                 <p>Are you happy with your recording?</p>
-                <button onClick={this.onSubmit} type="button">
+                <Button onClick={this.onSubmit} type="button">
                   Yes, continue
-                </button>
-                <button onClick={this.onRestart} type="button">
+                </Button>
+                <Button onClick={this.onRestart} type="button">
                   No, try again
-                </button>
-              </div>
+                </Button>
+              </Col>
             ) : (
-              <div>
+              <Col>
                 <Recorder />
-                <button onClick={this.startStopRecording} type="button">
+                <Button onClick={this.startStopRecording} type="button">
                   Start/Stop
-                </button>
-              </div>
+                </Button>
+              </Col>
             )}
           </Col>
         </Row>
