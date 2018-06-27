@@ -51,23 +51,26 @@ import 'brace/ext/searchbox';
 const defaultValue = ``;
 class Editor extends Component {
   componentDidUpdate(prevProps) {
-    if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && this.props.recorder.isRecord) {
+    if (
+      this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
+      this.props.recorder.isRecord
+    ) {
       // this may or may not work. Look here if errors occur
       this.timeStampObject = {};
       this.onChange(this.state.value);
-    }
-    else if (this.props.recorder.isRecord !== prevProps.recorder.isRecord && !this.props.recorder.isRecord) {
-      this.props.setTimestamps(this.timeStampObject)
+    } else if (
+      this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
+      !this.props.recorder.isRecord
+    ) {
+      this.props.setTimestamps(this.timeStampObject);
     }
   }
   onLoad() {
     // console.log("i've loaded")
   }
   onChange(newValue) {
-    // change this.state to this.props when  redux is plugged in
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
-      console.log('time stamp obj', this.timeStampObject);
     }
     this.setState({
       value: newValue,
@@ -158,15 +161,6 @@ class Editor extends Component {
       <div className="columns">
         <div className="column">
           <div className="field">
-            <button type="button" onClick={this.onRecord}>
-              Record
-            </button>
-            <button type="button" onClick={this.onPlayback}>
-              Playback
-            </button>
-            <button type="button" onClick={this.onPause}>
-              Pause
-            </button>
             <label>Mode:</label>
             <p className="control">
               <span className="select">
@@ -331,16 +325,16 @@ class Editor extends Component {
 const mapState = state => {
   return {
     recorder: state.recorder,
-    editor: state.editor
+    editor: state.editor,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    setTimestamps(timestamps){
-      dispatch(setTextState(timestamps))
-    }
-  }
-}
+    setTimestamps(timestamps) {
+      dispatch(setTextState(timestamps));
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(Editor);
