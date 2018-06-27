@@ -158,9 +158,7 @@ class Editor extends Component {
     this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
-    // console.log('PRIZZOPS', this.props);
     return (
-      // <div className="examples column">
       <Row>
         <Col>
           <AceEditor
