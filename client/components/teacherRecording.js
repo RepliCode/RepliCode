@@ -46,11 +46,8 @@ class TeacherRecording extends Component {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
-  // togglePlayback() {
-  //   this.props.startPlay();
-  // }
+
   render() {
-    // console.log('prizzops', this.props);
     return (
       <Container>
         <Row>

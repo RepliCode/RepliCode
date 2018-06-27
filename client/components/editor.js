@@ -79,45 +79,26 @@ class Editor extends Component {
       value: newValue,
     });
   }
-  async togglePlayback() {
-    try {
-      this.audioIntervals.push(this.props.playbackTime);
-      let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
-      let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
-      let currentInterval = currentTime - previousTime;
-      let timeStampKeys;
-      if (this.props.isPlayback) {
-        timeStampKeys = Object.keys(this.props.editor)
-          .map(time => Number(time))
-          .sort((a, b) => a - b)
-          .filter(time => time >= previousTime && time <= currentTime);
-      }
-      for (let i = 0; i < timeStampKeys.length; i++) {
-        let currentTimeout = currentInterval / timeStampKeys.length;
-        await setTimeout(() => {
-          console.log('im in the timeout zone,', timeStampKeys[i]);
-          this.setState({ value: this.props.editor[timeStampKeys[i]] });
-        }, currentTimeout);
-      }
-    } catch (err) {
-      console.error(err);
+  togglePlayback() {
+    this.audioIntervals.push(this.props.playbackTime);
+    let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
+    let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
+    let currentInterval = currentTime - previousTime;
+    let timeStampKeys;
+    if (this.props.isPlayback) {
+      timeStampKeys = Object.keys(this.props.editor)
+        .map(time => Number(time))
+        .sort((a, b) => a - b)
+        .filter(time => time >= previousTime && time <= currentTime);
+    }
+    for (let i = 0; i < timeStampKeys.length; i++) {
+      let currentTimeout = currentInterval / timeStampKeys.length;
+      setTimeout(() => {
+        this.setState({ value: this.props.editor[timeStampKeys[i]] });
+      }, currentTimeout * (i + 1));
     }
   }
-  // onPause() {
-  //   this.setState({
-  //     isRecord: false,
-  //   });
-  // }
 
-  // onRecord() {
-  //   if (!this.props.recorder.isRecord) {
-  //     this.timeStampObject = {};
-  //   }
-  //   this.setState({
-  //     isRecord: true,
-  //     startTime: Date.now(),
-  //   });
-  // }
   onSelectionChange(newValue, event) {
     // console.log('select-change', newValue)
     // console.log('select-change-event', event)
