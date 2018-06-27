@@ -58,7 +58,6 @@ class TeacherRecording extends Component {
             <Editor playbackTime={this.state.playbackTime} />
           </Col>
           <Col>
-            <Recorder />
             {this.props.blobURL ? (
               <div>
                 <audio
@@ -74,9 +73,12 @@ class TeacherRecording extends Component {
                 </button>
               </div>
             ) : (
-              <button onClick={this.startStopRecording} type="button">
-                Start/Stop
-              </button>
+              <div>
+                <Recorder />
+                <button onClick={this.startStopRecording} type="button">
+                  Start/Stop
+                </button>
+              </div>
             )}
           </Col>
         </Row>
