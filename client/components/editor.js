@@ -153,7 +153,7 @@ class Editor extends Component {
     this.onPlayback = this.onPlayback.bind(this);
   }
   render() {
-    console.log('PRIZZOPS', this.props);
+    // console.log('PRIZZOPS', this.props);
     return (
       <div className="columns">
         <div className="column">

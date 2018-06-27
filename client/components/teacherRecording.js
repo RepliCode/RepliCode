@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { startRec, stopRec, getBlob } from '../store';
+import { startRec, stopRec, getBlob, startPlay, stopPlay } from '../store';
 import { Recorder, Editor } from './index';
 import { Container, Row, Col } from 'reactstrap';
 
@@ -46,10 +46,11 @@ class TeacherRecording extends Component {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
-  togglePlayback() {
-    // dispatch something to update onPlay;
-  }
+  // togglePlayback() {
+  //   this.props.startPlay();
+  // }
   render() {
+    console.log('prizzops', this.props);
     return (
       <Container>
         <Row>
@@ -64,7 +65,8 @@ class TeacherRecording extends Component {
                   controls
                   src={this.props.blobURL}
                   onTimeUpdate={this.onPlayback}
-                  onPlay={console.log}
+                  onPlay={this.props.startPlay}
+                  onPause={this.props.stopPlay}
                 />
                 <button onClick={this.onSubmit} type="button">
                   {' '}
@@ -93,6 +95,7 @@ const mapState = state => {
     blob: state.recorder.blob,
     blobURL: state.recorder.blobURL,
     timestamps: state.editor,
+    isPlayback: state.recorder.isPlayback,
   };
 };
 
@@ -101,6 +104,8 @@ const mapDispatch = dispatch => {
     start: startTime => dispatch(startRec(startTime)),
     stop: () => dispatch(stopRec()),
     saveBlob: blob => dispatch(getBlob(blob)),
+    startPlay: () => dispatch(startPlay()),
+    stopPlay: () => dispatch(stopPlay()),
   };
 };
 
