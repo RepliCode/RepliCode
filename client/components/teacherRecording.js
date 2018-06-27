@@ -50,7 +50,7 @@ class TeacherRecording extends Component {
   //   this.props.startPlay();
   // }
   render() {
-    console.log('prizzops', this.props);
+    // console.log('prizzops', this.props);
     return (
       <Container>
         <Row>

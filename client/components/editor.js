@@ -64,6 +64,9 @@ class Editor extends Component {
     ) {
       this.props.setTimestamps(this.timeStampObject);
     }
+    if (this.props.isPlayback) {
+      this.togglePlayback();
+    }
   }
   onLoad() {
     // console.log("i've loaded")
@@ -76,12 +79,24 @@ class Editor extends Component {
       value: newValue,
     });
   }
-  onPlayback() {
-    let timeStampKeys = Object.keys(this.timeStampObject).sort((a, b) => a - b);
+  async togglePlayback() {
+    this.audioIntervals.push(this.props.playbackTime);
+    let previousTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 2] * 1000);
+    let currentTime = Math.floor(this.audioIntervals[this.audioIntervals.length - 1] * 1000);
+    let currentInterval = currentTime - previousTime;
+    let timeStampKeys;
+    if (this.props.isPlayback) {
+      timeStampKeys = Object.keys(this.props.editor)
+        .map(time => Number(time))
+        .sort((a, b) => a - b)
+        .filter(time => time >= previousTime && time <= currentTime);
+    }
     for (let i = 0; i < timeStampKeys.length; i++) {
-      setTimeout(() => {
-        this.setState({ value: this.timeStampObject[timeStampKeys[i]] });
-      }, timeStampKeys[i] - timeStampKeys[0]);
+      let currentTimeout = currentInterval / timeStampKeys.length;
+      await setTimeout(() => {
+        console.log('im in the timeout zone,', timeStampKeys[i])
+        this.setState({ value: this.props.editor[timeStampKeys[i]] });
+      }, currentTimeout);
     }
   }
   // onPause() {
@@ -148,12 +163,13 @@ class Editor extends Component {
       showLineNumbers: true,
     };
     this.timeStampObject = {};
+    this.audioIntervals = [0];
     this.setTheme = this.setTheme.bind(this);
     this.setMode = this.setMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.setFontSize = this.setFontSize.bind(this);
     this.setBoolean = this.setBoolean.bind(this);
-    this.onPlayback = this.onPlayback.bind(this);
+    this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
     // console.log('PRIZZOPS', this.props);
@@ -326,6 +342,7 @@ const mapState = state => {
   return {
     recorder: state.recorder,
     editor: state.editor,
+    isPlayback: state.recorder.isPlayback,
   };
 };
 
