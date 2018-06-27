@@ -9,8 +9,12 @@ import { Container, Row, Col } from 'reactstrap';
 class TeacherRecording extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      playbackTime: 0,
+    };
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onPlayback = this.onPlayback.bind(this);
   }
 
   startStopRecording = () => {
@@ -38,19 +42,23 @@ class TeacherRecording extends Component {
         console.log(result);
       });
   }
+  onPlayback(event) {
+    let { currentTime } = event.target;
+    this.setState({ playbackTime: currentTime });
+  }
 
   render() {
     return (
       <Container>
         <Row>
           <Col xs="6">
-            <Editor />
+            <Editor playbackTime={this.state.playbackTime} />
           </Col>
           <Col xs="6">
             <Recorder />
             {this.props.blobURL ? (
               <div>
-                <audio controls src={this.props.blobURL} />
+                <audio controls src={this.props.blobURL} onTimeUpdate={this.onPlayback} />
                 <button onClick={this.onSubmit} type="button">
                   {' '}
                   Submit{' '}
