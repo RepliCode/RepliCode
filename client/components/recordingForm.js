@@ -12,6 +12,7 @@ import {
   Input,
   FormText,
 } from 'reactstrap';
+import { addLessonThunk } from '../store';
 
 class RecordingForm extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class RecordingForm extends React.Component {
       blob: this.props.blob,
       editor: this.props.editor,
     };
+    this.props.addLesson(formFields);
     console.log('names', formFields, 'BLOB!?', this.props);
   }
 
@@ -98,4 +100,8 @@ const mapState = state => ({
   editor: state.editor,
 });
 
-export default connect(mapState, null)(RecordingForm);
+const mapDispatch = dispatch => ({
+  addLesson: formFields => dispatch(addLessonThunk(formFields)),
+});
+
+export default connect(mapState, mapDispatch)(RecordingForm);

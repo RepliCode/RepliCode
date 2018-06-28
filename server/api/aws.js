@@ -18,24 +18,27 @@ let s3 = new AWS.S3();
 //mounted on /api/aws
 //POST route for '/api/aws/upload'
 router.post('/upload', upload.any(), function(req, res, next) {
-  let test = shortid.generate();
-  console.log('test', test);
+  let uniqueId = shortid.generate();
   let audioData = req.body;
   let files = req.files;
+  let fileName = `${files[0].fieldname}-${uniqueId}`;
   console.log('form data', audioData, 'files', files[0]);
-  // let s3request = {
-  //   Body: files[0].buffer, //actual file as a buffer,
-  //   Bucket: 'replicode',
-  //   Key: files[0].fieldName, //filename
-  //   ContentType: 'audio/webm',
-  //   ACL: 'public-read',
-  // };
+  let s3request = {
+    Body: files[0].buffer, //actual file as a buffer,
+    Bucket: 'replicode',
+    Key: fileName, //filename
+    ContentType: 'audio/webm',
+    ACL: 'public-read',
+  };
 
   // s3.putObject(s3request, function(err, data) {
   //   if (err) {
   //     console.error(err);
+  //     res.send('Upload Unsuccessful');
+  //   } else {
+  //     console.log('backend filename', fileName);
+  //     res.send(fileName);
   //   }
-  //   res.send('Uploaded successfully');
   // });
 });
 
