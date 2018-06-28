@@ -25,6 +25,14 @@ export const deleteTextState = () => ({ type: DELETE_TEXT_STATE });
  * THUNK CREATORS
  */
 
+export const runCode = code => dispatch => {
+  axios
+    .post('/api/sandBox', { code })
+    .then(evaluation => evaluation.data)
+    .then(console.log)
+    .catch(console.error);
+};
+
 // export const getText = () => async dispatch => {
 //   try {
 //     const res = await axios.get('/auth/me')

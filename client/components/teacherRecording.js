@@ -10,6 +10,7 @@ import {
   stopPlay,
   deleteBlob,
   deleteTextState,
+  runCode,
 } from '../store';
 import { Recorder, Editor, RecordingForm } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -19,10 +20,13 @@ class TeacherRecording extends Component {
     super(props);
     this.state = {
       playbackTime: 0,
+      editorCode: '',
     };
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
+    this.run = this.run.bind(this);
+    this.getEditorCode = this.getEditorCode.bind(this);
   }
 
   startStopRecording = () => {
@@ -32,6 +36,14 @@ class TeacherRecording extends Component {
       this.props.start(Date.now());
     }
   };
+  getEditorCode(editorCode) {
+    this.setState({ editorCode });
+  }
+  run() {
+    console.log('Pressed');
+    console.log('Code?', this.state.editorCode);
+    this.props.evaluateCode(this.state.editorCode);
+  }
 
   onSubmit() {
     let formData = new FormData();
@@ -60,7 +72,7 @@ class TeacherRecording extends Component {
       <Container>
         <Row>
           <Col xs="6">
-            <Editor playbackTime={this.state.playbackTime} />
+            <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
           </Col>
           <Col xs="6">
             {this.props.blobURL ? (
@@ -93,6 +105,9 @@ class TeacherRecording extends Component {
                 </Button>
               </Col>
             )}
+            <Col>
+              <Button onClick={this.run}>Run</Button>
+            </Col>
           </Col>
         </Row>
       </Container>
@@ -123,6 +138,7 @@ const mapDispatch = dispatch => {
     stopPlay: () => dispatch(stopPlay()),
     deleteBlob: () => dispatch(deleteBlob()),
     deleteTextState: () => dispatch(deleteTextState()),
+    evaluateCode: code => dispatch(runCode(code)),
   };
 };
 

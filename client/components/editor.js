@@ -82,6 +82,7 @@ class Editor extends Component {
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
     }
+    this.props.sendEditorCode(newValue);
     this.setState({
       value: newValue,
     });
