@@ -125,6 +125,7 @@ class TeacherRecording extends Component {
                 mode="jsx"
                 theme="monokai"
                 readOnly={true}
+                fontSize={14}
                 value={this.state.consoleCode}
               />
             </Col>
