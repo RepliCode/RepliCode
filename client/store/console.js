@@ -5,9 +5,9 @@ import history from '../history';
  * ACTION TYPES
  */
 
-const GET_TEXT_STATE = 'GET_TEXT_STATE';
-const SET_TEXT_STATE = 'SET_TEXT_STATE';
-const DELETE_TEXT_STATE = 'DELETE_TEXT_STATE';
+const GET_CONSOLE_STATE = 'GET_CONSOLE_STATE';
+const SET_CONSOLE_STATE = 'SET_CONSOLE_STATE';
+const DELETE_CONSOLE_STATE = 'DELETE_CONSOLE_STATE';
 
 /**
  * INITIAL STATE
@@ -17,15 +17,15 @@ const defaultState = {};
 /**
  * ACTION CREATORS
  */
-const getTextState = timestamps => ({ type: GET_TEXT_STATE, timestamps });
-export const setTextState = timestamps => ({ type: SET_TEXT_STATE, timestamps });
-export const deleteTextState = () => ({ type: DELETE_TEXT_STATE });
+const getConsoleState = timestamps => ({ type: GET_CONSOLE_STATE, timestamps });
+export const setConsoleState = timestamps => ({ type: SET_CONSOLE_STATE, timestamps });
+export const deleteConsoleState = () => ({ type: DELETE_CONSOLE_STATE });
 
 /**
  * THUNK CREATORS
  */
 
-// export const getText = () => async dispatch => {
+// export const getConsole = () => async dispatch => {
 //   try {
 //     const res = await axios.get('/auth/me')
 //     dispatch(getUser(res.data || defaultUser))
@@ -39,13 +39,13 @@ export const deleteTextState = () => ({ type: DELETE_TEXT_STATE });
  */
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case GET_TEXT_STATE:
+    case GET_CONSOLE_STATE:
       // this will be pulling from db
       return action.timestamps;
-    case SET_TEXT_STATE:
+    case SET_CONSOLE_STATE:
       // this will be assigning timestamps from current record to store
       return action.timestamps;
-    case DELETE_TEXT_STATE:
+    case DELETE_CONSOLE_STATE:
       // this will be assigning timestamps from current record to store
       return {};
     default:
