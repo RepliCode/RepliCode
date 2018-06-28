@@ -21,12 +21,27 @@ class RecordingForm extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleForm = this.handleForm.bind(this);
   }
 
   toggle() {
     this.setState({
       modal: !this.state.modal,
     });
+  }
+  handleForm(event) {
+    event.preventDefault();
+    // this.props.submitForm({
+    //   name: event.target.name.value,
+    //   title: event.target.title.value,
+    //   description: event.target.description.value,
+    // });
+    let formFields = {
+      name: event.target.name.value,
+      title: event.target.title.value,
+      description: event.target.description.value,
+    };
+    console.log('names', formFields);
   }
 
   render() {
@@ -44,7 +59,13 @@ class RecordingForm extends React.Component {
         >
           <ModalHeader toggle={this.toggle}>Recording information</ModalHeader>
           <ModalBody>
-            <Form>
+            <Form
+              onSubmit={event => {
+                console.log('submitted successfully');
+                this.toggle();
+                this.handleForm(event);
+              }}
+            >
               <Label for="name">Your Name</Label>
               <Input type="text" name="name" id="recording-author-name" />
               <Label for="title">Lesson Title</Label>
@@ -61,16 +82,14 @@ class RecordingForm extends React.Component {
                 id="recording-description"
                 placeholder="Give a brief description of your lesson"
               />
+              <Button color="primary" type="submit">
+                Submit
+              </Button>{' '}
+              <Button color="secondary" onClick={this.toggle}>
+                Cancel
+              </Button>
             </Form>
           </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
-              Submit
-            </Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
         </Modal>
       </div>
     );
