@@ -31,8 +31,9 @@ export const addLessonThunk = (formFields, userId) => async dispatch => {
   try {
     let audioData = new FormData();
     audioData.append(formFields.title, formFields.blob);
+    audioData.append('userId', userId);
     let request = {
-      url: 'http://localhost:8080/api/aws/upload',
+      url: `http://localhost:8080/api/aws/${userId}/upload`,
       method: 'POST',
       data: audioData,
       processData: false,

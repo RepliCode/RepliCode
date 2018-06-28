@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/:userId', async (req, res, next) => {
+  console.log('USE ME AGAIN +++++++', req.user);
   try {
     const userId = Number(req.params.userId);
     if (userId === Number(req.user.id)) {
