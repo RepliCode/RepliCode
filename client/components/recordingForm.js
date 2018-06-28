@@ -40,8 +40,10 @@ class RecordingForm extends React.Component {
       name: event.target.name.value,
       title: event.target.title.value,
       description: event.target.description.value,
+      blob: this.props.blob,
+      editor: this.props.editor,
     };
-    console.log('names', formFields);
+    console.log('names', formFields, 'BLOB!?', this.props);
   }
 
   render() {
@@ -96,4 +98,9 @@ class RecordingForm extends React.Component {
   }
 }
 
-export default connect(null, null)(RecordingForm);
+const mapState = state => ({
+  blob: state.recorder.blob,
+  editor: state.editor,
+});
+
+export default connect(mapState, null)(RecordingForm);
