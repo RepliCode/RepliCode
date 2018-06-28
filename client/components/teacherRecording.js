@@ -14,6 +14,8 @@ import {
 } from '../store';
 import { Recorder, Editor, RecordingForm } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
+import AceEditor from '../src/ace.js';
+import 'brace/mode/jsx';
 
 class TeacherRecording extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class TeacherRecording extends Component {
     this.state = {
       playbackTime: 0,
       editorCode: '',
+      consoleCode: '',
     };
     this.startStopRecording = this.startStopRecording.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -42,7 +45,16 @@ class TeacherRecording extends Component {
   run() {
     console.log('Pressed');
     console.log('Code?', this.state.editorCode);
-    this.props.evaluateCode(this.state.editorCode);
+    // this.props.evaluateCode(this.state.editorCode);
+    return axios
+      .post('/api/sandBox', { code: this.state.editorCode })
+      .then(evaluation => evaluation.data)
+      .then(ans => {
+        this.setState({
+          consoleCode: JSON.stringify(ans),
+        });
+      })
+      .catch(console.error);
   }
 
   onSubmit() {
@@ -107,6 +119,14 @@ class TeacherRecording extends Component {
             )}
             <Col>
               <Button onClick={this.run}>Run</Button>
+            </Col>
+            <Col>
+              <AceEditor
+                mode="jsx"
+                theme="monokai"
+                readOnly={true}
+                value={this.state.consoleCode}
+              />
             </Col>
           </Col>
         </Row>

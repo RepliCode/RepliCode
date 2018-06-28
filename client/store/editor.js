@@ -26,10 +26,10 @@ export const deleteTextState = () => ({ type: DELETE_TEXT_STATE });
  */
 
 export const runCode = code => dispatch => {
-  axios
+  return axios
     .post('/api/sandBox', { code })
     .then(evaluation => evaluation.data)
-    .then(console.log)
+    .then(answer => answer)
     .catch(console.error);
 };
 
