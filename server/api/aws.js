@@ -11,13 +11,13 @@ module.exports = router;
 
 //set up AWS config
 AWS.config.loadFromPath(configPath);
-
+AWS.config.setPromisesDependency(null);
 // Create an S3 client
 let s3 = new AWS.S3();
 
 //mounted on /api/aws
 //POST route for '/api/aws/upload'
-router.post('/upload', upload.any(), function(req, res, next) {
+router.post('/upload', upload.any(), (req, res, next) => {
   let uniqueId = shortid.generate();
   let audioData = req.body;
   let files = req.files;
@@ -31,7 +31,16 @@ router.post('/upload', upload.any(), function(req, res, next) {
     ACL: 'public-read',
   };
 
-  // s3.putObject(s3request, function(err, data) {
+  let putObjectPromise = s3.putObject(s3request).promise();
+
+  putObjectPromise
+    .then(data => {
+      console.log('Upload Successful');
+      res.send(fileName);
+    })
+    .catch(next);
+
+  //  function(err, data) {
   //   if (err) {
   //     console.error(err);
   //     res.send('Upload Unsuccessful');

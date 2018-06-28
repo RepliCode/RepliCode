@@ -20,7 +20,7 @@ const initialState = {
  */
 export const addLesson = newLesson => ({
   type: ADD_NEW_LESSON,
-  newlesson,
+  newLesson,
 });
 
 /**
@@ -40,9 +40,9 @@ export const addLessonThunk = formFields => async dispatch => {
     };
     const filename = await axios(request).data;
     console.log('WIth like a label', filename);
-    const savedLesson = await axios.post('/api/users/:userId', {
+    const savedLesson = await axios.post('/api/users/2', {
       ...formFields,
-      audio: `https://replicode.s3.amazonaws.com/${filename}`,
+      audioURL: `https://replicode.s3.amazonaws.com/${filename}`,
     }).data;
     dispatch(addLesson(savedLesson));
   } catch (err) {
@@ -67,7 +67,7 @@ export default function(state = initialState, action) {
     case ADD_NEW_LESSON:
       return {
         ...state,
-        lessons: [...lessons, action.newLesson],
+        lessons: [...state.lessons, action.newLesson],
       };
     default:
       return state;
