@@ -12,6 +12,7 @@ import {
   deleteTextState,
   runCode,
   setConsoleState,
+  deleteConsoleState,
 } from '../store';
 import { Recorder, Editor, RecordingForm, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -111,6 +112,7 @@ class TeacherRecording extends Component {
                       onClick={() => {
                         this.props.deleteBlob();
                         this.props.deleteTextState();
+                        this.props.deleteConsoleState();
                       }}
                       type="button"
                     >
@@ -168,6 +170,7 @@ const mapDispatch = dispatch => {
     deleteTextState: () => dispatch(deleteTextState()),
     evaluateCode: code => dispatch(runCode(code)),
     setTimestamps: timestamps => dispatch(setConsoleState(timestamps)),
+    deleteConsoleState: () => dispatch(deleteConsoleState()),
   };
 };
 
