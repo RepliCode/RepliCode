@@ -27,7 +27,7 @@ export const addLesson = newLesson => ({
  * THUNK CREATORS
  */
 
-export const addLessonThunk = formFields => async dispatch => {
+export const addLessonThunk = (formFields, userId) => async dispatch => {
   try {
     let audioData = new FormData();
     audioData.append(formFields.title, formFields.blob);
@@ -40,7 +40,7 @@ export const addLessonThunk = formFields => async dispatch => {
     };
     const filename = await axios(request);
     console.log('WIth like a label', filename);
-    const savedLesson = await axios.post('/api/users/2', {
+    const savedLesson = await axios.post(`/api/users/${userId}`, {
       ...formFields,
       audioURL: `https://replicode.s3.amazonaws.com/${filename.data}`,
     }).data;

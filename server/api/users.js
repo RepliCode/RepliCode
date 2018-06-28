@@ -26,7 +26,8 @@ router.post('/:userId', async (req, res, next) => {
         audioURL: req.body.audioURL,
         title: req.body.title,
         description: req.body.description,
-        code: req.body.editor,
+        editor: req.body.editor,
+        console: req.body.console,
         userId: user.id,
       });
       res.status(201).send(lesson);
