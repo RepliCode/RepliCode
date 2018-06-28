@@ -1,5 +1,5 @@
 const User = require('./user');
-const Project = require('./project');
+const Lesson = require('./lesson');
 const Category = require('./category');
 
 /**
@@ -9,14 +9,14 @@ const Category = require('./category');
  *    BlogPost.belongsTo(User)
  */
 
-User.hasMany(Project);
-Project.belongsTo(User);
+User.hasMany(Lesson);
+Lesson.belongsTo(User);
 
-Project.belongsToMany(Category, { through: 'categoryLinks' });
-Category.belongsToMany(Project, { through: 'categoryLinks' });
+Lesson.belongsToMany(Category, { through: 'categoryLinks' });
+Category.belongsToMany(Lesson, { through: 'categoryLinks' });
 
-Project.belongsToMany(User, { through: 'saved' });
-User.belongsToMany(Project, { through: 'saved' });
+Lesson.belongsToMany(User, { through: 'saved' });
+User.belongsToMany(Lesson, { through: 'saved' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -26,6 +26,6 @@ User.belongsToMany(Project, { through: 'saved' });
  */
 module.exports = {
   User,
-  Project,
+  Lesson,
   Category,
 };

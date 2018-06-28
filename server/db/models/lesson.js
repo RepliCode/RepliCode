@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const Project = db.define('project', {
-  audio: {
+const Lesson = db.define('lesson', {
+  audioURL: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -23,4 +23,4 @@ const Project = db.define('project', {
   },
 });
 
-module.exports = Project;
+module.exports = Lesson;
