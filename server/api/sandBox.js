@@ -4,9 +4,9 @@ const runCodeSnippet = require('../Docker/runCodeSnippet');
 router.post('/', async (req, res, next) => {
   try {
     const evaluation = await runCodeSnippet(req.body.code);
-    res.send(evaluation);
+    res.json(evaluation);
   } catch (err) {
-    next(err);
+    res.json(err);
   }
 });
 module.exports = router;

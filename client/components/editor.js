@@ -82,6 +82,7 @@ class Editor extends Component {
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
     }
+    this.props.sendEditorCode(newValue);
     this.setState({
       value: newValue,
     });
@@ -182,6 +183,8 @@ class Editor extends Component {
             showPrintMargin={this.state.showPrintMargin}
             showGutter={this.state.showGutter}
             highlightActiveLine={this.state.highlightActiveLine}
+            height={'75vh'}
+            width={'40vw'}
             setOptions={{
               enableBasicAutocompletion: this.state.enableBasicAutocompletion,
               enableLiveAutocompletion: this.state.enableLiveAutocompletion,
