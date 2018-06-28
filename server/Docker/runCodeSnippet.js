@@ -8,9 +8,8 @@ function runCodeSnippet(codeSnippet) {
       stdout,
       stderr
     ) {
-      console.log(stdout);
       if (err !== null) {
-        reject(err);
+        reject(stderr);
       }
       resolve(stdout);
     });

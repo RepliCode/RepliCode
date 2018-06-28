@@ -43,15 +43,15 @@ class TeacherRecording extends Component {
     this.setState({ editorCode });
   }
   run() {
-    console.log('Pressed');
-    console.log('Code?', this.state.editorCode);
-    // this.props.evaluateCode(this.state.editorCode);
     return axios
       .post('/api/sandBox', { code: this.state.editorCode })
-      .then(evaluation => evaluation.data)
+      .then(evaluation => {
+        return evaluation.data;
+      })
       .then(ans => {
+        console.log('type and val:', typeof ans, ans);
         this.setState({
-          consoleCode: JSON.stringify(ans),
+          consoleCode: ans,
         });
       })
       .catch(console.error);
