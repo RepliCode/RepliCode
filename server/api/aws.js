@@ -21,7 +21,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
   let uniqueId = shortid.generate();
   let audioData = req.body;
   let files = req.files;
-  let fileName = `${files[0].fieldname}-${uniqueId}`;
+  let fileName = `${files[0].fieldname.replace(/\s+/g, '_').replace(/\W/g, '')}-${uniqueId}`;
   console.log('form data', audioData, 'files', files[0]);
   let s3request = {
     Body: files[0].buffer, //actual file as a buffer,
@@ -30,7 +30,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
     ContentType: 'audio/webm',
     ACL: 'public-read',
   };
-
+  console.log('Throw a label on there', fileName);
   let putObjectPromise = s3.putObject(s3request).promise();
 
   putObjectPromise

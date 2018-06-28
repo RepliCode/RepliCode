@@ -38,11 +38,11 @@ export const addLessonThunk = formFields => async dispatch => {
       processData: false,
       contentType: false,
     };
-    const filename = await axios(request).data;
+    const filename = await axios(request);
     console.log('WIth like a label', filename);
     const savedLesson = await axios.post('/api/users/2', {
       ...formFields,
-      audioURL: `https://replicode.s3.amazonaws.com/${filename}`,
+      audioURL: `https://replicode.s3.amazonaws.com/${filename.data}`,
     }).data;
     dispatch(addLesson(savedLesson));
   } catch (err) {
