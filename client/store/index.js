@@ -6,8 +6,10 @@ import user from './user';
 import recorder from './recorder';
 import editor from './editor';
 import consoleEditor from './console';
+import lessons from './lessons';
 
-const reducer = combineReducers({ user, recorder, editor, consoleEditor });
+const reducer = combineReducers({ user, recorder, editor, lessons, consoleEditor });
+
 const middleware = composeWithDevTools(
   applyMiddleware(
     thunkMiddleware,
@@ -23,3 +25,4 @@ export * from './user';
 export * from './recorder';
 export * from './editor';
 export * from './console';
+export * from './lessons';
