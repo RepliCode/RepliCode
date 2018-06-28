@@ -18,5 +18,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/:userId', (req, res, next) => {
+  console.log('SESH', req.session);
+  console.log('USE ME', req.user);
   res.send('Hello!');
 });
