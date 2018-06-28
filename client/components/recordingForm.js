@@ -71,12 +71,7 @@ class RecordingForm extends React.Component {
               <Label for="name">Your Name</Label>
               <Input type="text" name="name" id="recording-author-name" />
               <Label for="title">Lesson Title</Label>
-              <Input
-                type="text"
-                name="title"
-                id="recording-title"
-                placeholder="Insert title here"
-              />
+              <Input type="text" name="title" id="lesson-title" placeholder="Insert title here" />
               <Label for="description">Description</Label>
               <Input
                 type="textarea"

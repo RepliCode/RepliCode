@@ -79,6 +79,7 @@ class TeacherRecording extends Component {
                   onClick={() => {
                     this.props.deleteBlob();
                     this.props.deleteTextState();
+                    this.onSubmit();
                   }}
                   type="button"
                 >
