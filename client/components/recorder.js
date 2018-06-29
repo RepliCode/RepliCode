@@ -14,7 +14,6 @@ class Recorder extends React.Component {
   onStop(recordedBlob) {
     let { blob, blobURL } = recordedBlob;
     this.props.saveBlob(blob, blobURL);
-
   }
 
   render() {
@@ -25,7 +24,7 @@ class Recorder extends React.Component {
           className="sound-wave"
           onStop={this.onStop}
           strokeColor="#000000"
-          backgroundColor="#FF4081"
+          backgroundColor="#949AA5"
         />
       </div>
     );

@@ -89,57 +89,59 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-          <Col xs="6">
+          <Col xs="6" md="6" lg="6" xlg="6">
             <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
           </Col>
-          <Col xs="6">
-            {this.props.blobURL ? (
-              <Col>
-                <p>Preview Recording: </p>
-                <audio
-                  controls
-                  src={this.props.blobURL}
-                  onTimeUpdate={this.onPlayback}
-                  onPlay={this.props.startPlay}
-                  onPause={this.props.stopPlay}
-                />
-                <p>Are you happy with your recording?</p>
-                <Row>
-                  <Col>
-                    <RecordingForm />
-                  </Col>
-                  <Col>
-                    <Button
-                      onClick={() => {
-                        this.props.deleteBlob();
-                        this.props.deleteTextState();
-                        this.props.deleteConsoleState();
-                      }}
-                      type="button"
-                    >
-                      No, try again
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button onClick={this.run}>Run</Button>
-                  </Col>
-                </Row>
-              </Col>
-            ) : (
-              <Col className="display-block">
-                <Recorder />
-                <Button onClick={this.startStopRecording} type="button">
-                  Start/Stop
-                </Button>
-                <Button onClick={this.run}>Run</Button>
-              </Col>
-            )}
+          <Col xs="6" md="6" lg="6" xlg="6">
             <Console
               timeStamps={this.consoleTimeStamp}
               consoleValue={this.state.consoleCode}
               playbackTime={this.state.playbackTime}
             />
           </Col>
+        </Row>
+        <Row>
+          {this.props.blobURL ? (
+            <Col>
+              <p>Preview Recording: </p>
+              <audio
+                controls
+                src={this.props.blobURL}
+                onTimeUpdate={this.onPlayback}
+                onPlay={this.props.startPlay}
+                onPause={this.props.stopPlay}
+              />
+              <p>Are you happy with your recording?</p>
+              <Row>
+                <Col>
+                  <RecordingForm />
+                </Col>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      this.props.deleteBlob();
+                      this.props.deleteTextState();
+                      this.props.deleteConsoleState();
+                    }}
+                    type="button"
+                  >
+                    No, try again
+                  </Button>
+                </Col>
+                <Col>
+                  <Button onClick={this.run}>Run</Button>
+                </Col>
+              </Row>
+            </Col>
+          ) : (
+            <Col className="display-block" md={{ size: 8, offset: 2 }}>
+              <Recorder />
+              <Button onClick={this.startStopRecording} type="button">
+                Start/Stop
+              </Button>
+              <Button onClick={this.run}>Run</Button>
+            </Col>
+          )}
         </Row>
       </Container>
     );

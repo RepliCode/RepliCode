@@ -170,10 +170,10 @@ class Console extends Component {
         <Col>
           <AceEditor
             mode="javascript"
-            theme="twilight"
+            theme="solarized_dark"
             readOnly={true}
             fontSize={14}
-            height={'54vh'}
+            height={'65vh'}
             width={'40vw'}
             showGutter={false}
             value={this.state.value}

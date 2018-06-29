@@ -148,7 +148,7 @@ class Editor extends Component {
     super(props);
     this.state = {
       value: defaultValue,
-      theme: 'monokai',
+      theme: 'solarized_dark',
       mode: 'javascript',
       enableBasicAutocompletion: false,
       enableLiveAutocompletion: true,
@@ -189,8 +189,8 @@ class Editor extends Component {
             showPrintMargin={this.state.showPrintMargin}
             showGutter={this.state.showGutter}
             highlightActiveLine={this.state.highlightActiveLine}
-            height="75vh"
-            width="40vw"
+            height={'65vh'}
+            width={'40vw'}
             setOptions={{
               enableBasicAutocompletion: this.state.enableBasicAutocompletion,
               enableLiveAutocompletion: this.state.enableLiveAutocompletion,
