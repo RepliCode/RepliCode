@@ -19,3 +19,7 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.row {
+  margin-bottom: 10px;
+}
