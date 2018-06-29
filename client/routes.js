@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Login, Signup, UserHome, SingleLesson, TeacherRecording } from './components';
-import { me } from './store';
+import { me, getLessonsThunk } from './store';
 
 /**
  * COMPONENT
@@ -51,6 +51,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me());
+      dispatch(getLessonsThunk());
     },
   };
 };

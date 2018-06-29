@@ -9,14 +9,15 @@ const Category = require('./category');
  *    BlogPost.belongsTo(User)
  */
 
-User.hasMany(Lesson);
 Lesson.belongsTo(User);
+User.hasMany(Lesson);
 
 Lesson.belongsToMany(Category, { through: 'categoryLinks' });
 Category.belongsToMany(Lesson, { through: 'categoryLinks' });
 
-Lesson.belongsToMany(User, { through: 'saved' });
-User.belongsToMany(Lesson, { through: 'saved' });
+//this must be aliased since we're already doing one to many association with lessons and users above.
+Lesson.belongsToMany(User, { as: 'saved', through: 'favorites' });
+User.belongsToMany(Lesson, { as: 'saved', through: 'favorites' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

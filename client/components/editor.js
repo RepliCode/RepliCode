@@ -52,6 +52,7 @@ import 'brace/ext/searchbox';
 const defaultValue = ``;
 class Editor extends Component {
   componentDidUpdate(prevProps) {
+    // the following will only happen for a teacher creating a new recording.
     if (this.props.user.isCreator) {
       if (
         this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
