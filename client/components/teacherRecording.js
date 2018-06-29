@@ -85,6 +85,7 @@ class TeacherRecording extends Component {
   }
 
   render() {
+    console.log('PRIZZOPSZZ', this.props);
     return (
       <Container>
         <Row>
@@ -156,6 +157,7 @@ const mapState = state => {
     blobURL: state.recorder.blobURL,
     timestamps: state.editor,
     isPlayback: state.recorder.isPlayback,
+    user: state.user,
   };
 };
 

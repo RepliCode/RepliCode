@@ -17,7 +17,11 @@ const Lesson = db.define('lesson', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  code: {
+  editor: {
+    type: Sequelize.JSON,
+    allowNull: false,
+  },
+  console: {
     type: Sequelize.JSON,
     allowNull: false,
   },

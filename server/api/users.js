@@ -17,6 +17,23 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/:userId', (req, res, next) => {
-  res.send('Hello!');
+router.post('/:userId', async (req, res, next) => {
+  console.log('USE ME AGAIN +++++++', req.user);
+  try {
+    const userId = Number(req.params.userId);
+    if (userId === Number(req.user.id)) {
+      const user = await User.findById(userId);
+      const lesson = await Lesson.create({
+        audioURL: req.body.audioURL,
+        title: req.body.title,
+        description: req.body.description,
+        editor: req.body.editor,
+        console: req.body.console,
+        userId: user.id,
+      });
+      res.status(201).send(lesson);
+    }
+  } catch (err) {
+    next(err);
+  }
 });

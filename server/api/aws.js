@@ -11,35 +11,38 @@ module.exports = router;
 
 //set up AWS config
 AWS.config.loadFromPath(configPath);
-
+AWS.config.setPromisesDependency(null);
 // Create an S3 client
 let s3 = new AWS.S3();
 
 //mounted on /api/aws
-//POST route for '/api/aws/upload'
-router.post('/upload', upload.any(), function(req, res, next) {
-  let uniqueId = shortid.generate();
-  let audioData = req.body;
-  let files = req.files;
-  let fileName = `${files[0].fieldname}-${uniqueId}`;
-  console.log('form data', audioData, 'files', files[0]);
-  let s3request = {
-    Body: files[0].buffer, //actual file as a buffer,
-    Bucket: 'replicode',
-    Key: fileName, //filename
-    ContentType: 'audio/webm',
-    ACL: 'public-read',
-  };
+//POST route for '/api/aws/:userid/upload'
+router.post('/:userId/upload', upload.any(), (req, res, next) => {
+  const userId = Number(req.params.userId);
+  if (userId === Number(req.user.id) && req.user.isCreator) {
+    let uniqueId = shortid.generate();
+    let audioData = req.body;
+    let files = req.files;
+    let fileName = `${files[0].fieldname.replace(/\s+/g, '_').replace(/\W/g, '')}-${uniqueId}`;
+    console.log('form data', audioData, 'files', files[0]);
+    let s3request = {
+      Body: files[0].buffer, //actual file as a buffer,
+      Bucket: 'replicode',
+      Key: fileName, //filename
+      ContentType: 'audio/webm',
+      ACL: 'public-read',
+    };
+    console.log('Throw a label on there', fileName);
+    res.send(fileName);
+    // let putObjectPromise = s3.putObject(s3request).promise();
 
-  // s3.putObject(s3request, function(err, data) {
-  //   if (err) {
-  //     console.error(err);
-  //     res.send('Upload Unsuccessful');
-  //   } else {
-  //     console.log('backend filename', fileName);
-  //     res.send(fileName);
-  //   }
-  // });
+    // putObjectPromise
+    //   .then(data => {
+    //     console.log('Upload Successful');
+    //     res.send(fileName);
+    //   })
+    //   .catch(next);
+  }
 });
 
 //GET request for list of objects in bucket

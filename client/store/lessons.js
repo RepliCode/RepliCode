@@ -20,29 +20,30 @@ const initialState = {
  */
 export const addLesson = newLesson => ({
   type: ADD_NEW_LESSON,
-  newlesson,
+  newLesson,
 });
 
 /**
  * THUNK CREATORS
  */
 
-export const addLessonThunk = formFields => async dispatch => {
+export const addLessonThunk = (formFields, userId) => async dispatch => {
   try {
     let audioData = new FormData();
     audioData.append(formFields.title, formFields.blob);
+    audioData.append('userId', userId);
     let request = {
-      url: 'http://localhost:8080/api/aws/upload',
+      url: `http://localhost:8080/api/aws/${userId}/upload`,
       method: 'POST',
       data: audioData,
       processData: false,
       contentType: false,
     };
-    const filename = await axios(request).data;
+    const filename = await axios(request);
     console.log('WIth like a label', filename);
-    const savedLesson = await axios.post('/api/users/:userId', {
+    const savedLesson = await axios.post(`/api/users/${userId}`, {
       ...formFields,
-      audio: `https://replicode.s3.amazonaws.com/${filename}`,
+      audioURL: `https://replicode.s3.amazonaws.com/${filename.data}`,
     }).data;
     dispatch(addLesson(savedLesson));
   } catch (err) {
@@ -67,7 +68,7 @@ export default function(state = initialState, action) {
     case ADD_NEW_LESSON:
       return {
         ...state,
-        lessons: [...lessons, action.newLesson],
+        lessons: [...state.lessons, action.newLesson],
       };
     default:
       return state;

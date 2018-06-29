@@ -43,8 +43,9 @@ class RecordingForm extends React.Component {
       description: event.target.description.value,
       blob: this.props.blob,
       editor: this.props.editor,
+      console: this.props.console,
     };
-    this.props.addLesson(formFields);
+    this.props.addLesson(formFields, Number(this.props.user.id));
     console.log('names', formFields, 'BLOB!?', this.props);
   }
 
@@ -98,10 +99,12 @@ class RecordingForm extends React.Component {
 const mapState = state => ({
   blob: state.recorder.blob,
   editor: state.editor,
+  console: state.consoleEditor,
+  user: state.user,
 });
 
 const mapDispatch = dispatch => ({
-  addLesson: formFields => dispatch(addLessonThunk(formFields)),
+  addLesson: (formFields, userId) => dispatch(addLessonThunk(formFields, userId)),
 });
 
 export default connect(mapState, mapDispatch)(RecordingForm);
