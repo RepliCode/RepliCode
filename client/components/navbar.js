@@ -28,7 +28,10 @@ class NavigationBar extends React.Component {
           ) : (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/home">Lessons</NavLink>
+                <NavLink href="/teacher">Teacher Page</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/student">Student Page</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/login">Login</NavLink>
