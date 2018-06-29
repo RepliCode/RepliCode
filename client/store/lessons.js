@@ -57,11 +57,12 @@ export const addLessonThunk = (formFields, userId) => async dispatch => {
 
 export const getLessonsThunk = () => async dispatch => {
   try {
-    let users = await axios.get('/api/users');
+    let userFetch = await axios.get('/api/users');
     let lessons = [];
-    users.data.forEach(user => {
+    userFetch.data.forEach(user => {
       lessons = lessons.concat(user.lessons);
     });
+    //Since we are eager loading content creators, we should at some point dispatch an action to save the creators in the store so that we can render an all creators or individual creators page with their details.
     dispatch(getAllLessons(lessons));
   } catch (err) {
     console.error(err);

@@ -14,15 +14,29 @@ class SingleLesson extends Component {
       playbackTime: 0,
       editorCode: '',
       consoleCode: '',
+      lesson: {},
     };
     this.consoleTimeStamp = {};
     this.onPlayback = this.onPlayback.bind(this);
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
+    this.filterLesson = this.filterLesson.bind(this);
   }
 
   getEditorCode(editorCode) {
     this.setState({ editorCode });
+  }
+  filterLesson() {
+    // let lessonId = Number(this.props.match.params.lessonId)
+    // this.props.lessons.filter(lesson => lesson.id === lessonId)
+    let hardCodedLesson = this.props.lessons[3];
+    console.log('hard', hardCodedLesson);
+    // this.setState({ lesson: hardCodedLesson });
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.lessons !== prevProps.lessons) {
+      this.filterLesson();
+    }
   }
   run() {
     return axios
@@ -48,7 +62,7 @@ class SingleLesson extends Component {
   }
 
   render() {
-    console.log('PRIZZOPSZZ', this.props);
+    console.log('lesson', this.props.lessons);
     return (
       <Container>
         <Row>
@@ -92,7 +106,7 @@ const mapState = state => {
     timestamps: state.editor,
     isPlayback: state.recorder.isPlayback,
     user: state.user,
-    lessons: state.lessons,
+    lessons: state.lessons.lessons,
   };
 };
 
