@@ -12,10 +12,13 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <Navbar color="light" light expand="sm">
-        <NavbarBrand href="/">RepliCode</NavbarBrand>
+        <NavbarBrand href="/home">RepliCode</NavbarBrand>
         <Collapse isOpen={true} navbar>
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/home">Lessons</NavLink>
+              </NavItem>
               <NavItem>
                 <div onClick={this.clicker}>
                   <NavLink href="/">Logout</NavLink>
@@ -24,6 +27,9 @@ class NavigationBar extends React.Component {
             </Nav>
           ) : (
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/home">Lessons</NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink href="/login">Login</NavLink>
               </NavItem>
