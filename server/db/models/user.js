@@ -30,9 +30,9 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     //   // Making `.password` act like a func hides it when serializing to JSON.
     //   // This is a hack to get around Sequelize's lack of a "private" option.
-    //   get() {
-    //     return () => this.getDataValue('password');
-    //   },
+    get() {
+      return () => this.getDataValue('password');
+    },
   },
   // salt: {
   //   type: Sequelize.STRING,
@@ -52,6 +52,12 @@ module.exports = User;
 // User.prototype.correctPassword = function(candidatePwd) {
 //   return User.encryptPassword(candidatePwd, this.salt()) === this.password();
 // };
+
+//copy for demo
+User.prototype.correctPassword = function(candidatePwd) {
+  return this.password() === candidatePwd;
+  // User.encryptPassword(candidatePwd, this.salt()) === this.password();
+};
 
 /**
  * classMethods

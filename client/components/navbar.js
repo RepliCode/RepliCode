@@ -17,10 +17,13 @@ class NavigationBar extends React.Component {
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/home">Lessons</NavLink>
+                <NavLink href="/teacher">Teacher Page</NavLink>
               </NavItem>
               <NavItem>
-                <div onClick={this.clicker}>
+                <NavLink href="/student">Student Page</NavLink>
+              </NavItem>
+              <NavItem>
+                <div onClick={this.props.handleClick}>
                   <NavLink href="/">Logout</NavLink>
                 </div>
               </NavItem>
@@ -77,6 +80,7 @@ class NavigationBar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+    isCreator: state.user.isCreator,
   };
 };
 
