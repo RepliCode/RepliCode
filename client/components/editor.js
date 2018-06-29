@@ -52,27 +52,29 @@ import 'brace/ext/searchbox';
 const defaultValue = ``;
 class Editor extends Component {
   componentDidUpdate(prevProps) {
-    if (
-      this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
-      this.props.recorder.isRecord
-    ) {
-      // this may or may not work. Look here if errors occur
-      this.timeStampObject = {};
-      this.onChange(this.state.value);
-    } else if (
-      this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
-      !this.props.recorder.isRecord
-    ) {
-      this.props.setTimestamps(this.timeStampObject);
+    if (this.props.user.isCreator) {
+      if (
+        this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
+        this.props.recorder.isRecord
+      ) {
+        // this may or may not work. Look here if errors occur
+        this.timeStampObject = {};
+        this.onChange(this.state.value);
+      } else if (
+        this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
+        !this.props.recorder.isRecord
+      ) {
+        this.props.setTimestamps(this.timeStampObject);
+      }
+      if (
+        this.props.recorder.blobURL !== prevProps.recorder.blobURL &&
+        !this.props.recorder.blobURL
+      ) {
+        this.onChange('');
+      }
     }
     if (this.props.isPlayback) {
       this.togglePlayback();
-    }
-    if (
-      this.props.recorder.blobURL !== prevProps.recorder.blobURL &&
-      !this.props.recorder.blobURL
-    ) {
-      this.onChange('');
     }
   }
   onLoad() {
@@ -165,6 +167,7 @@ class Editor extends Component {
     this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
+    console.log('user', this.props);
     return (
       <Row>
         <Col>
@@ -183,8 +186,8 @@ class Editor extends Component {
             showPrintMargin={this.state.showPrintMargin}
             showGutter={this.state.showGutter}
             highlightActiveLine={this.state.highlightActiveLine}
-            height={'75vh'}
-            width={'40vw'}
+            height="75vh"
+            width="40vw"
             setOptions={{
               enableBasicAutocompletion: this.state.enableBasicAutocompletion,
               enableLiveAutocompletion: this.state.enableLiveAutocompletion,
@@ -207,6 +210,7 @@ const mapState = state => {
     recorder: state.recorder,
     editor: state.editor,
     isPlayback: state.recorder.isPlayback,
+    user: state.user,
   };
 };
 
