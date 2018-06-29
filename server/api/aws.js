@@ -32,16 +32,15 @@ router.post('/:userId/upload', upload.any(), (req, res, next) => {
       ContentType: 'audio/webm',
       ACL: 'public-read',
     };
-    console.log('Throw a label on there', fileName);
-    res.send(fileName);
-    // let putObjectPromise = s3.putObject(s3request).promise();
 
-    // putObjectPromise
-    //   .then(data => {
-    //     console.log('Upload Successful');
-    //     res.send(fileName);
-    //   })
-    //   .catch(next);
+    let putObjectPromise = s3.putObject(s3request).promise();
+
+    putObjectPromise
+      .then(data => {
+        console.log('Upload Successful');
+        res.send(fileName);
+      })
+      .catch(next);
   }
 });
 

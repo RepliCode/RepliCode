@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import { Login, Signup, UserHome } from './components';
 import { me } from './store';
 import LandingPage from './components/landingPage';
+=======
+import { Login, Signup, UserHome, SingleLesson, TeacherRecording } from './components';
+import { me, getLessonsThunk } from './store';
+>>>>>>> 6d32476abb526dfc708bf08864f594575b9f8f92
 
 /**
  * COMPONENT
@@ -51,6 +56,10 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me());
+<<<<<<< HEAD
+=======
+      dispatch(getLessonsThunk());
+>>>>>>> 6d32476abb526dfc708bf08864f594575b9f8f92
     },
   };
 };

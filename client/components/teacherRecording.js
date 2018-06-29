@@ -89,10 +89,10 @@ class TeacherRecording extends Component {
     return (
       <Container>
         <Row>
-          <Col xs="6">
+          <Col xs="6" md="6" lg="6" xlg="6">
             <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
           </Col>
-          <Col xs="6">
+          <Col xs="6" md="6" lg="6" xlg="6">
             <Console
               timeStamps={this.consoleTimeStamp}
               consoleValue={this.state.consoleCode}
