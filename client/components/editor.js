@@ -177,6 +177,7 @@ class Editor extends Component {
             mode={this.state.mode}
             theme={this.state.theme}
             wrapEnabled={true}
+            readOnly={!!this.props.isPlayback}
             name="blah2"
             onLoad={this.onLoad}
             onChange={this.onChange}
