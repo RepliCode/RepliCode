@@ -36,7 +36,7 @@ class SingleLesson extends Component {
   filterLesson() {
     // let lessonId = Number(this.props.match.params.lessonId)
     // this.props.lessons.filter(lesson => lesson.id === lessonId)
-    let hardCodedLesson = this.props.lessons[6];
+    let hardCodedLesson = this.props.lessons[this.props.lessons.length - 1];
     console.log('hard', hardCodedLesson);
     this.setState({ lesson: hardCodedLesson });
     this.props.setTextState(hardCodedLesson.editor);
