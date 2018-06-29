@@ -75,6 +75,7 @@ class Editor extends Component {
       }
     }
     if (this.props.isPlayback) {
+      this.audioIntervals = [this.audioIntervals[this.audioIntervals.length - 1]];
       this.togglePlayback();
     }
   }
@@ -168,7 +169,7 @@ class Editor extends Component {
     this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
-    console.log('user', this.props);
+    console.log('intervals time', this.audioIntervals);
     return (
       <Row>
         <Col>

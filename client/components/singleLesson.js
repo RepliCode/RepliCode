@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { startPlay, stopPlay, runCode, setConsoleState } from '../store';
+import {
+  startPlay,
+  stopPlay,
+  runCode,
+  setConsoleState,
+  deleteConsoleState,
+  setTextState,
+} from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
 import 'brace/mode/jsx';
@@ -29,9 +36,10 @@ class SingleLesson extends Component {
   filterLesson() {
     // let lessonId = Number(this.props.match.params.lessonId)
     // this.props.lessons.filter(lesson => lesson.id === lessonId)
-    let hardCodedLesson = this.props.lessons[3];
+    let hardCodedLesson = this.props.lessons[5];
     console.log('hard', hardCodedLesson);
-    // this.setState({ lesson: hardCodedLesson });
+    this.setState({ lesson: hardCodedLesson });
+    this.props.setTextState(hardCodedLesson.editor);
   }
   componentDidUpdate(prevProps) {
     if (this.props.lessons !== prevProps.lessons) {
@@ -62,8 +70,8 @@ class SingleLesson extends Component {
   }
 
   render() {
-    console.log('lesson', this.props.lessons);
-    return (
+    console.log('single lesson playback', this.state.playbackTime);
+    return this.state.lesson.audioURL ? (
       <Container>
         <Row>
           <Col xs="6">
@@ -73,10 +81,13 @@ class SingleLesson extends Component {
             <Col>
               <audio
                 controls
-                src="test"
+                src={this.state.lesson.audioURL}
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
+                onEnded={event => {
+                  console.log('done', event.target.currentTime);
+                }}
               />
               <Row>
                 <Col>
@@ -92,7 +103,7 @@ class SingleLesson extends Component {
           </Col>
         </Row>
       </Container>
-    );
+    ) : null;
   }
 }
 
@@ -116,6 +127,7 @@ const mapDispatch = dispatch => {
     stopPlay: () => dispatch(stopPlay()),
     evaluateCode: code => dispatch(runCode(code)),
     deleteConsoleState: () => dispatch(deleteConsoleState()),
+    setTextState: timestamps => dispatch(setTextState(timestamps)),
   };
 };
 
