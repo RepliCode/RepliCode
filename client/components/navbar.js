@@ -11,7 +11,7 @@ class NavigationBar extends React.Component {
 
   render() {
     return (
-      <Navbar color="light" light expand="sm">
+      <Navbar color="info" light expand="sm">
         <NavbarBrand href="/home">RepliCode</NavbarBrand>
         <Collapse isOpen={true} navbar>
           {this.props.isLoggedIn ? (
