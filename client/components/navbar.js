@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '../store';
 import { Collapse, Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { AuthModal } from './index';
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -38,6 +39,9 @@ class NavigationBar extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink href="/login">Login</NavLink>
+              </NavItem>
+              <NavItem>
+                <AuthModal />
               </NavItem>
               <NavItem>
                 <NavLink href="/signup">Signup</NavLink>
