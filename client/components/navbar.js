@@ -17,7 +17,12 @@ class NavigationBar extends React.Component {
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/teacher">Teacher Page</NavLink>
+                <button style={{ marginTop: '1em' }} className="btn btn-xs btn-success">
+                  <span className="glyphicon glyphicon-plus">+</span>
+                </button>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/">Dash Board</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/student">Student Page</NavLink>
