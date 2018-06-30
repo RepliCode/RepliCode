@@ -15,15 +15,79 @@ nav a {
   margin: 1em;
 }
 
+nav {
+  height: 50px;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.container {
+  margin-top: 18px;
+  margin-bottom: 25px;
 }
 
 .row {
   margin-bottom: 10px;
 }
 
+.recordFooter {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #e5f5a3;
+  color: white;
+  text-align: center;
+}
+
+.sound-wave {
+  margin-top: 5px;
+  width: 500px;
+  height: 40px;
+}
+
+.bg-info {
+  background-color: #e5f5a3 !important;
+}
+
 .navbar {
-  margin-bottom: 20px;
+  background-color: #e5f5a3 !important;
+}
+
+.button {
+  margin: auto;
+  width: 35px;
+  height: 35px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.inner {
+  background-color: #9e1919;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  transform: scale(0.94);
+}
+
+.button.active .inner {
+  transform: scale(0.5);
+  border-radius: 12%;
+}
+
+.editor-console-flex {
+  display: flex;
+}
+
+.editor {
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px grey;
 }
