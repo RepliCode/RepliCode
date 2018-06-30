@@ -38,13 +38,10 @@ class NavigationBar extends React.Component {
                 <NavLink href="/student">Student Page</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/login">Login</NavLink>
+                <AuthModal display="Login" />
               </NavItem>
               <NavItem>
-                <AuthModal />
-              </NavItem>
-              <NavItem>
-                <NavLink href="/signup">Signup</NavLink>
+                <AuthModal display="Signup" />
               </NavItem>
             </Nav>
           )}

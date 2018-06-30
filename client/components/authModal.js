@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, NavLink } from 'reactstrap';
 
 class AuthModal extends React.Component {
@@ -20,7 +21,7 @@ class AuthModal extends React.Component {
   render() {
     return (
       <div>
-        <NavLink onClick={this.toggle}>Login</NavLink>
+        <NavLink onClick={this.toggle}>{this.props.display}</NavLink>
         <Modal
           isOpen={this.state.modal}
           modalTransition={{ timeout: 500 }}
@@ -29,9 +30,19 @@ class AuthModal extends React.Component {
           className={this.props.className}
         >
           <ModalBody style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
-            <Button style={{ display: 'flex', alignItems: 'center' }}>
-              <i className="fab fa-github-square fa-3x" style={{ marginRight: '1rem' }} /> Login
-              with GitHub
+            <Button>
+              <a
+                href="/auth/github"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                <i className="fab fa-github-square fa-3x" style={{ marginRight: '1rem' }} />{' '}
+                {this.props.display} with GitHub
+              </a>
             </Button>
           </ModalBody>
           <ModalFooter>
@@ -45,4 +56,4 @@ class AuthModal extends React.Component {
   }
 }
 
-export default AuthModal;
+export default connect(null, null)(AuthModal);
