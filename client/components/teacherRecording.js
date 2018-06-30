@@ -46,6 +46,7 @@ class TeacherRecording extends Component {
   }
 
   startStopRecording = () => {
+    //this may need to get updated to passing in event and dotting off the event.
     let element = document.getElementsByClassName('button')[0];
     element.classList.toggle('active');
     if (this.props.recorder.isRecord) {
