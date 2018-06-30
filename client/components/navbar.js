@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <Navbar color="info" light expand="sm">
-        <NavbarBrand href="/home">RepliCode</NavbarBrand>
+        <NavbarBrand href="/">RepliCode</NavbarBrand>
         <Collapse isOpen={true} navbar>
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
