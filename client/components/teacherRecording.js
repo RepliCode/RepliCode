@@ -15,7 +15,18 @@ import {
   deleteConsoleState,
 } from '../store';
 import { Recorder, Editor, RecordingForm, Console } from './index';
-import { Container, Row, Col, Button } from 'reactstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Collapse,
+} from 'reactstrap';
 import 'brace/mode/jsx';
 
 class TeacherRecording extends Component {
@@ -35,6 +46,9 @@ class TeacherRecording extends Component {
   }
 
   startStopRecording = () => {
+    //this may need to get updated to passing in event and dotting off the event.
+    let element = document.getElementsByClassName('button')[0];
+    element.classList.toggle('active');
     if (this.props.recorder.isRecord) {
       this.props.stop();
     } else {
@@ -87,63 +101,74 @@ class TeacherRecording extends Component {
   render() {
     console.log('PRIZZOPSZZ', this.props);
     return (
-      <Container>
-        <Row>
-          <Col xs="6" md="6" lg="6" xlg="6">
-            <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
-          </Col>
-          <Col xs="6" md="6" lg="6" xlg="6">
-            <Console
-              timeStamps={this.consoleTimeStamp}
-              consoleValue={this.state.consoleCode}
-              playbackTime={this.state.playbackTime}
-            />
-          </Col>
-        </Row>
-        <Row>
-          {this.props.blobURL ? (
-            <Col>
-              <p>Preview Recording: </p>
+      <div>
+        <Container>
+          <Row>
+            <Col className="editor-console-flex col-6">
+              <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
+            </Col>
+            <Col className="editor-console-flex col-6">
+              <Console
+                timeStamps={this.consoleTimeStamp}
+                consoleValue={this.state.consoleCode}
+                playbackTime={this.state.playbackTime}
+              />
+            </Col>
+          </Row>
+        </Container>
+        {this.props.blobURL ? (
+          <div className="recordFooter">
+            <Col className="display-block col-1 offset-2">
+              <RecordingForm />
+            </Col>
+            <Col className="display-block col-1">
+              <Button
+                className="footer-button"
+                color="danger"
+                onClick={() => {
+                  this.props.deleteBlob();
+                  this.props.deleteTextState();
+                  this.props.deleteConsoleState();
+                }}
+                type="button"
+              >
+                Delete
+              </Button>
+            </Col>
+            <Col className="display-block">
               <audio
+                className="footer-button"
                 controls
                 src={this.props.blobURL}
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
               />
-              <p>Are you happy with your recording?</p>
-              <Row>
-                <Col>
-                  <RecordingForm />
-                </Col>
-                <Col>
-                  <Button
-                    onClick={() => {
-                      this.props.deleteBlob();
-                      this.props.deleteTextState();
-                      this.props.deleteConsoleState();
-                    }}
-                    type="button"
-                  >
-                    No, try again
-                  </Button>
-                </Col>
-                <Col>
-                  <Button onClick={this.run}>Run</Button>
-                </Col>
-              </Row>
             </Col>
-          ) : (
-            <Col className="display-block" md={{ size: 8, offset: 2 }}>
-              <Recorder />
-              <Button onClick={this.startStopRecording} type="button">
-                Start/Stop
+            <Col className="display-block">
+              <Button className="footer-button" color="info" onClick={this.run}>
+                Run
               </Button>
-              <Button onClick={this.run}>Run</Button>
             </Col>
-          )}
-        </Row>
-      </Container>
+          </div>
+        ) : (
+          <div className="recordFooter">
+            <Col className="display-block">
+              <div className="button" onClick={this.startStopRecording}>
+                <div className="inner" />
+              </div>
+            </Col>
+            <Col className="display-block">
+              <Recorder />
+            </Col>
+            <Col className="display-block">
+              <Button color="info footer-button" onClick={this.run}>
+                Run
+              </Button>
+            </Col>
+          </div>
+        )}
+      </div>
     );
   }
 }

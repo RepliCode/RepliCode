@@ -166,20 +166,17 @@ class Console extends Component {
   }
   render() {
     return (
-      <Row>
-        <Col>
-          <AceEditor
-            mode="javascript"
-            theme="solarized_dark"
-            readOnly={true}
-            fontSize={14}
-            height={'65vh'}
-            width={'40vw'}
-            showGutter={false}
-            value={this.state.value}
-          />
-        </Col>
-      </Row>
+      <AceEditor
+      className="editor"
+        mode="javascript"
+        theme="monokai"
+        readOnly={true}
+        fontSize={14}
+        height={'80vh'}
+        width={'40vw'}
+        showGutter={false}
+        value={this.state.value}
+      />
     );
   }
 }

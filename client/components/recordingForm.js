@@ -52,8 +52,8 @@ class RecordingForm extends React.Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.toggle}>
-          Yes, continue
+        <Button className="footer-button" color="primary" onClick={this.toggle}>
+          Submit Recording
         </Button>
         <Modal
           isOpen={this.state.modal}

@@ -23,8 +23,8 @@ class Recorder extends React.Component {
           record={this.props.isRecord}
           className="sound-wave"
           onStop={this.onStop}
-          strokeColor="#000000"
-          backgroundColor="#949AA5"
+          strokeColor="#AF261F"
+          backgroundColor="#F6FBE0"
         />
       </div>
     );

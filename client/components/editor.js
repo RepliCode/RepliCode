@@ -148,7 +148,7 @@ class Editor extends Component {
     super(props);
     this.state = {
       value: defaultValue,
-      theme: 'solarized_dark',
+      theme: 'solarized_light',
       mode: 'javascript',
       enableBasicAutocompletion: false,
       enableLiveAutocompletion: true,
@@ -171,36 +171,33 @@ class Editor extends Component {
   render() {
     console.log('intervals time', this.audioIntervals);
     return (
-      <Row>
-        <Col>
-          <AceEditor
-            mode={this.state.mode}
-            theme={this.state.theme}
-            wrapEnabled={true}
-            readOnly={!!this.props.isPlayback}
-            name="blah2"
-            onLoad={this.onLoad}
-            onChange={this.onChange}
-            onSelectionChange={this.onSelectionChange}
-            onCursorChange={this.onCursorChange}
-            onValidate={this.onValidate}
-            value={this.state.value}
-            fontSize={this.state.fontSize}
-            showPrintMargin={this.state.showPrintMargin}
-            showGutter={this.state.showGutter}
-            highlightActiveLine={this.state.highlightActiveLine}
-            height={'65vh'}
-            width={'40vw'}
-            setOptions={{
-              enableBasicAutocompletion: this.state.enableBasicAutocompletion,
-              enableLiveAutocompletion: this.state.enableLiveAutocompletion,
-              enableSnippets: this.state.enableSnippets,
-              showLineNumbers: this.state.showLineNumbers,
-              tabSize: 2,
-            }}
-          />
-        </Col>
-      </Row>
+      <AceEditor
+      className="editor"
+        mode={this.state.mode}
+        theme={this.state.theme}
+        wrapEnabled={true}
+        readOnly={!!this.props.isPlayback}
+        name="blah2"
+        onLoad={this.onLoad}
+        onChange={this.onChange}
+        onSelectionChange={this.onSelectionChange}
+        onCursorChange={this.onCursorChange}
+        onValidate={this.onValidate}
+        value={this.state.value}
+        fontSize={this.state.fontSize}
+        showPrintMargin={this.state.showPrintMargin}
+        showGutter={this.state.showGutter}
+        highlightActiveLine={this.state.highlightActiveLine}
+        height={'80vh'}
+        width={'40vw'}
+        setOptions={{
+          enableBasicAutocompletion: this.state.enableBasicAutocompletion,
+          enableLiveAutocompletion: this.state.enableLiveAutocompletion,
+          enableSnippets: this.state.enableSnippets,
+          showLineNumbers: this.state.showLineNumbers,
+          tabSize: 2,
+        }}
+      />
     );
   }
 }
