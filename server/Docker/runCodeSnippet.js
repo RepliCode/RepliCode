@@ -14,12 +14,13 @@ function stopDocker(name) {
   });
 }
 function runCodeSnippet(codeSnippet, name) {
+  const cleanerCode = codeSnippet.replace(/["]/g, "'");
   stopDocker(name)
     .then(console.log)
     .catch(console.log);
   return new Promise((resolve, reject) => {
     exec(
-      `docker run --rm --name "${name}" replicode:latest node evaluate.js "${codeSnippet}"`,
+      `docker run --rm --name "${name}" replicode:latest node evaluate.js "${cleanerCode}"`,
       function(err, stdout, stderr) {
         if (err !== null) {
           let errorOutput = stderr === '' ? 'Your code timed out!!!!' : stderr;
