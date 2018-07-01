@@ -14,4 +14,4 @@ export { default as Console } from './console';
 export { default as SingleLesson } from './singleLesson';
 export { default as Lessons } from './lessons';
 export { default as AuthModal } from './authModal';
-export { default as CategoryCard } from './categoryCard';
+export { default as LessonCard } from './lessonCard';

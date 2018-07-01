@@ -10,8 +10,8 @@ const categoryCard = props => {
     <div className="card" style={{ width: '18rem' }}>
       <img className="card-img-top" src={img} alt="Card image cap" />
       <div className="card-body">
-        <h5 className="card-title">{props.category.name}</h5>
-        <a href="#" className="btn btn-info">
+        <h5 className="card-title">{props.lesson.title}</h5>
+        <a href={`/lessons/${props.lesson.id}`} className="btn btn-info">
           See Lessons
         </a>
       </div>
