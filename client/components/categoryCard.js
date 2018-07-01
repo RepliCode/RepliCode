@@ -13,6 +13,7 @@ const categoryCard = props => {
         <h5 className="card-title">{props.category.name}</h5>
         <a href="#" className="btn btn-info">
           See Lessons
+        </a>
       </div>
     </div>
   );
