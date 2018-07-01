@@ -3,6 +3,9 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const User = db.define('user', {
+  githubId: {
+    type: Sequelize.STRING,
+  },
   // name: {
   //   type: Sequelize.STRING,
   //   allowNull: false,

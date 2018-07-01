@@ -14,6 +14,9 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
+a:hover {
+  cursor: pointer;
+}
 
 nav {
   height: 50px;
