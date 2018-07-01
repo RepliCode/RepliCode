@@ -34,13 +34,15 @@ class SingleLesson extends Component {
     this.setState({ editorCode });
   }
   filterLesson() {
-    // let lessonId = Number(this.props.match.params.lessonId)
-    // this.props.lessons.filter(lesson => lesson.id === lessonId)
-    let hardCodedLesson = this.props.lessons[this.props.lessons.length - 1];
-    console.log('hard', hardCodedLesson);
-    this.setState({ lesson: hardCodedLesson });
-    this.props.setTextState(hardCodedLesson.editor);
-    this.props.setConsoleState(hardCodedLesson.console);
+    let lessonId = Number(this.props.match.params.lessonId);
+    let lesson = this.props.lessons.filter(lesson => lesson.id === lessonId)[0] || {
+      editor: {},
+      console: {},
+    };
+    this.setState({ lesson });
+    console.log('lesson: ', lesson);
+    this.props.setTextState(lesson.editor);
+    this.props.setConsoleState(lesson.console);
   }
   componentDidUpdate(prevProps) {
     if (this.props.lessons !== prevProps.lessons) {
@@ -72,39 +74,50 @@ class SingleLesson extends Component {
 
   render() {
     console.log('single lesson playback', this.state.playbackTime);
-    return this.state.lesson.audioURL ? (
-      <Container>
-        <Row>
-          <Col xs="6">
-            <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
-          </Col>
-          <Col xs="6">
-            <Col>
+    //this.state.lesson.audioURL
+    return (
+      <div>
+        <Container>
+          <Row>
+            <Col className="editor-console-flex col-6">
+              <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
+            </Col>
+            <Col className="editor-console-flex col-6">
+              <Console
+                timeStamps={this.consoleTimeStamp}
+                consoleValue={this.state.consoleCode}
+                playbackTime={this.state.playbackTime}
+              />
+            </Col>
+          </Row>
+        </Container>
+        {this.state.lesson.audioURL ? (
+          <div className="recordFooter">
+            <Col className="display-block">
               <audio
+                className="footer-button"
                 controls
                 src={this.state.lesson.audioURL}
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
-                onEnded={event => {
-                  console.log('done', event.target.currentTime);
-                }}
               />
-              <Row>
-                <Col>
-                  <Button onClick={this.run}>Run</Button>
-                </Col>
-              </Row>
             </Col>
-            <Console
-              timeStamps={this.consoleTimeStamp}
-              consoleValue={this.state.consoleCode}
-              playbackTime={this.state.playbackTime}
-            />
-          </Col>
-        </Row>
-      </Container>
-    ) : null;
+            <Col className="display-block">
+              <Button className="footer-button" color="info" onClick={this.run}>
+                Run
+              </Button>
+            </Col>
+          </div>
+        ) : (
+          <div className="recordFooter">
+            <Col className="display-block">
+              <h1 style={{ color: 'black' }}>This Lesson Cannot Be Found!!!</h1>
+            </Col>
+          </div>
+        )}
+      </div>
+    );
   }
 }
 

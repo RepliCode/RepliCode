@@ -19,7 +19,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/student" component={SingleLesson} />
+        <Route path="/student/:lessonId" component={SingleLesson} />
         <Route path="/teacher" component={TeacherRecording} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
