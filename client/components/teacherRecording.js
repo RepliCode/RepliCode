@@ -150,12 +150,12 @@ class TeacherRecording extends Component {
         </Container>
         <div className="recordFooter">
           <Col className="display-block">
-            {/*<Button onClick={this.startStopRecording} type="button">
+            <Button onClick={this.startStopRecording} type="button">
               Start/Stop
-          </Button>*/}
-            <div class="button">
+          </Button>
+            {/*<div class="button">
               <div class="inner" />
-            </div>
+            </div>*/}
           </Col>
           <Col className="display-block">
             <Recorder />
