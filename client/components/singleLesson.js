@@ -72,9 +72,9 @@ class SingleLesson extends Component {
   }
 
   openNav() {
-    document.getElementById('mySidenav').style.width = '350px';
-    document.getElementsByClassName('container')[0].style.marginLeft = '350px';
-    document.getElementsByClassName('container')[0].style.width = 'calc(100% - 350px)';
+    document.getElementById('mySidenav').style.width = '30vw';
+    document.getElementsByClassName('container')[0].style.marginLeft = '30vw';
+    document.getElementsByClassName('container')[0].style.width = 'calc(100% - 30vw)';
   }
 
   closeNav() {
