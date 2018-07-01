@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Login, Signup, UserHome, LandingPage, SingleLesson, TeacherRecording } from './components';
+import { Login, Signup, UserHome, Lessons, SingleLesson, TeacherRecording } from './components';
 import { me, getLessonsThunk } from './store';
 
 /**
@@ -19,8 +19,9 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/student/:lessonId" component={SingleLesson} />
-        <Route path="/teacher" component={TeacherRecording} />
+        <Route exact path="/lessons" component={Lessons} />
+        <Route path="/lessons/:lessonId" component={SingleLesson} />
+        <Route path="/create" component={TeacherRecording} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (

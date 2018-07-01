@@ -18,10 +18,10 @@ class NavigationBar extends React.Component {
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/teacher">Teacher Page</NavLink>
+                <NavLink href="/create">Create Lesson</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/student">Student Page</NavLink>
+                <NavLink href="/lessons">View Lesson</NavLink>
               </NavItem>
               <NavItem>
                 <div onClick={this.props.handleClick}>

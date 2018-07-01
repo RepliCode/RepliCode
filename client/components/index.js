@@ -12,5 +12,5 @@ export { default as TeacherRecording } from './teacherRecording';
 export { default as RecordingForm } from './recordingForm';
 export { default as Console } from './console';
 export { default as SingleLesson } from './singleLesson';
-export { default as LandingPage } from './landingPage';
+export { default as Lessons } from './lessons';
 export { default as AuthModal } from './authModal';
