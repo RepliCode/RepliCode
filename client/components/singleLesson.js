@@ -93,7 +93,7 @@ class SingleLesson extends Component {
         </Container>
         {this.state.lesson.audioURL ? (
           <div className="recordFooter">
-            <Col className="display-block">
+            <Col className="display-block offset-4">
               <audio
                 className="footer-button"
                 controls
