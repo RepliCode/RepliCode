@@ -146,7 +146,7 @@ class TeacherRecording extends Component {
               />
             </Col>
             <Col className="display-block">
-              <Button className="footer-button" color="info" onClick={this.run}>
+              <Button className="footer-button" size="lg" color="info" onClick={this.run}>
                 Run
               </Button>
             </Col>
@@ -162,7 +162,7 @@ class TeacherRecording extends Component {
               <Recorder />
             </Col>
             <Col className="display-block">
-              <Button color="info footer-button" onClick={this.run}>
+              <Button color="info footer-button" size="lg" onClick={this.run}>
                 Run
               </Button>
             </Col>
