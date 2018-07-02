@@ -143,9 +143,7 @@ class SingleLesson extends Component {
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
-                onEnded={event => {	
--                  console.log('done', event.target.currentTime);	
--                }}
+                onEnded={event => console.log('done', event.target.currentTime)}
               />
             </Col>
             <Col className="display-block">
