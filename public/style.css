@@ -48,6 +48,8 @@ form div {
 .recordFooter {
   position: fixed;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   left: 0;
   bottom: 0;
@@ -198,4 +200,8 @@ form div {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+audio {
+  width: 50vw;
 }

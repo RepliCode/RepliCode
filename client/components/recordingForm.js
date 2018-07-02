@@ -52,7 +52,7 @@ class RecordingForm extends React.Component {
   render() {
     return (
       <div>
-        <Button className="footer-button" color="primary" onClick={this.toggle}>
+        <Button className="footer-button" size="lg" color="primary" onClick={this.toggle}>
           Submit Recording
         </Button>
         <Modal

@@ -118,13 +118,14 @@ class TeacherRecording extends Component {
         </Container>
         {this.props.blobURL ? (
           <div className="recordFooter">
-            <Col className="display-block col-1 offset-1 ">
+            <div className="display-block">
               <RecordingForm />
-            </Col>
-            <Col className="display-block col-2">
+            </div>
+            <div className="display-block">
               <Button
                 className="footer-button"
                 color="danger"
+                size="lg"
                 onClick={() => {
                   this.props.deleteBlob();
                   this.props.deleteTextState();
@@ -134,22 +135,22 @@ class TeacherRecording extends Component {
               >
                 Delete
               </Button>
-            </Col>
-            <Col className="display-block">
+            </div>
+            <div className="display-block">
               <audio
-                className="footer-button"
+                // className="footer-button"
                 controls
                 src={this.props.blobURL}
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
               />
-            </Col>
-            <Col className="display-block">
+            </div>
+            <div className="display-block">
               <Button className="footer-button" size="lg" color="info" onClick={this.run}>
                 Run
               </Button>
-            </Col>
+            </div>
           </div>
         ) : (
           <div className="recordFooter">
