@@ -167,13 +167,13 @@ class Console extends Component {
   render() {
     return (
       <AceEditor
-      className="editor"
+        className="editor"
         mode="javascript"
         theme="monokai"
         readOnly={true}
         fontSize={14}
-        height={'80vh'}
-        width={'40vw'}
+        height="calc(100vh - 15rem)"
+        width="40vw"
         showGutter={false}
         value={this.state.value}
       />
