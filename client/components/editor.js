@@ -35,6 +35,7 @@ const themes = [
   'solarized_dark',
   'solarized_light',
   'terminal',
+  'sqlserver',
 ];
 
 languages.forEach(lang => {
@@ -148,7 +149,7 @@ class Editor extends Component {
     super(props);
     this.state = {
       value: defaultValue,
-      theme: 'solarized_light',
+      theme: 'sqlserver',
       mode: 'javascript',
       enableBasicAutocompletion: false,
       enableLiveAutocompletion: true,
@@ -172,7 +173,7 @@ class Editor extends Component {
     console.log('intervals time', this.audioIntervals);
     return (
       <AceEditor
-      className="editor"
+        className="editor"
         mode={this.state.mode}
         theme={this.state.theme}
         wrapEnabled={true}

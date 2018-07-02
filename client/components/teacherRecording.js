@@ -118,10 +118,10 @@ class TeacherRecording extends Component {
         </Container>
         {this.props.blobURL ? (
           <div className="recordFooter">
-            <Col className="display-block col-1 offset-2">
+            <Col className="display-block col-1 offset-1 ">
               <RecordingForm />
             </Col>
-            <Col className="display-block col-1">
+            <Col className="display-block col-2">
               <Button
                 className="footer-button"
                 color="danger"

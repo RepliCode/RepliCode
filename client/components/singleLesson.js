@@ -34,13 +34,14 @@ class SingleLesson extends Component {
     this.setState({ editorCode });
   }
   filterLesson() {
-    // let lessonId = Number(this.props.match.params.lessonId)
-    // this.props.lessons.filter(lesson => lesson.id === lessonId)
-    let hardCodedLesson = this.props.lessons[this.props.lessons.length - 1];
-    console.log('hard', hardCodedLesson);
-    this.setState({ lesson: hardCodedLesson });
-    this.props.setTextState(hardCodedLesson.editor);
-    this.props.setConsoleState(hardCodedLesson.console);
+    let lessonId = Number(this.props.match.params.lessonId);
+    let lesson = this.props.lessons.filter(lesson => lesson.id === lessonId)[0] || {
+      editor: {},
+      console: {},
+    };
+    this.setState({ lesson });
+    this.props.setTextState(lesson.editor);
+    this.props.setConsoleState(lesson.console);
   }
   componentDidUpdate(prevProps) {
     if (this.props.lessons !== prevProps.lessons) {
@@ -70,41 +71,98 @@ class SingleLesson extends Component {
     this.setState({ playbackTime: currentTime });
   }
 
+  openNav() {
+    document.getElementById('mySidenav').style.width = '30vw';
+    document.getElementsByClassName('container')[0].style.marginLeft = '30vw';
+    document.getElementsByClassName('container')[0].style.width = 'calc(100% - 30vw)';
+  }
+
+  closeNav() {
+    document.getElementById('mySidenav').style.width = '0';
+    document.getElementsByClassName('container')[0].style.marginLeft = '70px';
+    document.getElementsByClassName('container')[0].style.width = '100%';
+  }
+
   render() {
-    console.log('single lesson playback', this.state.playbackTime);
-    return this.state.lesson.audioURL ? (
-      <Container>
-        <Row>
-          <Col xs="6">
-            <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
-          </Col>
-          <Col xs="6">
-            <Col>
+    console.log('single lesson playback');
+    //this.state.lesson.audioURL
+    return (
+      <div>
+        <div id="mySidenav" className="sidenav">
+          <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
+            &times;
+          </a>
+          <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
+          <p>
+            this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
+            a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lesson
+          </p>
+          <iframe
+            //https://docs.google.com/presentation/d/e/2PACX-1vRJXfqGzbK5vJUp5um-Ucm_vF5PonpkDMWA7HORbVqLlYZusMTyjuedpsJTKilHUI8RUqd_EOoytxEy/embed?start=false&loop=false&delayms=3000
+            src="https://docs.google.com/presentation/d/e/2PACX-1vQO_HQnIUQ8dTJB_kx8V54K9kPR2_eEqp3oFNYpDzReDz8M3ec8Cg58HBh9HVOwevy1vCsfXlMDS8vM/embed"
+            frameBorder="0"
+            width="100%"
+            height="50%"
+            allowFullScreen="true"
+            mozallowfullscreen="true"
+            webkitllowfullscreen="true"
+          />
+        </div>
+        <Container>
+          <Row>
+            <Col className="editor-console-flex col-6">
+              <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
+            </Col>
+            <Col className="editor-console-flex col-6">
+              <Console
+                timeStamps={this.consoleTimeStamp}
+                consoleValue={this.state.consoleCode}
+                playbackTime={this.state.playbackTime}
+              />
+            </Col>
+          </Row>
+        </Container>
+        {this.state.lesson.audioURL ? (
+          <div className="recordFooter">
+            <span
+              style={{ fontSize: '30px', cursor: 'pointer', color: 'black', marginLeft: '2rem' }}
+              onClick={this.openNav}
+            >
+              &#9432;
+            </span>
+
+            <Col className="display-block offset-3">
               <audio
+                className="footer-button"
                 controls
                 src={this.state.lesson.audioURL}
                 onTimeUpdate={this.onPlayback}
                 onPlay={this.props.startPlay}
                 onPause={this.props.stopPlay}
-                onEnded={event => {
-                  console.log('done', event.target.currentTime);
-                }}
+                onEnded={event => {	
+-                  console.log('done', event.target.currentTime);	
+-                }}
               />
-              <Row>
-                <Col>
-                  <Button onClick={this.run}>Run</Button>
-                </Col>
-              </Row>
             </Col>
-            <Console
-              timeStamps={this.consoleTimeStamp}
-              consoleValue={this.state.consoleCode}
-              playbackTime={this.state.playbackTime}
-            />
-          </Col>
-        </Row>
-      </Container>
-    ) : null;
+            <Col className="display-block">
+              <Button className="footer-button" color="info" onClick={this.run}>
+                Run
+              </Button>
+            </Col>
+          </div>
+        ) : (
+          <div className="recordFooter">
+            <Col className="display-block">
+              <h1 style={{ color: 'black' }}>This Lesson Cannot Be Found!!!</h1>
+            </Col>
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
