@@ -93,7 +93,24 @@ class SingleLesson extends Component {
             &times;
           </a>
           <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
-          <p>{this.state.lesson.description}</p>
+          <p>
+            this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
+            a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+            lessonthis is a lessonthis is a lessonthis is a lesson
+          </p>
+          <iframe
+            //https://docs.google.com/presentation/d/e/2PACX-1vRJXfqGzbK5vJUp5um-Ucm_vF5PonpkDMWA7HORbVqLlYZusMTyjuedpsJTKilHUI8RUqd_EOoytxEy/embed?start=false&loop=false&delayms=3000
+            src="https://docs.google.com/presentation/d/e/2PACX-1vQO_HQnIUQ8dTJB_kx8V54K9kPR2_eEqp3oFNYpDzReDz8M3ec8Cg58HBh9HVOwevy1vCsfXlMDS8vM/embed"
+            frameBorder="0"
+            width="100%"
+            height="50%"
+            allowFullScreen="true"
+            mozallowfullscreen="true"
+            webkitllowfullscreen="true"
+          />
         </div>
         <Container>
           <Row>
