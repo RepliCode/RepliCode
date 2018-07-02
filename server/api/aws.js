@@ -1,8 +1,5 @@
 const router = require('express').Router();
 let AWS = require('aws-sdk');
-let fs = require('fs');
-let path = require('path');
-//let configPath = path.join(__dirname, '../../secrets.json');
 const shortid = require('shortid');
 const multer = require('multer');
 let upload = multer();
@@ -10,7 +7,6 @@ let upload = multer();
 module.exports = router;
 
 //set up AWS config
-AWS.config.loadFromPath(configPath);
 AWS.config.setPromisesDependency(null);
 // Create an S3 client
 let s3 = new AWS.S3();
