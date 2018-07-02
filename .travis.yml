@@ -22,6 +22,6 @@ before_deploy:
 deploy:
   skip_cleanup: true # prevents travis from deleting the build
   provider: heroku
-  app: YOUR-HEROKU-APP-NAME-HERE # see README
+  app: replicode # see README
   api_key:
     secure: "mp37rsAX1FVzGBS2taqvKNWza5Zbygk7/uPtL6PZcb7PtYBfBiUGzNybdf6Hd4bIB098zEiPGUyil1OVSJZ8wwx47JXL0XkIV1NncnHPujNsjbgyQoFtZuApOMnNHBSgCzml9Tm6qjfGteOpLLIYFLYFxN7fSXaoscHAB5e4DbR50nV0Of1TTfAdBxBHZoI3U3JLtonqTxnJa9nfx4NhefIyMIRyRbB/XZ25giUGyn7TaQnAde1cYP2km2mh/62OCj6ee7Uihv3uQZjHXDZNsMcZ8pGfLMQyYwy++HrzuR+2LjNMGHDdKOh+rrNuYBhuRwT0s6vi3JR6ifQ6L1sFK188RSiaWBHXR/kh2xg+0lM3fr5VXiTym0oxIZluRGeWlC1ezhWjhAbI6Ez49NicXuUztUQ70MQqWkMRDl5e0YGenUMuYUyr60IQ0LT41LAcZsSP4GLyOQkbZj+PaWuBbsLa4ulRx+/Yf0KKexGnRhFxkzFg/RtUYTGULpDke7mG3t/WJ0VhdAx14Ee2wVUJQMEDuNJp5yYTJFG/n+dDlTr2DnkTlAYv23DFuDPtSYBaP5XZ5ZgDZOY87X6MOKfp31Br5JZapYsXC+7baWcE64yU11LaKFjswsMDPN0O4sKnrZW7AXdvpbDlH5UAjye2vwFniHq8q3Z3p1gOog7Nf4U="
