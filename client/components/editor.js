@@ -189,8 +189,8 @@ class Editor extends Component {
         showPrintMargin={this.state.showPrintMargin}
         showGutter={this.state.showGutter}
         highlightActiveLine={this.state.highlightActiveLine}
-        height={'80vh'}
-        width={'40vw'}
+        height="calc(100vh - 15rem)"
+        width="40vw"
         setOptions={{
           enableBasicAutocompletion: this.state.enableBasicAutocompletion,
           enableLiveAutocompletion: this.state.enableLiveAutocompletion,
