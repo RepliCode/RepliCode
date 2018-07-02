@@ -102,7 +102,7 @@ class TeacherRecording extends Component {
     console.log('PRIZZOPSZZ', this.props);
     return (
       <div>
-        <Container>
+        <Container className="editors-body">
           <Row>
             <Col className="editor-console-flex col-6">
               <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />

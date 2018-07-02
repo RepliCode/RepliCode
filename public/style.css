@@ -13,7 +13,9 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  /* font-family: 'Raleway:medium'; */
 }
+
 h1,
 h2,
 h3 {
@@ -57,7 +59,7 @@ form div {
 }
 
 .sound-wave {
-  margin-top: 5px;
+  margin: auto;
   width: 40rem;
   height: 4rem;
 }
@@ -189,4 +191,11 @@ form div {
   .sidenav a {
     font-size: 18px;
   }
+}
+
+.editors-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
