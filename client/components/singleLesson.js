@@ -50,7 +50,7 @@ class SingleLesson extends Component {
   }
   run() {
     return axios
-      .post('/api/sandBox', { code: this.state.editorCode })
+      .post('https://replicode-api.herokuapp.com/', { code: this.state.editorCode })
       .then(evaluation => {
         return evaluation.data;
       })
