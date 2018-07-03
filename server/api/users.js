@@ -45,7 +45,8 @@ router.post('/:userId', async (req, res, next) => {
 router.get('/:userId/subscriptions', async (req, res, next) => {
   try {
     const { userId } = req.params;
-    console.log('usrid', userId);
+    console.log('userid', userId);
+    console.log('req.user', req.user.id);
     let subscriptionsArray = await Subscription.findAll({
       where: {
         subscriberId: Number(userId),
@@ -78,9 +79,10 @@ router.put('/:userId/subscriptions', async (req, res, next) => {
       attributes: ['id', 'email'],
       include: [{ model: Lesson }],
     });
-    // let subscriberId = Number(req.user.id);
+    let subscriberId = Number(req.user.id);
+    // console.log('sub id', subscriberId);
     //this will need ot be updated to req.user.id;
-    await user.addSubscriber(req.body.user);
+    await user.addSubscriber(subscriberId);
     res.json(user);
   } catch (err) {
     next(err);

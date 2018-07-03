@@ -9,6 +9,7 @@ import {
   setConsoleState,
   deleteConsoleState,
   setTextState,
+  subscribe,
 } from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -28,6 +29,7 @@ class SingleLesson extends Component {
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
     this.filterLesson = this.filterLesson.bind(this);
+    this.subscribe = this.subscribe.bind(this);
   }
 
   getEditorCode(editorCode) {
@@ -65,6 +67,10 @@ class SingleLesson extends Component {
       })
       .catch(console.error);
   }
+  subscribe() {
+    let { userId } = this.state.lesson;
+    this.props.subscribe(userId);
+  }
 
   onPlayback(event) {
     let { currentTime } = event.target;
@@ -84,14 +90,13 @@ class SingleLesson extends Component {
   }
 
   render() {
-    console.log('single lesson playback');
-    //this.state.lesson.audioURL
     return (
       <div>
         <div id="mySidenav" className="sidenav">
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
             &times;
           </a>
+          <Button onClick={this.subscribe}> SUBSCRIBE BUTTON TEST </Button>
           <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
           <p>
             this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
@@ -175,6 +180,7 @@ const mapState = state => {
     isPlayback: state.recorder.isPlayback,
     user: state.user,
     lessons: state.lessons.lessons,
+    subscriptions: state.subscriptions.subscriptions,
   };
 };
 
@@ -186,6 +192,7 @@ const mapDispatch = dispatch => {
     deleteConsoleState: () => dispatch(deleteConsoleState()),
     setTextState: timestamps => dispatch(setTextState(timestamps)),
     setConsoleState: timestamps => dispatch(setConsoleState(timestamps)),
+    subscribe: userId => dispatch(subscribe(userId)),
   };
 };
 

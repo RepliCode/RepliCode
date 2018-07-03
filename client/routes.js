@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Login, Signup, UserHome, Lessons, SingleLesson, TeacherRecording } from './components';
-import { me, getLessonsThunk } from './store';
+import { me, getLessonsThunk, getSubscriptionsThunk } from './store';
 
 /**
  * COMPONENT
@@ -12,10 +12,16 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
+      console.log('thispropsuserid,', this.props.userId);
+      this.props.getSubscriptionsThunk(this.props.userId);
+    }
+  }
 
   render() {
     const { isLoggedIn } = this.props;
-
+    console.log('****', this.props.isLoggedIn);
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -45,6 +51,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    userId: state.user.id,
   };
 };
 
@@ -53,6 +60,9 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me());
       dispatch(getLessonsThunk());
+    },
+    getSubscriptionsThunk(userId) {
+      dispatch(getSubscriptionsThunk(userId));
     },
   };
 };

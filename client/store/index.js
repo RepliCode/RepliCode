@@ -7,8 +7,9 @@ import recorder from './recorder';
 import editor from './editor';
 import consoleEditor from './console';
 import lessons from './lessons';
+import subscriptions from './subscriptions';
 
-const reducer = combineReducers({ user, recorder, editor, lessons, consoleEditor });
+const reducer = combineReducers({ user, recorder, editor, lessons, consoleEditor, subscriptions });
 
 const middleware = composeWithDevTools(
   applyMiddleware(
@@ -26,3 +27,4 @@ export * from './recorder';
 export * from './editor';
 export * from './console';
 export * from './lessons';
+export * from './subscriptions';

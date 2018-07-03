@@ -46,8 +46,8 @@ export const unSubscribe = userId => async dispatch => {
 };
 
 export const getSubscriptionsThunk = userId => async dispatch => {
-  let subscriptions = await axios.get(`/api/users/:userId/subscriptions`);
-  dispatch(getSubscriptions(subscriptions));
+  let subscriptions = await axios.get(`/api/users/${userId}/subscriptions`);
+  dispatch(getSubscriptions(subscriptions.data));
 };
 /**
  * REDUCER
