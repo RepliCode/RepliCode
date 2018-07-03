@@ -13,7 +13,9 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  /* font-family: 'Raleway:medium'; */
 }
+
 h1,
 h2,
 h3 {
@@ -46,6 +48,8 @@ form div {
 .recordFooter {
   position: fixed;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   left: 0;
   bottom: 0;
@@ -57,7 +61,7 @@ form div {
 }
 
 .sound-wave {
-  margin-top: 5px;
+  margin: auto;
   width: 40rem;
   height: 4rem;
 }
@@ -144,15 +148,15 @@ form div {
 
 /* The side navigation menu */
 .sidenav {
-  height: 85.95%; /* 100% Full-height */
+  height: calc(100vh - 10rem);
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
-  top: 3.15rem; /* Stay at the top */
+  top: 5rem; /* Stay at the top */
   left: 0;
   background-color: #a4bb66;
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 1rem;
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -189,4 +193,15 @@ form div {
   .sidenav a {
     font-size: 18px;
   }
+}
+
+.editors-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+audio {
+  width: 50vw;
 }

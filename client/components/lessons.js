@@ -72,14 +72,20 @@ class Lessons extends React.Component {
   render() {
     return (
       <div>
-        <div className="jumbotron jumbotron-fluid">
+        {/* <div className="jumbotron jumbotron-fluid">
           <div className="container text-center">
             <h1 className="display-3 ">This is RepliCode!</h1>
             <p className="lead">
               A content creation platform for audio lead interacive coding walkthroughs.
             </p>
           </div>
-        </div>
+        </div> */}
+        <h1 className="display-3" style={{ textAlign: 'center' }}>
+          This is RepliCode!
+        </h1>
+        <p className="lead" style={{ textAlign: 'center' }}>
+          A content creation platform for audio lead interacive coding walkthroughs.
+        </p>
         <Container>
           <Row className="text-center">
             {this.props.lessons.map((lesson, i) => (

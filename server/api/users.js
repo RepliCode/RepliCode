@@ -10,9 +10,6 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email'],
-      where: {
-        isCreator: true,
-      },
       include: [{ model: Lesson }],
     });
     res.json(users);

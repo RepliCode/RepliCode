@@ -112,7 +112,7 @@ class SingleLesson extends Component {
             webkitllowfullscreen="true"
           />
         </div>
-        <Container>
+        <Container className="editors-body">
           <Row>
             <Col className="editor-console-flex col-6">
               <Editor sendEditorCode={this.getEditorCode} playbackTime={this.state.playbackTime} />
@@ -128,16 +128,16 @@ class SingleLesson extends Component {
         </Container>
         {this.state.lesson.audioURL ? (
           <div className="recordFooter">
-            <span
-              style={{ fontSize: '30px', cursor: 'pointer', color: 'black', marginLeft: '2rem' }}
-              onClick={this.openNav}
-            >
-              &#9432;
-            </span>
-
-            <Col className="display-block offset-3">
+            <div>
+              <span
+                style={{ fontSize: '30px', cursor: 'pointer', color: 'black', marginLeft: '2rem' }}
+                onClick={this.openNav}
+              >
+                &#9432;
+              </span>
+            </div>
+            <div className="display-block">
               <audio
-                className="footer-button"
                 controls
                 src={this.state.lesson.audioURL}
                 onTimeUpdate={this.onPlayback}
@@ -145,18 +145,18 @@ class SingleLesson extends Component {
                 onPause={this.props.stopPlay}
                 onEnded={event => console.log('done', event.target.currentTime)}
               />
-            </Col>
-            <Col className="display-block">
-              <Button className="footer-button" color="info" onClick={this.run}>
+            </div>
+            <div className="display-block">
+              <Button className="footer-button" color="info" size="lg" onClick={this.run}>
                 Run
               </Button>
-            </Col>
+            </div>
           </div>
         ) : (
           <div className="recordFooter">
-            <Col className="display-block">
+            <div className="display-block">
               <h1 style={{ color: 'black' }}>This Lesson Cannot Be Found!!!</h1>
-            </Col>
+            </div>
           </div>
         )}
       </div>

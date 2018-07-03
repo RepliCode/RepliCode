@@ -18,10 +18,6 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
-  isCreator: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
-  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -37,6 +33,7 @@ const User = db.define('user', {
       return () => this.getDataValue('password');
     },
   },
+
   // salt: {
   //   type: Sequelize.STRING,
   //   // Making `.salt` act like a function hides it when serializing to JSON.

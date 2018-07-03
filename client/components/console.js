@@ -173,7 +173,7 @@ class Console extends Component {
         readOnly={true}
         fontSize={14}
         height="calc(100vh - 15rem)"
-        width="40vw"
+        width="35vw"
         showGutter={false}
         value={this.state.value}
       />
