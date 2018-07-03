@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Lesson } = require('../db/models');
+const { User, Lesson, Subscription } = require('../db/models');
 
 module.exports = router;
 
@@ -41,6 +41,31 @@ router.post('/:userId', async (req, res, next) => {
   }
 });
 
+// GET route for '/api/users/:userId/subscriptions'
+router.get('/:userId/subscriptions', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    console.log('usrid', userId);
+    let subscriptionsArray = await Subscription.findAll({
+      where: {
+        subscriberId: Number(userId),
+      },
+    });
+    subscriptionsArray = subscriptionsArray.map(subscription => {
+      return User.findOne({
+        where: {
+          id: subscription.userId,
+        },
+        include: [{ model: Lesson }],
+      });
+    });
+    let subscriptionsAndLessons = await Promise.all(subscriptionsArray);
+    res.json(subscriptionsAndLessons);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //PUT route for '/api/users/:userId/subscriptions'
 
 router.put('/:userId/subscriptions', async (req, res, next) => {
@@ -56,6 +81,27 @@ router.put('/:userId/subscriptions', async (req, res, next) => {
     // let subscriberId = Number(req.user.id);
     //this will need ot be updated to req.user.id;
     await user.addSubscriber(req.body.user);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//DELETE route for '/api/users/:userId/subscriptions'
+
+router.delete('/:userId/subscriptions', async (req, res, next) => {
+  try {
+    let { userId } = req.params;
+    let user = await User.findOne({
+      where: {
+        id: Number(userId),
+      },
+      attributes: ['id', 'email'],
+      include: [{ model: Lesson }],
+    });
+    // let subscriberId = Number(req.user.id);
+    //this will need ot be updated to req.user.id;
+    await user.unSubscriber(req.body.user);
     res.json(user);
   } catch (err) {
     next(err);
