@@ -46,7 +46,14 @@ router.post('/:userId', async (req, res, next) => {
 router.put('/:userId/subscriptions', async (req, res, next) => {
   try {
     let { userId } = req.params;
-    console.log('dog');
+    let user = await User.findById(Number(userId));
+    // let subscriberId = Number(req.user.id);
+    //this will need ot be updated to req.user.id;
+
+    // await user.addSubscriber(req.body.user);
+    let subscribers = await user.getSubscriber();
+    // console.log('subscribers: ', subscribers);
+    res.json(subscribers);
   } catch (err) {
     next(err);
   }
