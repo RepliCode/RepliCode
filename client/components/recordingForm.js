@@ -67,8 +67,8 @@ class RecordingForm extends React.Component {
             <Form
               onSubmit={event => {
                 console.log('submitted successfully');
-                this.toggle();
                 this.handleForm(event);
+                this.toggle();
               }}
             >
               <Label for="name">Your Name</Label>
