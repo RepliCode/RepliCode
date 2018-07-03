@@ -19,6 +19,10 @@ Category.belongsToMany(Lesson, { through: 'categoryLinks' });
 Lesson.belongsToMany(User, { as: 'saved', through: 'favorites' });
 User.belongsToMany(Lesson, { as: 'saved', through: 'favorites' });
 
+User.belongsToMany(User, { as: 'subscriber', through: 'subscribers' });
+// User.belongsToMany(User, { as: 'subscriber', through: 'subscribers' });
+// User.addSubscriber() User.removeSubscriber() to add/remove subscriber on the lesson creator. User.getSubscribers()
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
