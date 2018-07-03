@@ -32,9 +32,6 @@ class NavigationBar extends React.Component {
           ) : (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/create">Create Lesson</NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink href="/lessons">View Lessons</NavLink>
               </NavItem>
               <NavItem>
@@ -81,7 +78,6 @@ class NavigationBar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isCreator: state.user.isCreator,
   };
 };
 

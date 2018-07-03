@@ -54,7 +54,7 @@ const defaultValue = ``;
 class Editor extends Component {
   componentDidUpdate(prevProps) {
     // the following will only happen for a teacher creating a new recording.
-    if (this.props.user.isCreator) {
+    if (this.props.user.id) {
       if (
         this.props.recorder.isRecord !== prevProps.recorder.isRecord &&
         this.props.recorder.isRecord
@@ -190,7 +190,7 @@ class Editor extends Component {
         showGutter={this.state.showGutter}
         highlightActiveLine={this.state.highlightActiveLine}
         height="calc(100vh - 15rem)"
-        width="40vw"
+        width="35vw"
         setOptions={{
           enableBasicAutocompletion: this.state.enableBasicAutocompletion,
           enableLiveAutocompletion: this.state.enableLiveAutocompletion,

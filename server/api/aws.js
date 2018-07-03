@@ -15,7 +15,7 @@ let s3 = new AWS.S3();
 //POST route for '/api/aws/:userid/upload'
 router.post('/:userId/upload', upload.any(), (req, res, next) => {
   const userId = Number(req.params.userId);
-  if (userId === Number(req.user.id) && req.user.isCreator) {
+  if (userId === Number(req.user.id) && req.user.id) {
     let uniqueId = shortid.generate();
     let audioData = req.body;
     let files = req.files;
