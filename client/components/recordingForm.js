@@ -12,8 +12,7 @@ import {
   Input,
   FormText,
 } from 'reactstrap';
-import MarkdownIt from 'markdown-it';
-const md = new MarkdownIt();
+import ReactMarkdown from 'react-markdown';
 import { addLessonThunk } from '../store';
 
 class RecordingForm extends React.Component {
@@ -21,12 +20,13 @@ class RecordingForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      nestedModal: false,
       formDescription: '',
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleForm = this.handleForm.bind(this);
-    this.previewMarkdown = this.previewMarkdown.bind(this);
+    this.togglePreviewMarkdown = this.togglePreviewMarkdown.bind(this);
     this.setDescription = this.setDescription.bind(this);
   }
 
@@ -57,8 +57,9 @@ class RecordingForm extends React.Component {
   setDescription(event) {
     this.setState({ formDescription: event.target.value });
   }
-  previewMarkdown() {
-    console.log(md.render(this.state.formDescription));
+  togglePreviewMarkdown() {
+    let bool = this.state.nestedModal;
+    this.setState({ nestedModal: !bool });
   }
 
   render() {
@@ -98,9 +99,20 @@ class RecordingForm extends React.Component {
               <Button color="primary" type="submit">
                 Submit
               </Button>{' '}
-              <Button color="primary" type="button" onClick={this.previewMarkdown}>
+              <Button color="primary" type="button" onClick={this.togglePreviewMarkdown}>
                 Preview Markdown
               </Button>{' '}
+              <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}>
+                <ModalHeader>Markdown Preview</ModalHeader>
+                <ModalBody>
+                  <ReactMarkdown source={this.state.formDescription} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.togglePreviewMarkdown}>
+                    Done
+                  </Button>{' '}
+                </ModalFooter>
+              </Modal>
               <Button color="secondary" onClick={this.toggle}>
                 Cancel
               </Button>
