@@ -46,14 +46,17 @@ router.post('/:userId', async (req, res, next) => {
 router.put('/:userId/subscriptions', async (req, res, next) => {
   try {
     let { userId } = req.params;
-    let user = await User.findById(Number(userId));
+    let user = await User.findOne({
+      where: {
+        id: Number(userId),
+      },
+      attributes: ['id', 'email'],
+      include: [{ model: Lesson }],
+    });
     // let subscriberId = Number(req.user.id);
     //this will need ot be updated to req.user.id;
-
-    // await user.addSubscriber(req.body.user);
-    let subscribers = await user.getSubscriber();
-    // console.log('subscribers: ', subscribers);
-    res.json(subscribers);
+    await user.addSubscriber(req.body.user);
+    res.json(user);
   } catch (err) {
     next(err);
   }
