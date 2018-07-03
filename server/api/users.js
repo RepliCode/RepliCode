@@ -45,23 +45,23 @@ router.post('/:userId', async (req, res, next) => {
 router.get('/:userId/subscriptions', async (req, res, next) => {
   try {
     const { userId } = req.params;
-    console.log('userid', userId);
-    console.log('req.user', req.user.id);
-    let subscriptionsArray = await Subscription.findAll({
-      where: {
-        subscriberId: Number(userId),
-      },
-    });
-    subscriptionsArray = subscriptionsArray.map(subscription => {
-      return User.findOne({
+    if (Number(userId) === Number(req.user.id)) {
+      let subscriptionsArray = await Subscription.findAll({
         where: {
-          id: subscription.userId,
+          subscriberId: Number(userId),
         },
-        include: [{ model: Lesson }],
       });
-    });
-    let subscriptionsAndLessons = await Promise.all(subscriptionsArray);
-    res.json(subscriptionsAndLessons);
+      subscriptionsArray = subscriptionsArray.map(subscription => {
+        return User.findOne({
+          where: {
+            id: subscription.userId,
+          },
+          include: [{ model: Lesson }],
+        });
+      });
+      let subscriptionsAndLessons = await Promise.all(subscriptionsArray);
+      res.json(subscriptionsAndLessons);
+    }
   } catch (err) {
     next(err);
   }

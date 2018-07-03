@@ -69,7 +69,11 @@ class SingleLesson extends Component {
   }
   subscribe() {
     let { userId } = this.state.lesson;
-    this.props.subscribe(userId);
+    let bool = this.props.subscriptions.some(subscription => {
+      return subscription.id === userId;
+    });
+    // this.props.subscribe(userId);
+    console.log('am i subscribed?', bool);
   }
 
   onPlayback(event) {
