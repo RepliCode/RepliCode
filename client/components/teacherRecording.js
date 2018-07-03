@@ -81,7 +81,7 @@ class TeacherRecording extends Component {
     formData.append('theAudio', this.props.blob);
 
     let request = {
-      url: 'http://localhost:8080/api/aws/upload',
+      url: '/api/aws/upload',
       method: 'POST',
       data: formData,
       processData: false,

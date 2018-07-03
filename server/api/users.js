@@ -3,6 +3,7 @@ const { User, Lesson } = require('../db/models');
 
 module.exports = router;
 
+// GET route for '/api/users/'
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -18,8 +19,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// POST route for '/api/users/:userId'
+
 router.post('/:userId', async (req, res, next) => {
-  console.log('USE ME AGAIN +++++++', req.user);
   try {
     const userId = Number(req.params.userId);
     if (userId === Number(req.user.id)) {
@@ -34,6 +36,17 @@ router.post('/:userId', async (req, res, next) => {
       });
       res.status(201).send(lesson);
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+//PUT route for '/api/users/:userId/subscriptions'
+
+router.put('/:userId/subscriptions', async (req, res, next) => {
+  try {
+    let { userId } = req.params;
+    console.log('dog');
   } catch (err) {
     next(err);
   }
