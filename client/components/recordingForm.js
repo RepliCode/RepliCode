@@ -37,7 +37,6 @@ class RecordingForm extends React.Component {
     //   title: event.target.title.value,
     //   description: event.target.description.value,
     // });
-    console.log('dogggy');
     let formFields = {
       name: event.target.name.value,
       title: event.target.title.value,
