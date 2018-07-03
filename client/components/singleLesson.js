@@ -12,6 +12,7 @@ import {
 } from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
+import ReactMarkdown from 'react-markdown';
 import 'brace/mode/jsx';
 
 class SingleLesson extends Component {
@@ -22,8 +23,11 @@ class SingleLesson extends Component {
       editorCode: '',
       consoleCode: '',
       lesson: {},
+      isDescription: false,
     };
     this.consoleTimeStamp = {};
+    // this.input = '# This is a header\n\nAnd this is a paragraph';
+    // this.toggleSideNav = this.toggleSideNav.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
@@ -83,34 +87,47 @@ class SingleLesson extends Component {
     document.getElementsByClassName('container')[0].style.width = '100%';
   }
 
+  // toggleSideNav() {
+  //   let bool = this.state.isDescription;
+  //   this.setState({ isDescription: !bool });
+  // }
+
   render() {
     console.log('single lesson playback');
     //this.state.lesson.audioURL
     return (
       <div>
         <div id="mySidenav" className="sidenav">
-          <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
-            &times;
-          </a>
-          <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
-          <p>
-            this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
-            a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lesson
-          </p>
-          <iframe
-            //https://docs.google.com/presentation/d/e/2PACX-1vRJXfqGzbK5vJUp5um-Ucm_vF5PonpkDMWA7HORbVqLlYZusMTyjuedpsJTKilHUI8RUqd_EOoytxEy/embed?start=false&loop=false&delayms=3000
-            src="https://docs.google.com/presentation/d/e/2PACX-1vQO_HQnIUQ8dTJB_kx8V54K9kPR2_eEqp3oFNYpDzReDz8M3ec8Cg58HBh9HVOwevy1vCsfXlMDS8vM/embed"
-            frameBorder="0"
-            width="100%"
-            height="50%"
-            allowFullScreen="true"
-            mozallowfullscreen="true"
-            webkitllowfullscreen="true"
-          />
+          {this.state.isDescription ? (
+            <div>
+              <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
+                &times;
+              </a>
+              <h2 style={{ color: 'white', textAlign: 'center' }}>
+                {this.state.lesson.title || ''}
+              </h2>
+              <p>
+                this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis
+                is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
+                lessonthis is a lessonthis is a lessonthis is a lesson
+              </p>
+              <Button type="button" onClick={this.toggleSideNav}>
+                View Markdown
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <ReactMarkdown
+                source={`## ${this.state.lesson.title}\n\n${this.state.lesson.description}`}
+              />
+              <Button type="button" onClick={this.toggleSideNav}>
+                View Lesson Details
+              </Button>
+            </div>
+          )}
         </div>
         <Container className="editors-body">
           <Row>

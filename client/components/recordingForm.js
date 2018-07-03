@@ -12,6 +12,8 @@ import {
   Input,
   FormText,
 } from 'reactstrap';
+import MarkdownIt from 'markdown-it';
+const md = new MarkdownIt();
 import { addLessonThunk } from '../store';
 
 class RecordingForm extends React.Component {
@@ -19,10 +21,13 @@ class RecordingForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      formDescription: '',
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleForm = this.handleForm.bind(this);
+    this.previewMarkdown = this.previewMarkdown.bind(this);
+    this.setDescription = this.setDescription.bind(this);
   }
 
   toggle() {
@@ -49,6 +54,13 @@ class RecordingForm extends React.Component {
     console.log('names', formFields, 'BLOB!?', this.props);
   }
 
+  setDescription(event) {
+    this.setState({ formDescription: event.target.value });
+  }
+  previewMarkdown() {
+    console.log(md.render(this.state.formDescription));
+  }
+
   render() {
     return (
       <div>
@@ -67,8 +79,8 @@ class RecordingForm extends React.Component {
             <Form
               onSubmit={event => {
                 console.log('submitted successfully');
-                this.handleForm(event);
                 this.toggle();
+                this.handleForm(event);
               }}
             >
               <Label for="name">Your Name</Label>
@@ -80,10 +92,14 @@ class RecordingForm extends React.Component {
                 type="textarea"
                 name="description"
                 id="recording-description"
-                placeholder="Give a brief description of your lesson"
+                placeholder=""
+                onChange={event => this.setDescription(event)}
               />
               <Button color="primary" type="submit">
                 Submit
+              </Button>{' '}
+              <Button color="primary" type="button" onClick={this.previewMarkdown}>
+                Preview Markdown
               </Button>{' '}
               <Button color="secondary" onClick={this.toggle}>
                 Cancel

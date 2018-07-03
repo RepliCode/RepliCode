@@ -29,14 +29,14 @@ router.post('/:userId/upload', upload.any(), (req, res, next) => {
       ACL: 'public-read',
     };
 
-    let putObjectPromise = s3.putObject(s3request).promise();
+    // let putObjectPromise = s3.putObject(s3request).promise();
 
-    putObjectPromise
-      .then(data => {
-        console.log('Upload Successful');
-        res.send(fileName);
-      })
-      .catch(next);
+    // putObjectPromise
+    //   .then(data => {
+    //     console.log('Upload Successful');
+    //     res.send(fileName);
+    //   })
+    //   .catch(next);
   }
 });
 

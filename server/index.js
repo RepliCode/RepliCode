@@ -47,7 +47,7 @@ const createApp = () => {
   app.use(morgan('dev'));
 
   // ssl redirect middleware
-  app.use(sslRedirect());
+  app.use(sslRedirect(['production'], 301));
 
   // body parsing middleware
 
