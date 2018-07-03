@@ -5,6 +5,9 @@ const db = require('../db');
 const User = db.define('user', {
   githubId: {
     type: Sequelize.STRING,
+    get() {
+      return () => this.getDataValue('githubId');
+    },
   },
   // name: {
   //   type: Sequelize.STRING,
@@ -16,6 +19,9 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       isEmail: true,
+    },
+    get() {
+      return () => this.getDataValue('email');
     },
   },
   isAdmin: {
