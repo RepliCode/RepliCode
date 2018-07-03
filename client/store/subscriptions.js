@@ -37,12 +37,12 @@ export const getSubscriptions = subscriptions => ({
 
 export const subscribe = userId => async dispatch => {
   let lessonCreator = await axios.put(`/api/users/${userId}/subscriptions`);
-  dispatch(addSubscription(lessonCreator));
+  dispatch(addSubscription(lessonCreator.data));
 };
 
-export const unSubscribe = userId => async dispatch => {
+export const unsubscribe = userId => async dispatch => {
   let lessonCreator = await axios.delete(`/api/users/${userId}/subscriptions`);
-  dispatch(removeSubscription(lessonCreator));
+  dispatch(removeSubscription(lessonCreator.data));
 };
 
 export const getSubscriptionsThunk = userId => async dispatch => {

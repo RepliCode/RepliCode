@@ -10,6 +10,7 @@ import {
   deleteConsoleState,
   setTextState,
   subscribe,
+  unsubscribe,
 } from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -29,7 +30,7 @@ class SingleLesson extends Component {
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
     this.filterLesson = this.filterLesson.bind(this);
-    this.subscribe = this.subscribe.bind(this);
+    this.toggleSubscribe = this.toggleSubscribe.bind(this);
   }
 
   getEditorCode(editorCode) {
@@ -67,13 +68,13 @@ class SingleLesson extends Component {
       })
       .catch(console.error);
   }
-  subscribe() {
+  toggleSubscribe(subscribedBoolean) {
     let { userId } = this.state.lesson;
-    let bool = this.props.subscriptions.some(subscription => {
-      return subscription.id === userId;
-    });
-    // this.props.subscribe(userId);
-    console.log('am i subscribed?', bool);
+    if (subscribedBoolean) {
+      this.props.unsubscribe(userId);
+    } else {
+      this.props.subscribe(userId);
+    }
   }
 
   onPlayback(event) {
@@ -94,13 +95,30 @@ class SingleLesson extends Component {
   }
 
   render() {
+    let { userId } = this.state.lesson;
+    let subscribed = this.props.subscriptions.some(subscription => {
+      return subscription.id === userId;
+    });
+
+    console.log('wit da label: ', subscribed);
+
     return (
       <div>
         <div id="mySidenav" className="sidenav">
           <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
             &times;
           </a>
-          <Button onClick={this.subscribe}> SUBSCRIBE BUTTON TEST </Button>
+          {this.props.user.id ? (
+            subscribed ? (
+              <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                UNSUBSCRIBE <i className="far fa-check-circle" />
+              </Button>
+            ) : (
+              <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                SUBSCRIBE <i className="fas fa-plus-circle" />
+              </Button>
+            )
+          ) : null}
           <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
           <p>
             this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
@@ -197,6 +215,7 @@ const mapDispatch = dispatch => {
     setTextState: timestamps => dispatch(setTextState(timestamps)),
     setConsoleState: timestamps => dispatch(setConsoleState(timestamps)),
     subscribe: userId => dispatch(subscribe(userId)),
+    unsubscribe: userId => dispatch(unsubscribe(userId)),
   };
 };
 

@@ -71,19 +71,19 @@ router.get('/:userId/subscriptions', async (req, res, next) => {
 
 router.put('/:userId/subscriptions', async (req, res, next) => {
   try {
-    let { userId } = req.params;
-    let user = await User.findOne({
-      where: {
-        id: Number(userId),
-      },
-      attributes: ['id', 'email'],
-      include: [{ model: Lesson }],
-    });
-    let subscriberId = Number(req.user.id);
-    // console.log('sub id', subscriberId);
-    //this will need ot be updated to req.user.id;
-    await user.addSubscriber(subscriberId);
-    res.json(user);
+    if (req.user.id) {
+      let { userId } = req.params;
+      let user = await User.findOne({
+        where: {
+          id: Number(userId),
+        },
+        attributes: ['id', 'email'],
+        include: [{ model: Lesson }],
+      });
+      let subscriberId = Number(req.user.id);
+      await user.addSubscriber(subscriberId);
+      res.json(user);
+    }
   } catch (err) {
     next(err);
   }
@@ -93,18 +93,19 @@ router.put('/:userId/subscriptions', async (req, res, next) => {
 
 router.delete('/:userId/subscriptions', async (req, res, next) => {
   try {
-    let { userId } = req.params;
-    let user = await User.findOne({
-      where: {
-        id: Number(userId),
-      },
-      attributes: ['id', 'email'],
-      include: [{ model: Lesson }],
-    });
-    // let subscriberId = Number(req.user.id);
-    //this will need ot be updated to req.user.id;
-    await user.unSubscriber(req.body.user);
-    res.json(user);
+    if (req.user.id) {
+      let { userId } = req.params;
+      let user = await User.findOne({
+        where: {
+          id: Number(userId),
+        },
+        attributes: ['id', 'email'],
+        include: [{ model: Lesson }],
+      });
+      let subscriberId = Number(req.user.id);
+      await user.removeSubscriber(subscriberId);
+      res.json(user);
+    }
   } catch (err) {
     next(err);
   }
