@@ -37,6 +37,7 @@ class RecordingForm extends React.Component {
     //   title: event.target.title.value,
     //   description: event.target.description.value,
     // });
+    console.log('dogggy');
     let formFields = {
       name: event.target.name.value,
       title: event.target.title.value,
@@ -67,8 +68,8 @@ class RecordingForm extends React.Component {
             <Form
               onSubmit={event => {
                 console.log('submitted successfully');
-                this.toggle();
                 this.handleForm(event);
+                this.toggle();
               }}
             >
               <Label for="name">Your Name</Label>
