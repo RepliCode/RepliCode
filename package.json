@@ -45,6 +45,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
+    "heroku-ssl-redirect": "0.0.4",
     "history": "^4.6.3",
     "lodash.isequal": "^4.5.0",
     "morgan": "^1.8.1",
