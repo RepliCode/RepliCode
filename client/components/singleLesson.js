@@ -9,6 +9,8 @@ import {
   setConsoleState,
   deleteConsoleState,
   setTextState,
+  subscribe,
+  unsubscribe,
 } from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
@@ -31,6 +33,7 @@ class SingleLesson extends Component {
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
     this.filterLesson = this.filterLesson.bind(this);
+    this.toggleSubscribe = this.toggleSubscribe.bind(this);
   }
 
   getEditorCode(editorCode) {
@@ -56,7 +59,7 @@ class SingleLesson extends Component {
 
   run() {
     return axios
-      .post('/api/sandBox', { code: this.state.editorCode })
+      .post('https://replicode-api.herokuapp.com/', { code: this.state.editorCode })
       .then(evaluation => {
         return evaluation.data;
       })
@@ -70,6 +73,14 @@ class SingleLesson extends Component {
         });
       })
       .catch(console.error);
+  }
+  toggleSubscribe(subscribedBoolean) {
+    let { userId } = this.state.lesson;
+    if (subscribedBoolean) {
+      this.props.unsubscribe(userId);
+    } else {
+      this.props.subscribe(userId);
+    }
   }
 
   onPlayback(event) {
@@ -95,8 +106,11 @@ class SingleLesson extends Component {
   }
 
   render() {
-    console.log('PRIZZUPZZZZ', this.props);
-    console.log('loco doco', this.state);
+    let { userId } = this.state.lesson;
+    let subscribed = this.props.subscriptions.some(subscription => {
+      return subscription.id === userId;
+    });
+
     return (
       <div>
         <div id="mySidenav" className="sidenav">
@@ -114,6 +128,17 @@ class SingleLesson extends Component {
                   {this.props.user.email || ''}
                 </h2>
               </Link>
+              {this.props.user.id ? (
+                subscribed ? (
+                  <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                    UNSUBSCRIBE <i className="far fa-check-circle" />
+                  </Button>
+                ) : (
+                  <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                    SUBSCRIBE <i className="fas fa-plus-circle" />
+                  </Button>
+                )
+              ) : null}
               <h2>{this.state.lesson.title}</h2>
               <h3>Short Bio Short Bio Short Bio Short Bio </h3>
               <Button type="button" onClick={this.toggleSideNav}>
@@ -165,7 +190,7 @@ class SingleLesson extends Component {
             </div>
             <div className="display-block">
               <Button className="footer-button" color="info" size="lg" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </div>
           </div>
@@ -192,6 +217,7 @@ const mapState = state => {
     isPlayback: state.recorder.isPlayback,
     user: state.user,
     lessons: state.lessons.lessons,
+    subscriptions: state.subscriptions.subscriptions,
   };
 };
 
@@ -203,6 +229,8 @@ const mapDispatch = dispatch => {
     deleteConsoleState: () => dispatch(deleteConsoleState()),
     setTextState: timestamps => dispatch(setTextState(timestamps)),
     setConsoleState: timestamps => dispatch(setConsoleState(timestamps)),
+    subscribe: userId => dispatch(subscribe(userId)),
+    unsubscribe: userId => dispatch(unsubscribe(userId)),
   };
 };
 

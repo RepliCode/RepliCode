@@ -81,7 +81,7 @@ class TeacherRecording extends Component {
     formData.append('theAudio', this.props.blob);
 
     let request = {
-      url: 'http://localhost:8080/api/aws/upload',
+      url: '/api/aws/upload',
       method: 'POST',
       data: formData,
       processData: false,
@@ -99,7 +99,10 @@ class TeacherRecording extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     // console.log('PRIZZOPSZZ', this.props);
+=======
+>>>>>>> master
     return (
       <div>
         <Container className="editors-body">
@@ -133,7 +136,7 @@ class TeacherRecording extends Component {
                 }}
                 type="button"
               >
-                Delete
+                DELETE
               </Button>
             </div>
             <div className="display-block">
@@ -148,7 +151,7 @@ class TeacherRecording extends Component {
             </div>
             <div className="display-block">
               <Button className="footer-button" size="lg" color="info" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </div>
           </div>
@@ -164,7 +167,7 @@ class TeacherRecording extends Component {
             </Col>
             <Col className="display-block">
               <Button color="info footer-button" size="lg" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </Col>
           </div>

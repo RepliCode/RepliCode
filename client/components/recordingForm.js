@@ -66,7 +66,7 @@ class RecordingForm extends React.Component {
     return (
       <div>
         <Button className="footer-button" size="lg" color="primary" onClick={this.toggle}>
-          Submit Recording
+          SUBMIT
         </Button>
         <Modal
           isOpen={this.state.modal}
@@ -97,7 +97,7 @@ class RecordingForm extends React.Component {
                 onChange={event => this.setDescription(event)}
               />
               <Button color="primary" type="submit">
-                Submit
+                SUBMIT
               </Button>{' '}
               <Button color="primary" type="button" onClick={this.togglePreviewMarkdown}>
                 Preview Markdown
@@ -114,7 +114,7 @@ class RecordingForm extends React.Component {
                 </ModalFooter>
               </Modal>
               <Button color="secondary" onClick={this.toggle}>
-                Cancel
+                CANCEL
               </Button>
             </Form>
           </ModalBody>
