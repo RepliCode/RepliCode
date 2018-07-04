@@ -1,7 +1,7 @@
 const User = require('./user');
 const Lesson = require('./lesson');
 const Category = require('./category');
-
+const Subscription = require('./subscription');
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -19,7 +19,7 @@ Category.belongsToMany(Lesson, { through: 'categoryLinks' });
 Lesson.belongsToMany(User, { as: 'saved', through: 'favorites' });
 User.belongsToMany(Lesson, { as: 'saved', through: 'favorites' });
 
-User.belongsToMany(User, { as: 'subscriber', through: 'subscribers' });
+User.belongsToMany(User, { as: 'subscriber', through: Subscription });
 // User.belongsToMany(User, { as: 'subscriber', through: 'subscribers' });
 // User.addSubscriber() User.removeSubscriber() to add/remove subscriber on the lesson creator. User.getSubscribers()
 
@@ -33,4 +33,5 @@ module.exports = {
   User,
   Lesson,
   Category,
+  Subscription,
 };

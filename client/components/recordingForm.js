@@ -53,7 +53,7 @@ class RecordingForm extends React.Component {
     return (
       <div>
         <Button className="footer-button" size="lg" color="primary" onClick={this.toggle}>
-          Submit Recording
+          SUBMIT
         </Button>
         <Modal
           isOpen={this.state.modal}
@@ -83,10 +83,10 @@ class RecordingForm extends React.Component {
                 placeholder="Give a brief description of your lesson"
               />
               <Button color="primary" type="submit">
-                Submit
+                SUBMIT
               </Button>{' '}
               <Button color="secondary" onClick={this.toggle}>
-                Cancel
+                CANCEL
               </Button>
             </Form>
           </ModalBody>
