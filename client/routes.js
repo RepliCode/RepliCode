@@ -14,14 +14,12 @@ class Routes extends Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
-      console.log('thispropsuserid,', this.props.userId);
       this.props.getSubscriptionsThunk(this.props.userId);
     }
   }
 
   render() {
     const { isLoggedIn } = this.props;
-    console.log('****', this.props.isLoggedIn);
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
