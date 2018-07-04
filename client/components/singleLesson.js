@@ -100,8 +100,6 @@ class SingleLesson extends Component {
       return subscription.id === userId;
     });
 
-    console.log('wit da label: ', subscribed);
-
     return (
       <div>
         <div id="mySidenav" className="sidenav">
