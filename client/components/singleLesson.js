@@ -23,11 +23,10 @@ class SingleLesson extends Component {
       editorCode: '',
       consoleCode: '',
       lesson: {},
-      isDescription: false,
+      toggleCreatorInfo: true,
     };
     this.consoleTimeStamp = {};
-    // this.input = '# This is a header\n\nAnd this is a paragraph';
-    // this.toggleSideNav = this.toggleSideNav.bind(this);
+    this.toggleSideNav = this.toggleSideNav.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
@@ -52,6 +51,9 @@ class SingleLesson extends Component {
       this.filterLesson();
     }
   }
+
+  componentWillUnmount() {}
+
   run() {
     return axios
       .post('/api/sandBox', { code: this.state.editorCode })
@@ -87,42 +89,40 @@ class SingleLesson extends Component {
     document.getElementsByClassName('container')[0].style.width = '100%';
   }
 
-  // toggleSideNav() {
-  //   let bool = this.state.isDescription;
-  //   this.setState({ isDescription: !bool });
-  // }
+  toggleSideNav() {
+    let bool = this.state.toggleCreatorInfo;
+    this.setState({ toggleCreatorInfo: !bool });
+  }
 
   render() {
-    console.log('single lesson playback');
-    //this.state.lesson.audioURL
+    console.log('PRIZZUPZZZZ', this.props);
+    console.log('loco doco', this.state);
     return (
       <div>
         <div id="mySidenav" className="sidenav">
-          {this.state.isDescription ? (
-            <div>
-              <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
-                &times;
-              </a>
-              <h2 style={{ color: 'white', textAlign: 'center' }}>
-                {this.state.lesson.title || ''}
-              </h2>
-              <p>
-                this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis
-                is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-                lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-                lessonthis is a lessonthis is a lessonthis is a lesson
-              </p>
+          <a className="closebtn" onClick={this.closeNav}>
+            &times;
+          </a>
+          {this.state.toggleCreatorInfo ? (
+            <div id="user-sidenav-info">
+              <Link to="/">
+                <img
+                  id="user-image-frame"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/2000px-Missing_avatar.svg.png"
+                />
+                <h2 style={{ color: 'white', textAlign: 'center' }}>
+                  {this.props.user.email || ''}
+                </h2>
+              </Link>
+              <h2>{this.state.lesson.title}</h2>
+              <h3>Short Bio Short Bio Short Bio Short Bio </h3>
               <Button type="button" onClick={this.toggleSideNav}>
                 View Markdown
               </Button>
             </div>
           ) : (
             <div>
-              <ReactMarkdown
-                source={`## ${this.state.lesson.title}\n\n${this.state.lesson.description}`}
-              />
+              <ReactMarkdown source={`${this.state.lesson.description}`} />
               <Button type="button" onClick={this.toggleSideNav}>
                 View Lesson Details
               </Button>

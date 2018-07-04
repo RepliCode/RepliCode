@@ -84,6 +84,7 @@ class Editor extends Component {
     // console.log("i've loaded")
   }
   onChange(newValue) {
+    console.log('WITH SOMETIHNG LIKE A LABEL', newValue);
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
     }
@@ -170,7 +171,7 @@ class Editor extends Component {
     this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
-    console.log('intervals time', this.audioIntervals);
+    // console.log('intervals time', this.audioIntervals);
     return (
       <AceEditor
         className="editor"

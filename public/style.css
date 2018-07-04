@@ -154,7 +154,7 @@ form div {
   z-index: 1; /* Stay on top */
   top: 5rem; /* Stay at the top */
   left: 0;
-  background-color: #a4bb66;
+  background-color: rgba(237, 237, 237, 0.3);
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 1rem;
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -204,4 +204,16 @@ form div {
 
 audio {
   width: 50vw;
+}
+
+#user-image-frame {
+  border-radius: 50%;
+  border: 1px solid black;
+  height: 10em;
+  width: 10em;
+}
+
+#user-sidenav-info {
+  text-align: center;
+  margin-right: 25px;
 }

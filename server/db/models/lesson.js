@@ -25,9 +25,6 @@ const Lesson = db.define('lesson', {
     type: Sequelize.JSON,
     allowNull: false,
   },
-  // markdown: {
-  //   type: Sequelize.TEXT,
-  // },
 });
 
 module.exports = Lesson;

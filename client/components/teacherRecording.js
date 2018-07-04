@@ -99,7 +99,7 @@ class TeacherRecording extends Component {
   }
 
   render() {
-    console.log('PRIZZOPSZZ', this.props);
+    // console.log('PRIZZOPSZZ', this.props);
     return (
       <div>
         <Container className="editors-body">
