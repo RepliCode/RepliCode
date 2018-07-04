@@ -99,7 +99,6 @@ class TeacherRecording extends Component {
   }
 
   render() {
-    console.log('PRIZZOPSZZ', this.props);
     return (
       <div>
         <Container className="editors-body">
@@ -133,7 +132,7 @@ class TeacherRecording extends Component {
                 }}
                 type="button"
               >
-                Delete
+                DELETE
               </Button>
             </div>
             <div className="display-block">
@@ -148,7 +147,7 @@ class TeacherRecording extends Component {
             </div>
             <div className="display-block">
               <Button className="footer-button" size="lg" color="info" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </div>
           </div>
@@ -164,7 +163,7 @@ class TeacherRecording extends Component {
             </Col>
             <Col className="display-block">
               <Button color="info footer-button" size="lg" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </Col>
           </div>

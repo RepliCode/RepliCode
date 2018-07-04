@@ -175,7 +175,7 @@ class SingleLesson extends Component {
             </div>
             <div className="display-block">
               <Button className="footer-button" color="info" size="lg" onClick={this.run}>
-                Run
+                RUN
               </Button>
             </div>
           </div>
