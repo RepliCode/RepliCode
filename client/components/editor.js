@@ -84,7 +84,6 @@ class Editor extends Component {
     // console.log("i've loaded")
   }
   onChange(newValue) {
-    console.log('WITH SOMETIHNG LIKE A LABEL', newValue);
     if (this.props.recorder.isRecord) {
       this.timeStampObject[Date.now() - this.props.recorder.startTime] = newValue;
     }
