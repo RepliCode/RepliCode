@@ -47,7 +47,7 @@ const createApp = () => {
   app.use(morgan('dev'));
 
   // ssl redirect middleware
-  app.use(sslRedirect());
+  app.use(sslRedirect(['production'], 301));
 
   // body parsing middleware
 
@@ -80,6 +80,7 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
+  app.use(express.static(path.join(__dirname, '..', 'public', 'images')));
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {

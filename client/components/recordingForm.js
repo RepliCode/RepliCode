@@ -12,6 +12,7 @@ import {
   Input,
   FormText,
 } from 'reactstrap';
+import ReactMarkdown from 'react-markdown';
 import { addLessonThunk } from '../store';
 
 class RecordingForm extends React.Component {
@@ -19,10 +20,14 @@ class RecordingForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      nestedModal: false,
+      formDescription: '',
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleForm = this.handleForm.bind(this);
+    this.togglePreviewMarkdown = this.togglePreviewMarkdown.bind(this);
+    this.setDescription = this.setDescription.bind(this);
   }
 
   toggle() {
@@ -49,6 +54,14 @@ class RecordingForm extends React.Component {
     console.log('names', formFields, 'BLOB!?', this.props);
   }
 
+  setDescription(event) {
+    this.setState({ formDescription: event.target.value });
+  }
+  togglePreviewMarkdown() {
+    let bool = this.state.nestedModal;
+    this.setState({ nestedModal: !bool });
+  }
+
   render() {
     return (
       <div>
@@ -67,8 +80,8 @@ class RecordingForm extends React.Component {
             <Form
               onSubmit={event => {
                 console.log('submitted successfully');
-                this.handleForm(event);
                 this.toggle();
+                this.handleForm(event);
               }}
             >
               <Label for="name">Your Name</Label>
@@ -80,11 +93,26 @@ class RecordingForm extends React.Component {
                 type="textarea"
                 name="description"
                 id="recording-description"
-                placeholder="Give a brief description of your lesson"
+                placeholder=""
+                onChange={event => this.setDescription(event)}
               />
               <Button color="primary" type="submit">
                 SUBMIT
               </Button>{' '}
+              <Button color="primary" type="button" onClick={this.togglePreviewMarkdown}>
+                PREVIEW MARKDOWN
+              </Button>{' '}
+              <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}>
+                <ModalHeader>Markdown Preview</ModalHeader>
+                <ModalBody>
+                  <ReactMarkdown source={this.state.formDescription} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.togglePreviewMarkdown}>
+                    DONE
+                  </Button>{' '}
+                </ModalFooter>
+              </Modal>
               <Button color="secondary" onClick={this.toggle}>
                 CANCEL
               </Button>

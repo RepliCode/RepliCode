@@ -14,6 +14,7 @@ import {
 } from '../store';
 import { Editor, Console } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
+import ReactMarkdown from 'react-markdown';
 import 'brace/mode/jsx';
 
 class SingleLesson extends Component {
@@ -24,8 +25,10 @@ class SingleLesson extends Component {
       editorCode: '',
       consoleCode: '',
       lesson: {},
+      toggleCreatorInfo: true,
     };
     this.consoleTimeStamp = {};
+    this.toggleSideNav = this.toggleSideNav.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
@@ -51,6 +54,9 @@ class SingleLesson extends Component {
       this.filterLesson();
     }
   }
+
+  componentWillUnmount() {}
+
   run() {
     return axios
       .post('https://replicode-api.herokuapp.com/', { code: this.state.editorCode })
@@ -94,6 +100,11 @@ class SingleLesson extends Component {
     document.getElementsByClassName('container')[0].style.width = '100%';
   }
 
+  toggleSideNav() {
+    let bool = this.state.toggleCreatorInfo;
+    this.setState({ toggleCreatorInfo: !bool });
+  }
+
   render() {
     let { userId } = this.state.lesson;
     let subscribed = this.props.subscriptions.some(subscription => {
@@ -103,39 +114,45 @@ class SingleLesson extends Component {
     return (
       <div>
         <div id="mySidenav" className="sidenav">
-          <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>
+          <a className="closebtn" onClick={this.closeNav}>
             &times;
           </a>
-          {this.props.user.id ? (
-            subscribed ? (
-              <Button onClick={() => this.toggleSubscribe(subscribed)}>
-                UNSUBSCRIBE <i className="far fa-check-circle" />
+          {this.state.toggleCreatorInfo ? (
+            <div id="user-sidenav-info">
+              <Link to="/">
+                <img
+                  id="user-image-frame"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/2000px-Missing_avatar.svg.png"
+                />
+                <h2 style={{ color: 'white', textAlign: 'center' }}>
+                  {this.props.user.email || ''}
+                </h2>
+              </Link>
+              {this.props.user.id ? (
+                subscribed ? (
+                  <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                    UNSUBSCRIBE <i className="far fa-check-circle" />
+                  </Button>
+                ) : (
+                  <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                    SUBSCRIBE <i className="fas fa-plus-circle" />
+                  </Button>
+                )
+              ) : null}
+              <h2>{this.state.lesson.title}</h2>
+              <h3>Short Bio Short Bio Short Bio Short Bio </h3>
+              <Button type="button" onClick={this.toggleSideNav}>
+                View Markdown
               </Button>
-            ) : (
-              <Button onClick={() => this.toggleSubscribe(subscribed)}>
-                SUBSCRIBE <i className="fas fa-plus-circle" />
+            </div>
+          ) : (
+            <div>
+              <ReactMarkdown source={`${this.state.lesson.description}`} />
+              <Button type="button" onClick={this.toggleSideNav}>
+                View Lesson Details
               </Button>
-            )
-          ) : null}
-          <h2 style={{ color: 'white', textAlign: 'center' }}>{this.state.lesson.title || ''}</h2>
-          <p>
-            this is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is
-            a lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lessonthis is a lessonthis is a
-            lessonthis is a lessonthis is a lessonthis is a lesson
-          </p>
-          <iframe
-            //https://docs.google.com/presentation/d/e/2PACX-1vRJXfqGzbK5vJUp5um-Ucm_vF5PonpkDMWA7HORbVqLlYZusMTyjuedpsJTKilHUI8RUqd_EOoytxEy/embed?start=false&loop=false&delayms=3000
-            src="https://docs.google.com/presentation/d/e/2PACX-1vQO_HQnIUQ8dTJB_kx8V54K9kPR2_eEqp3oFNYpDzReDz8M3ec8Cg58HBh9HVOwevy1vCsfXlMDS8vM/embed"
-            frameBorder="0"
-            width="100%"
-            height="50%"
-            allowFullScreen="true"
-            mozallowfullscreen="true"
-            webkitllowfullscreen="true"
-          />
+            </div>
+          )}
         </div>
         <Container className="editors-body">
           <Row>
