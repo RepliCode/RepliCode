@@ -100,7 +100,7 @@ class RecordingForm extends React.Component {
                 SUBMIT
               </Button>{' '}
               <Button color="primary" type="button" onClick={this.togglePreviewMarkdown}>
-                Preview Markdown
+                PREVIEW MARKDOWN
               </Button>{' '}
               <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}>
                 <ModalHeader>Markdown Preview</ModalHeader>
@@ -109,7 +109,7 @@ class RecordingForm extends React.Component {
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.togglePreviewMarkdown}>
-                    Done
+                    DONE
                   </Button>{' '}
                 </ModalFooter>
               </Modal>
