@@ -446,13 +446,12 @@ audio {
 .content {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 12.55%;
   transform: translate(-50%, -50%);
   height: 160px;
   overflow: hidden;
-  font-family: 'Lato', sans-serif;
-  font-size: 35px;
-  line-height: 40px;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
   color: #000;
 }
 .content__container {
@@ -463,7 +462,7 @@ audio {
 }
 .content__container:before {
   content: '[';
-  left: 0;
+  left: 2rem;
 }
 .content__container:after {
   content: ']';
@@ -486,12 +485,11 @@ audio {
 }
 .content__container__text {
   display: inline;
-  float: left;
   margin: 0;
 }
 .content__container__list {
   margin-top: 0;
-  padding-left: 110px;
+  /* padding-left: 110px; */
   text-align: left;
   list-style: none;
   -webkit-animation-name: change;

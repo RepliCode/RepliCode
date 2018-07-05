@@ -13,28 +13,29 @@ export const LandingPage = props => {
       <div className="jumbotron">
         <div className="animated fadeInDown">
           <div className="container">
-            <div className="col-md-12">
+            <div className="col-12">
               <h1>
                 <div className="content">
                   <div className="content__container">
                     <ul className="content__container__list">
-                      <li className="content__container__list__item">Learn </li>
-                      <li className="content__container__list__item">Teach </li>
+                      <li className="content__container__list__item">Learn Programming</li>
+                      <li className="content__container__list__item">Teach Programming</li>
+                      <li className="content__container__list__item">Learn Programming</li>
+                      <li className="content__container__list__item">Teach Programming</li>
                     </ul>
-                    <p>Programming</p>
                   </div>
                 </div>
               </h1>
               <hr
                 style={{
-                  width: '25%',
+                  width: '26%',
                   textAlign: 'left',
                   margin: '30px 0',
                   border: '2.5px solid #fff',
                 }}
               />
             </div>
-            <div className="col-md-8">
+            <div className="col-8">
               <h2 className="subtitle">
                 Welcome to the one-stop platform for creating and viewing interactive coding
                 tutorials.
