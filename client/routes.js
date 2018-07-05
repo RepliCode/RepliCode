@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Login, Signup, UserHome, Lessons, SingleLesson, TeacherRecording } from './components';
+import {
+  Login,
+  Signup,
+  UserHome,
+  Lessons,
+  SingleLesson,
+  TeacherRecording,
+  LandingPage,
+} from './components';
 import { me, getLessonsThunk, getSubscriptionsThunk } from './store';
 
 /**
@@ -31,7 +39,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/" component={UserHome} />
+            <Route path="/" component={LandingPage} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
