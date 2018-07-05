@@ -46,23 +46,14 @@ export const LandingPage = props => {
       </div>
 
       <div className="container" id="main-wrapper">
-        <div className="col-md-7 main-content">
-          <h3>Placeholder</h3>
-          <p>Placeholder </p>
-
-          <div className="white-box">
-            <ul>
-              <li>
-                <p className="">Placeholder</p>
-              </li>
-              <li>
-                <p className="">Placeholder </p>
-              </li>
-              <li>
-                <p className="">Placeholder</p>
-              </li>
-            </ul>
-          </div>
+        <div className="col-7 main-content">
+          <p className="lead">
+            Learning to code can be difficult. Often, beginners seek out video coding tutorials to
+            try learn a new concept. Unfortunately, video tutorials can feel like a passive learning
+            experience because there is a barrier between the student and the code. RepliCode was
+            built with this problem in mind. Students on RepliCode can edit and run the code in each
+            lesson. We believe that this creates a more engaged learning experience.
+          </p>
         </div>
       </div>
     </div>

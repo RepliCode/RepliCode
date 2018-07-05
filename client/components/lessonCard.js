@@ -12,7 +12,7 @@ const categoryCard = props => {
       <div className="card-body">
         <h5 className="card-title">{props.lesson.title}</h5>
         <a href={`/lessons/${props.lesson.id}`} className="btn btn-info">
-          See Lessons
+          VIEW LESSON
         </a>
       </div>
     </div>
