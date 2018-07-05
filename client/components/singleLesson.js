@@ -26,14 +26,16 @@ class SingleLesson extends Component {
       consoleCode: '',
       lesson: {},
       toggleCreatorInfo: true,
+      sideNavClosed: true,
     };
     this.consoleTimeStamp = {};
-    this.toggleSideNav = this.toggleSideNav.bind(this);
+    this.toggleNavInfo = this.toggleNavInfo.bind(this);
     this.onPlayback = this.onPlayback.bind(this);
     this.run = this.run.bind(this);
     this.getEditorCode = this.getEditorCode.bind(this);
     this.filterLesson = this.filterLesson.bind(this);
     this.toggleSubscribe = this.toggleSubscribe.bind(this);
+    this.toggleSideNav = this.toggleSideNav.bind(this);
   }
 
   getEditorCode(editorCode) {
@@ -48,6 +50,10 @@ class SingleLesson extends Component {
     this.setState({ lesson });
     this.props.setTextState(lesson.editor);
     this.props.setConsoleState(lesson.console);
+  }
+
+  componentDidMount() {
+    this.toggleSideNav();
   }
   componentDidUpdate(prevProps) {
     if (this.props.lessons !== prevProps.lessons) {
@@ -83,24 +89,28 @@ class SingleLesson extends Component {
     }
   }
 
+  toggleSideNav() {
+    if (this.state.sideNavClosed) {
+      //open
+      document.getElementById('mySidenav').style.width = '30vw';
+      document.getElementsByClassName('container')[0].style.marginLeft = '30vw';
+      document.getElementsByClassName('container')[0].style.width = 'calc(100% - 30vw)';
+    } else {
+      //close
+      document.getElementById('mySidenav').style.width = '0';
+      document.getElementsByClassName('container')[0].style.marginLeft = 'auto';
+      document.getElementsByClassName('container')[0].style.width = '100%';
+    }
+    let { sideNavClosed } = this.state;
+    this.setState({ sideNavClosed: !sideNavClosed });
+  }
+
   onPlayback(event) {
     let { currentTime } = event.target;
     this.setState({ playbackTime: currentTime });
   }
 
-  openNav() {
-    document.getElementById('mySidenav').style.width = '30vw';
-    document.getElementsByClassName('container')[0].style.marginLeft = '30vw';
-    document.getElementsByClassName('container')[0].style.width = 'calc(100% - 30vw)';
-  }
-
-  closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.getElementsByClassName('container')[0].style.marginLeft = '70px';
-    document.getElementsByClassName('container')[0].style.width = '100%';
-  }
-
-  toggleSideNav() {
+  toggleNavInfo() {
     let bool = this.state.toggleCreatorInfo;
     this.setState({ toggleCreatorInfo: !bool });
   }
@@ -114,7 +124,7 @@ class SingleLesson extends Component {
     return (
       <div>
         <div id="mySidenav" className="sidenav">
-          <a className="closebtn" onClick={this.closeNav}>
+          <a className="closebtn" onClick={this.toggleSideNav}>
             &times;
           </a>
           {this.state.toggleCreatorInfo ? (
@@ -141,14 +151,14 @@ class SingleLesson extends Component {
               ) : null}
               <h2>{this.state.lesson.title}</h2>
               <h3>Short Bio Short Bio Short Bio Short Bio </h3>
-              <Button type="button" onClick={this.toggleSideNav}>
+              <Button type="button" onClick={this.toggleNavInfo}>
                 View Markdown
               </Button>
             </div>
           ) : (
             <div>
               <ReactMarkdown source={`${this.state.lesson.description}`} />
-              <Button type="button" onClick={this.toggleSideNav}>
+              <Button type="button" onClick={this.toggleNavInfo}>
                 View Lesson Details
               </Button>
             </div>
@@ -173,7 +183,7 @@ class SingleLesson extends Component {
             <div>
               <span
                 style={{ fontSize: '30px', cursor: 'pointer', color: 'black', marginLeft: '2rem' }}
-                onClick={this.openNav}
+                onClick={this.toggleSideNav}
               >
                 &#9432;
               </span>

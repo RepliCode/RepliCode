@@ -38,7 +38,7 @@ form div {
 .container {
   margin-top: 2.25rem;
   /* margin-bottom: 25px; */
-  transition: margin-left 0.5s;
+  transition: 0.5s;
 }
 
 .row {
