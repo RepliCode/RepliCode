@@ -159,7 +159,7 @@ class SingleLesson extends Component {
             <div id="user-sidenav-info">
               <ReactMarkdown className="not-centered" source={`${this.state.lesson.description}`} />
               <Button type="button" onClick={this.toggleNavInfo}>
-                View Lesson Details
+                VIEW LESSON DETAILS
               </Button>
             </div>
           )}
