@@ -150,14 +150,14 @@ class SingleLesson extends Component {
                 )
               ) : null}
               <h2>{this.state.lesson.title}</h2>
-              <h3>Short Bio Short Bio Short Bio Short Bio </h3>
+              <p className="not-centered">Short Bio Short Bio Short Bio Short Bio </p>
               <Button type="button" onClick={this.toggleNavInfo}>
                 View Markdown
               </Button>
             </div>
           ) : (
-            <div>
-              <ReactMarkdown source={`${this.state.lesson.description}`} />
+            <div id="user-sidenav-info">
+              <ReactMarkdown className="not-centered" source={`${this.state.lesson.description}`} />
               <Button type="button" onClick={this.toggleNavInfo}>
                 View Lesson Details
               </Button>

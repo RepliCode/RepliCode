@@ -216,4 +216,9 @@ audio {
 #user-sidenav-info {
   text-align: center;
   margin-right: 25px;
+  margin-top: 5vh;
+}
+
+.not-centered {
+  text-align: start;
 }
