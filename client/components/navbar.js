@@ -13,7 +13,14 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <Navbar light expand="sm">
-        <NavbarBrand href="/lessons">RepliCode</NavbarBrand>
+        <NavbarBrand href="/">
+          <img
+            className="img-responsive"
+            height="78rem"
+            width="auto"
+            src="https://i.imgur.com/CeYliRd.png"
+          />
+        </NavbarBrand>
         <Collapse isOpen={true} navbar>
           {this.props.isLoggedIn ? (
             <Nav className="ml-auto" navbar>
