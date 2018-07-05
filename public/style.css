@@ -38,7 +38,7 @@ form div {
 .container {
   margin-top: 2.25rem;
   /* margin-bottom: 25px; */
-  transition: margin-left 0.5s;
+  transition: 0.5s;
 }
 
 .row {
@@ -216,6 +216,11 @@ audio {
 #user-sidenav-info {
   text-align: center;
   margin-right: 25px;
+  margin-top: 5vh;
+}
+
+.not-centered {
+  text-align: start;
 }
 
 /* Landing Page Styling/Animations*/
