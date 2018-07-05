@@ -150,7 +150,7 @@ class SingleLesson extends Component {
                 )
               ) : null}
               <h2>{this.state.lesson.title}</h2>
-              <p className="not-centered">Short Bio Short Bio Short Bio Short Bio </p>
+              <p className="not-centered">This is a short bio of the lesson creator</p>
               <Button type="button" onClick={this.toggleNavInfo}>
                 View Markdown
               </Button>
