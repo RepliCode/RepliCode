@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import { addLessonThunk } from '../store';
+import history from '../history';
 
 class RecordingForm extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class RecordingForm extends React.Component {
       console: this.props.console,
     };
     this.props.addLesson(formFields, Number(this.props.user.id));
-    console.log('names', formFields, 'BLOB!?', this.props);
+    history.push('/lessons');
   }
 
   setDescription(event) {
