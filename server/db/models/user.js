@@ -55,8 +55,7 @@ const User = db.define('user', {
 
 module.exports = User;
 
-User.sync({ force: true });
-
+// User.sync({ force: true });
 /**
  * instanceMethods
  */
