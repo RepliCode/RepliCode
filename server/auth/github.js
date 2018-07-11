@@ -25,14 +25,17 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.GITHUB_CALLBACK,
-    scope: ['user'],
+    scope: ['user', 'user:email'],
   };
 
   const strategy = new GithubStrategy(githubConfig, (token, refreshToken, profile, done) => {
+    console.log('dis be a prizzof', profile);
     const githubId = profile.id;
     const name = profile.displayName ? profile.displayName : profile.username;
     const email = profile.emails[0].value;
-    const imageURL = profile.photos[0].value;
+    const imageURL = profile.photos[0].value
+      ? profile.photos[0].value
+      : 'https://secure.gravatar.com/avatar/90001b4c55a7e19f7a9486823c9e09b4?s=680&d=mm&r=g';
     const bio = profile._json.bio;
 
     User.findOrCreate({

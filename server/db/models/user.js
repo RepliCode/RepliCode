@@ -55,10 +55,7 @@ const User = db.define('user', {
 
 module.exports = User;
 
-<<<<<<< HEAD
-User.sync({ force: true });
-=======
->>>>>>> master
+// User.sync({ force: true });
 /**
  * instanceMethods
  */
