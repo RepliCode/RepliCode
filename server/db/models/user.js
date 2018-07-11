@@ -12,9 +12,6 @@ const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    get() {
-      return () => this.getDataValue('name');
-    },
   },
   email: {
     type: Sequelize.STRING,
@@ -58,6 +55,7 @@ const User = db.define('user', {
 
 module.exports = User;
 
+User.sync({ force: true });
 /**
  * instanceMethods
  */
