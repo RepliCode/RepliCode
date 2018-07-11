@@ -12,6 +12,14 @@ Users can stop the recording at any time and interact with the lesson’s code b
 
 Here is the repo for our [dockerized microservice api](https://github.com/RepliCode/DockerApi)
 
+## Application screenshots
+
+#### Creating a lesson on Replicode
+![Creating a lesson on Replicode](https://i.imgur.com/LApgIyP.gif)
+
+#### Executing/Running code as a student
+![Executing/Running code as a student](https://i.imgur.com/tCFqMEb.gif)
+
 ## Setup
 
 run `git clone https://github.com/RepliCode/RepliCode.git` in your terminal
