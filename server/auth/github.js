@@ -25,15 +25,19 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.GITHUB_CALLBACK,
-    scope: ['user:email'],
+    scope: ['user'],
   };
 
   const strategy = new GithubStrategy(githubConfig, (token, refreshToken, profile, done) => {
     const githubId = profile.id;
-    const name = profile.displayName;
-    // const email = profile.email;
+    const name = profile.displayName ? profile.displayName : profile.username;
     const email = profile.emails[0].value;
-    console.log('profile******', profile);
+    const photo = profile.photos[0].value;
+    const bio = profile._json.bio;
+    console.log('name******', name);
+    console.log('email******', email);
+    console.log('photo******', photo);
+    console.log('bio******', bio);
     User.findOrCreate({
       where: { githubId },
       defaults: { name, email },
