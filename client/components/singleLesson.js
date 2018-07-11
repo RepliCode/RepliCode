@@ -25,6 +25,7 @@ class SingleLesson extends Component {
       editorCode: '',
       consoleCode: '',
       lesson: {},
+      creator: {},
       toggleCreatorInfo: true,
       sideNavClosed: true,
     };
@@ -47,7 +48,8 @@ class SingleLesson extends Component {
       editor: {},
       console: {},
     };
-    this.setState({ lesson });
+    let creator = this.props.lessonCreators.filter(creator => creator.id === lesson.userId)[0];
+    this.setState({ lesson, creator });
     this.props.setTextState(lesson.editor);
     this.props.setConsoleState(lesson.console);
   }
@@ -130,12 +132,12 @@ class SingleLesson extends Component {
           {this.state.toggleCreatorInfo ? (
             <div id="user-sidenav-info">
               <Link to="/">
-                <img id="user-image-frame" src={this.props.user.imageURL} />
+                <img id="user-image-frame" src={this.state.creator.imageURL} />
                 <h2 style={{ color: 'black', textAlign: 'center' }}>
-                  {this.props.user.name || ''}
+                  {this.state.creator.name || ''}
                 </h2>
               </Link>
-              <p className="not-centered">{this.props.user.bio || ''}</p>
+              <p className="not-centered">{this.state.creator.bio || ''}</p>
               <h2>Lesson Title: {this.state.lesson.title}</h2>
               {this.props.user.id ? (
                 subscribed ? (
@@ -225,6 +227,7 @@ const mapState = state => {
     user: state.user,
     lessons: state.lessons.lessons,
     subscriptions: state.subscriptions.subscriptions,
+    lessonCreators: state.lessonCreators,
   };
 };
 

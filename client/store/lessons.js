@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCreators } from './index';
 // import history from '../history';
 
 /**
@@ -44,7 +45,7 @@ export const addLessonThunk = (formFields, userId) => async dispatch => {
       contentType: false,
     };
     const filename = await axios(request);
-    console.log('WIth like a label', filename);
+
     const savedLesson = await axios.post(`/api/users/${userId}`, {
       ...formFields,
       audioURL: `https://replicode.s3.amazonaws.com/${filename.data}`,
@@ -58,11 +59,13 @@ export const addLessonThunk = (formFields, userId) => async dispatch => {
 export const getLessonsThunk = () => async dispatch => {
   try {
     let userFetch = await axios.get('/api/users');
+    console.log(userFetch.data);
     let lessons = [];
     userFetch.data.forEach(user => {
       lessons = lessons.concat(user.lessons);
     });
     //Since we are eager loading content creators, we should at some point dispatch an action to save the creators in the store so that we can render an all creators or individual creators page with their details.
+    dispatch(getCreators(userFetch.data));
     dispatch(getAllLessons(lessons));
   } catch (err) {
     console.error(err);
