@@ -32,15 +32,12 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     const githubId = profile.id;
     const name = profile.displayName ? profile.displayName : profile.username;
     const email = profile.emails[0].value;
-    const photo = profile.photos[0].value;
+    const imageURL = profile.photos[0].value;
     const bio = profile._json.bio;
-    console.log('name******', name);
-    console.log('email******', email);
-    console.log('photo******', photo);
-    console.log('bio******', bio);
+
     User.findOrCreate({
       where: { githubId },
-      defaults: { name, email },
+      defaults: { name, email, bio, imageURL },
     })
       .then(([user]) => done(null, user))
       .catch(done);
