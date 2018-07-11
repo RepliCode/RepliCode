@@ -130,14 +130,13 @@ class SingleLesson extends Component {
           {this.state.toggleCreatorInfo ? (
             <div id="user-sidenav-info">
               <Link to="/">
-                <img
-                  id="user-image-frame"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/2000px-Missing_avatar.svg.png"
-                />
-                <h2 style={{ color: 'white', textAlign: 'center' }}>
-                  {this.props.user.email || ''}
+                <img id="user-image-frame" src={this.props.user.imageURL} />
+                <h2 style={{ color: 'black', textAlign: 'center' }}>
+                  {this.props.user.name || ''}
                 </h2>
               </Link>
+              <p className="not-centered">{this.props.user.bio || ''}</p>
+              <h2>Lesson Title: {this.state.lesson.title}</h2>
               {this.props.user.id ? (
                 subscribed ? (
                   <Button onClick={() => this.toggleSubscribe(subscribed)}>
@@ -149,17 +148,15 @@ class SingleLesson extends Component {
                   </Button>
                 )
               ) : null}
-              <h2>{this.state.lesson.title}</h2>
-              <p className="not-centered">This is a short bio of the lesson creator</p>
               <Button type="button" onClick={this.toggleNavInfo}>
-                View Markdown
+                LESSON NOTES
               </Button>
             </div>
           ) : (
             <div id="user-sidenav-info">
               <ReactMarkdown className="not-centered" source={`${this.state.lesson.description}`} />
               <Button type="button" onClick={this.toggleNavInfo}>
-                VIEW LESSON DETAILS
+                BACK
               </Button>
             </div>
           )}
