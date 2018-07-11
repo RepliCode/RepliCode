@@ -135,7 +135,7 @@ class SingleLesson extends Component {
                   {this.props.user.name || ''}
                 </h2>
               </Link>
-              <p className="not-centered">{this.props.user.bio}</p>
+              <p className="not-centered">{this.props.user.bio || ''}</p>
               <h2>Lesson Title: {this.state.lesson.title}</h2>
               {this.props.user.id ? (
                 subscribed ? (
