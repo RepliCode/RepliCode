@@ -170,7 +170,7 @@ class Editor extends Component {
     this.togglePlayback = this.togglePlayback.bind(this);
   }
   render() {
-    console.log('state value: ', this.state.value);
+    // console.log('intervals time', this.audioIntervals);
     return (
       <AceEditor
         className="editor"

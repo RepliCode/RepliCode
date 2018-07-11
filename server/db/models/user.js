@@ -9,13 +9,10 @@ const User = db.define('user', {
       return () => this.getDataValue('githubId');
     },
   },
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    get() {
-      return () => this.getDataValue('name');
-    },
-  },
+  // name: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false,
+  // },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -27,22 +24,19 @@ const User = db.define('user', {
       return () => this.getDataValue('email');
     },
   },
-  imageURL: {
-    type: Sequelize.STRING,
-    defaultValue:
-      'https://secure.gravatar.com/avatar/90001b4c55a7e19f7a9486823c9e09b4?s=680&d=mm&r=g',
-    vaildate: {
-      isUrl: true,
-    },
-  },
-  bio: {
-    type: Sequelize.TEXT,
-  },
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
     get() {
       return () => this.getDataValue('isAdmin');
+    },
+  },
+  password: {
+    type: Sequelize.STRING,
+    //   // Making `.password` act like a func hides it when serializing to JSON.
+    //   // This is a hack to get around Sequelize's lack of a "private" option.
+    get() {
+      return () => this.getDataValue('password');
     },
   },
 
@@ -57,8 +51,6 @@ const User = db.define('user', {
 });
 
 module.exports = User;
-
-User.sync({ force: true }).then(() => console.log('done'));
 
 /**
  * instanceMethods

@@ -44,6 +44,7 @@ class RecordingForm extends React.Component {
     //   description: event.target.description.value,
     // });
     let formFields = {
+      name: event.target.name.value,
       title: event.target.title.value,
       description: event.target.description.value,
       blob: this.props.blob,
@@ -84,6 +85,8 @@ class RecordingForm extends React.Component {
                 this.handleForm(event);
               }}
             >
+              <Label for="name">Your Name</Label>
+              <Input type="text" name="name" id="recording-author-name" />
               <Label for="title">Lesson Title</Label>
               <Input type="text" name="title" id="lesson-title" placeholder="Insert title here" />
               <Label for="description">Description</Label>

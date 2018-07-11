@@ -99,7 +99,6 @@ class TeacherRecording extends Component {
   }
 
   render() {
-    console.log(this.props.editor);
     return (
       <div>
         <Container className="editors-body">
