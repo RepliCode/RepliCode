@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { LessonCard } from './index';
 
-class Lessons extends React.Component {
+class Feed extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -43,4 +43,4 @@ const mapDispatch = dispatch => {
   return {};
 };
 
-export default connect(mapState, mapDispatch)(Lessons);
+export default connect(mapState, mapDispatch)(Feed);
