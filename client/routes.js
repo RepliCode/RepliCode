@@ -34,11 +34,12 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/lessons" component={Lessons} />
         <Route path="/lessons/:lessonId" component={SingleLesson} />
-        <Route path="/create" component={TeacherRecording} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>{/* Routes placed here are only available after logging in */}</Switch>
+        {isLoggedIn && (          
+          <Switch>{/* Routes placed here are only available after logging in */}
+          <Route path="/create" component={TeacherRecording} />
+          </Switch>
         )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
