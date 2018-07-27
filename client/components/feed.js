@@ -6,6 +6,7 @@ import { LessonCard } from './index';
 class Feed extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   render() {
@@ -16,8 +17,13 @@ class Feed extends React.Component {
         </h1>
         <Container>
           <Row className="text-center">
-            {this.props.lessons.map((lesson, i) => (
+            {this.props.subscriptions.map((user, i) => (
+              //lessons would be under user.lessons
               <div key={i} className="col-3" style={{ margin: '2rem' }}>
+                <img id="user-image-frame" src={user.imageURL} />
+                <h2 style={{ color: 'black', textAlign: 'center' }}>{user.name || ''}</h2>
+                <br />
+                <p className="not-centered">{this.state.creator.bio || ''}</p>
                 <LessonCard lesson={lesson} />
               </div>
             ))}
