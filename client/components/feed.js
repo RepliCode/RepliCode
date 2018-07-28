@@ -12,33 +12,32 @@ class Feed extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="display-3" style={{ textAlign: 'center' }}>
-          Subscriptions Feed
-        </h1>
+        <h1 style={{ textAlign: 'center' }}>Subscriptions Feed</h1>
         <Container>
           <Row className="text-center">
             {this.props.subscriptions.map((user, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <div style={{ flexBasis: '20vw', margin: '2rem' }}>
-                  <img id="user-image-frame" src={user.imageURL} />
-                  <h2 style={{ color: 'black', textAlign: 'center' }}>{user.name || ''}</h2>
-                  <p className="not-centered">{user.bio || ''}</p>
+              <div key={i}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <div style={{ flexBasis: '20vw', margin: '2rem' }}>
+                    <img id="user-image-frame" src={user.imageURL} />
+                    <h2 style={{ color: 'black', textAlign: 'center' }}>{user.name || ''}</h2>
+                    <p className="not-centered">{user.bio || ''}</p>
+                  </div>
+                  {user.lessons.map(lesson => {
+                    return (
+                      <div key={lesson.id} style={{ flexBasis: '20vw', margin: '.5rem' }}>
+                        <LessonCard lesson={lesson} />
+                      </div>
+                    );
+                  })}
                 </div>
-                {user.lessons.map(lesson => {
-                  return (
-                    <div key={lesson.id} style={{ flexBasis: '20vw', margin: '.5rem' }}>
-                      <LessonCard lesson={lesson} />
-                    </div>
-                  );
-                })}
-                <br />
+                <hr />
               </div>
             ))}
           </Row>
