@@ -18,13 +18,27 @@ class Feed extends React.Component {
         <Container>
           <Row className="text-center">
             {this.props.subscriptions.map((user, i) => (
-              //lessons would be under user.lessons
-              <div key={i} className="col-3" style={{ margin: '2rem' }}>
-                <img id="user-image-frame" src={user.imageURL} />
-                <h2 style={{ color: 'black', textAlign: 'center' }}>{user.name || ''}</h2>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <div style={{ flexBasis: '20vw', margin: '2rem' }}>
+                  <img id="user-image-frame" src={user.imageURL} />
+                  <h2 style={{ color: 'black', textAlign: 'center' }}>{user.name || ''}</h2>
+                  <p className="not-centered">{user.bio || ''}</p>
+                </div>
+                {user.lessons.map(lesson => {
+                  return (
+                    <div key={lesson.id} style={{ flexBasis: '20vw', margin: '.5rem' }}>
+                      <LessonCard lesson={lesson} />
+                    </div>
+                  );
+                })}
                 <br />
-                <p className="not-centered">{this.state.creator.bio || ''}</p>
-                <LessonCard lesson={lesson} />
               </div>
             ))}
           </Row>
