@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { LessonCard } from './index';
+import { Link } from 'react-router-dom';
 
 class Feed extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Feed extends React.Component {
   render() {
     return (
       <div>
-        <h1 style={{ textAlign: 'center' }}>Subscriptions Feed</h1>
+        <h1 style={{ textAlign: 'center' }}>Your Subscriptions</h1>
         <Container>
           <Row className="text-center">
             {this.props.subscriptions.map((user, i) => (
@@ -40,6 +41,12 @@ class Feed extends React.Component {
                 <hr />
               </div>
             ))}
+            {this.props.subscriptions.length ? null : (
+              <h3>
+                {' '}
+                No Subscriptions? Check out some of our content <Link to="/lessons">here!</Link>
+              </h3>
+            )}
           </Row>
         </Container>
       </div>

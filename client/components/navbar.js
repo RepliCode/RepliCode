@@ -31,6 +31,9 @@ class NavigationBar extends React.Component {
                 <NavLink href="/lessons">View Lessons</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="/feed">Subscriptions</NavLink>
+              </NavItem>
+              <NavItem>
                 <div onClick={this.props.handleClick}>
                   <NavLink href="/">Logout</NavLink>
                 </div>
