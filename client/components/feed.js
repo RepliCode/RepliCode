@@ -38,7 +38,7 @@ class Feed extends React.Component {
                     );
                   })}
                 </div>
-                <hr />
+                <hr id="feed-line-break" />
               </div>
             ))}
             {this.props.subscriptions.length ? null : (

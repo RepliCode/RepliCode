@@ -654,7 +654,7 @@ audio {
 }
 
 /* line break on feed */
-hr {
+#feed-line-break {
   width: 75vw;
   height: 0.2rem;
   border: 0 none;
