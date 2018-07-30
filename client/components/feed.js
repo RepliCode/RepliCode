@@ -4,7 +4,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import { LessonCard } from './index';
 import { Link } from 'react-router-dom';
 
-class Feed extends React.Component {
+class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {};
