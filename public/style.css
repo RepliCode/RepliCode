@@ -652,3 +652,14 @@ audio {
     transform: translate3d(0, -25%, 0);
   }
 }
+
+/* line break on feed */
+#feed-line-break {
+  width: 75vw;
+  height: 0.2rem;
+  border: 0 none;
+  opacity: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0;
+}
