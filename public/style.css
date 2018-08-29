@@ -49,7 +49,7 @@ form div {
   position: fixed;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   left: 0;
   bottom: 0;
@@ -134,6 +134,7 @@ form div {
 }
 
 .footer-button {
+  /* margin: 0px .5rem ; */
   -webkit-transition: all 0.25s linear;
   -moz-transition: all 0.25s linear;
   -o-transition: all 0.25s linear;

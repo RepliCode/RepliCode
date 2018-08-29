@@ -194,7 +194,6 @@ class SingleLesson extends Component {
               onTimeUpdate={this.onPlayback}
               onPlay={this.props.startPlay}
               onPause={this.props.stopPlay}
-              onEnded={event => console.log('done', event.target.currentTime)}
               isPlayback={this.props.isPlayback}
             />
             <div className="display-block">
