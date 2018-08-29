@@ -17,3 +17,4 @@ export { default as AuthModal } from './authModal';
 export { default as LessonCard } from './lessonCard';
 export { default as LandingPage } from './landingPage';
 export { default as Feed } from './feed';
+export { default as CustomPlayer } from './customPlayer';

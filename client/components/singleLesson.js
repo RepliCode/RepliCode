@@ -12,10 +12,11 @@ import {
   subscribe,
   unsubscribe,
 } from '../store';
-import { Editor, Console } from './index';
+import { Editor, Console, CustomPlayer } from './index';
 import { Container, Row, Col, Button } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import 'brace/mode/jsx';
+import customePlayer from './customPlayer';
 
 class SingleLesson extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class SingleLesson extends Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   run() {
     return axios
@@ -117,6 +118,7 @@ class SingleLesson extends Component {
     this.setState({ toggleCreatorInfo: !bool });
   }
 
+
   render() {
     let { userId } = this.state.lesson;
     let subscribed = this.props.subscriptions.some(subscription => {
@@ -145,23 +147,23 @@ class SingleLesson extends Component {
                     UNSUBSCRIBE <i className="far fa-check-circle" />
                   </Button>
                 ) : (
-                  <Button onClick={() => this.toggleSubscribe(subscribed)}>
-                    SUBSCRIBE <i className="fas fa-plus-circle" />
-                  </Button>
-                )
+                    <Button onClick={() => this.toggleSubscribe(subscribed)}>
+                      SUBSCRIBE <i className="fas fa-plus-circle" />
+                    </Button>
+                  )
               ) : null}
               <Button type="button" onClick={this.toggleNavInfo}>
                 LESSON NOTES
               </Button>
             </div>
           ) : (
-            <div id="user-sidenav-info">
-              <ReactMarkdown className="not-centered" source={`${this.state.lesson.description}`} />
-              <Button type="button" onClick={this.toggleNavInfo}>
-                BACK
+              <div id="user-sidenav-info">
+                <ReactMarkdown className="not-centered" source={`${this.state.lesson.description}`} />
+                <Button type="button" onClick={this.toggleNavInfo}>
+                  BACK
               </Button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
         <Container className="editors-body">
           <Row>
@@ -187,16 +189,14 @@ class SingleLesson extends Component {
                 &#9432;
               </span>
             </div>
-            <div className="display-block">
-              <audio
-                controls
-                src={this.state.lesson.audioURL}
-                onTimeUpdate={this.onPlayback}
-                onPlay={this.props.startPlay}
-                onPause={this.props.stopPlay}
-                onEnded={event => console.log('done', event.target.currentTime)}
-              />
-            </div>
+            <CustomPlayer
+              src={this.state.lesson.audioURL}
+              onTimeUpdate={this.onPlayback}
+              onPlay={this.props.startPlay}
+              onPause={this.props.stopPlay}
+              onEnded={event => console.log('done', event.target.currentTime)}
+              isPlayback={this.props.isPlayback}
+            />
             <div className="display-block">
               <Button className="footer-button" color="info" size="lg" onClick={this.run}>
                 RUN
@@ -204,12 +204,12 @@ class SingleLesson extends Component {
             </div>
           </div>
         ) : (
-          <div className="recordFooter">
-            <div className="display-block">
-              <h1 style={{ color: 'black' }}>This Lesson Cannot Be Found!!!</h1>
+            <div className="recordFooter">
+              <div className="display-block">
+                <h1 style={{ color: 'black' }}>This Lesson Cannot Be Found!!!</h1>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     );
   }
