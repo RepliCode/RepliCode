@@ -1,16 +1,18 @@
 import React from 'react'
 
 const customPlayer = (props) => {
-    //Line 197
-    const audioControls = () => {
+
+    const audioControls = (event) => {
         const audioTag = document.getElementById('audio')
         const toggle = props.isPlayback ? 'pause' : 'play'
-
+        // Toggle playback of audio
         audioTag[toggle]()
+        /// Toggle class of audio player for css transitions
+        event.target.classList.toggle('playing')
     }
 
     return (
-        <div className="display-block">
+        <div>
             <audio
                 id='audio'
                 src={props.src}
@@ -19,7 +21,7 @@ const customPlayer = (props) => {
                 onPause={props.onPause}
                 onEnded={props.onEnded}
             />
-            <button id='player' onClick={audioControls} >{props.isPlayback ? 'Pause' : 'Play'}</button>
+            <a id='player' className='play' onClick={audioControls} ></a>
         </div>
 
     )
