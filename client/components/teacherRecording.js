@@ -118,10 +118,8 @@ class TeacherRecording extends Component {
         </Container>
         {this.props.blobURL ? (
           <div className="recordFooter">
-            <div className="display-block">
+            <div style={{ display: 'flex', width: '22.5%' }}>
               <RecordingForm />
-            </div>
-            <div className="display-block">
               <Button
                 className="footer-button"
                 color="danger"
@@ -143,7 +141,7 @@ class TeacherRecording extends Component {
               onPause={this.props.stopPlay}
               isPlayback={this.props.isPlayback}
             />
-            <div className="display-block">
+            <div style={{ display: 'flex', width: '22.5%', justifyContent: 'flex-end' }}>
               <Button className="footer-button" size="lg" color="info" onClick={this.run}>
                 RUN
               </Button>
