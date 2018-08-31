@@ -99,7 +99,6 @@ class TeacherRecording extends Component {
   }
 
   render() {
-    console.log('isPLayback =====> ', this.props.isPlayback);
     return (
       <div>
         <Container className="editors-body">
