@@ -14,7 +14,7 @@ import {
   setConsoleState,
   deleteConsoleState,
 } from '../store';
-import { Recorder, Editor, RecordingForm, Console } from './index';
+import { Recorder, Editor, RecordingForm, Console, CustomPlayer } from './index';
 import {
   Container,
   Row,
@@ -99,7 +99,6 @@ class TeacherRecording extends Component {
   }
 
   render() {
-    console.log(this.props.editor);
     return (
       <div>
         <Container className="editors-body">
@@ -118,10 +117,8 @@ class TeacherRecording extends Component {
         </Container>
         {this.props.blobURL ? (
           <div className="recordFooter">
-            <div className="display-block">
+            <div style={{ display: 'flex', width: '22.5%' }}>
               <RecordingForm />
-            </div>
-            <div className="display-block">
               <Button
                 className="footer-button"
                 color="danger"
@@ -136,39 +133,36 @@ class TeacherRecording extends Component {
                 DELETE
               </Button>
             </div>
-            <div className="display-block">
-              <audio
-                // className="footer-button"
-                controls
-                src={this.props.blobURL}
-                onTimeUpdate={this.onPlayback}
-                onPlay={this.props.startPlay}
-                onPause={this.props.stopPlay}
-              />
-            </div>
-            <div className="display-block">
+            <CustomPlayer
+              src={this.props.blobURL}
+              onTimeUpdate={this.onPlayback}
+              onPlay={this.props.startPlay}
+              onPause={this.props.stopPlay}
+              isPlayback={this.props.isPlayback}
+            />
+            <div style={{ display: 'flex', width: '22.5%', justifyContent: 'flex-end' }}>
               <Button className="footer-button" size="lg" color="info" onClick={this.run}>
                 RUN
               </Button>
             </div>
           </div>
         ) : (
-          <div className="recordFooter">
-            <Col className="display-block">
-              <div className="button" onClick={this.startStopRecording}>
-                <div className="inner" />
-              </div>
-            </Col>
-            <Col className="display-block">
-              <Recorder />
-            </Col>
-            <Col className="display-block">
-              <Button color="info footer-button" size="lg" onClick={this.run}>
-                RUN
+            <div className="recordFooter">
+              <Col className="display-block">
+                <div className="button" onClick={this.startStopRecording}>
+                  <div className="inner" />
+                </div>
+              </Col>
+              <Col className="display-block">
+                <Recorder />
+              </Col>
+              <Col className="display-block">
+                <Button color="info footer-button" size="lg" onClick={this.run}>
+                  RUN
               </Button>
-            </Col>
-          </div>
-        )}
+              </Col>
+            </div>
+          )}
       </div>
     );
   }
@@ -205,3 +199,15 @@ const mapDispatch = dispatch => {
 };
 
 export default connect(mapState, mapDispatch)(TeacherRecording);
+
+
+// <div className="display-block">
+// <audio
+//   // className="footer-button"
+//   controls
+//   src={this.props.blobURL}
+//   onTimeUpdate={this.onPlayback}
+//   onPlay={this.props.startPlay}
+//   onPause={this.props.stopPlay}
+// />
+// </div>

@@ -64,7 +64,7 @@ module.exports = User;
 // };
 
 //copy for demo
-User.prototype.correctPassword = function(candidatePwd) {
+User.prototype.correctPassword = function (candidatePwd) {
   return this.password() === candidatePwd;
   // User.encryptPassword(candidatePwd, this.salt()) === this.password();
 };
