@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
   Login,
   Signup,
@@ -20,6 +21,15 @@ import { me, getLessonsThunk, getSubscriptionsThunk } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+
+    axios
+      .post('https://replicode-api.herokuapp.com/', { code: "'We are ready to evaluate code!'" })
+      .then(evaluation => {
+        console.log(evaluation.data)
+      })
+      .catch((error) => {
+        console.log('We can\'t evaluate code right now: ', error)
+      })
   }
   componentDidUpdate(prevProps) {
     if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
