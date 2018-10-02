@@ -499,9 +499,9 @@ audio {
   margin: 0;
 }
 
-/* #mobile-message {
-  display: hidden;
-} */
+#mobile-message {
+  display: none;
+}
 @-webkit-keyframes opacity {
   0%,
   100% {
