@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
   Login,
   Signup,
@@ -10,6 +11,7 @@ import {
   SingleLesson,
   TeacherRecording,
   LandingPage,
+  Feed,
 } from './components';
 import { me, getLessonsThunk, getSubscriptionsThunk } from './store';
 
@@ -19,6 +21,15 @@ import { me, getLessonsThunk, getSubscriptionsThunk } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+
+    axios
+      .post('https://replicode-api.herokuapp.com/', { code: "'We are ready to evaluate code!'" })
+      .then(evaluation => {
+        console.log(evaluation.data)
+      })
+      .catch((error) => {
+        console.log('We can\'t evaluate code right now: ', error)
+      })
   }
   componentDidUpdate(prevProps) {
     if (this.props.isLoggedIn !== prevProps.isLoggedIn && this.props.isLoggedIn) {
@@ -34,11 +45,14 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/lessons" component={Lessons} />
         <Route path="/lessons/:lessonId" component={SingleLesson} />
-        <Route path="/create" component={TeacherRecording} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (
-          <Switch>{/* Routes placed here are only available after logging in */}</Switch>
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/create" component={TeacherRecording} />
+            <Route path="/feed" component={Feed} />
+          </Switch>
         )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
