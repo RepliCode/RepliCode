@@ -648,7 +648,6 @@ audio {
   }
 }
 
-<<<<<<< HEAD
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {
@@ -710,7 +709,7 @@ audio {
     text-decoration: underline;
   }
 }
-=======
+
 /* line break on feed */
 #feed-line-break {
   width: 75vw;
