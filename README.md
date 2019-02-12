@@ -1,6 +1,6 @@
 # RepliCode
 
-_Checkout this code recording platform_
+_Checkout this code recording platform here..._ [Demo Link](https://bit.ly/2AbCdGE)
 
 ## Description
 
