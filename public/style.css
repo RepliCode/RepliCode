@@ -186,16 +186,6 @@ form div {
   margin-left: 50px;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-  .sidenav a {
-    font-size: 18px;
-  }
-}
-
 .editors-body {
   display: flex;
   flex-direction: row;
@@ -509,6 +499,10 @@ audio {
   line-height: 40px;
   margin: 0;
 }
+
+#mobile-message {
+  display: none;
+}
 @-webkit-keyframes opacity {
   0%,
   100% {
@@ -651,6 +645,68 @@ audio {
   83.3%,
   95.96% {
     transform: translate3d(0, -25%, 0);
+  }
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav-item,
+  .content,
+  hr {
+    display: none;
+  }
+
+  .navbar {
+    padding-bottom: 7rem !important;
+  }
+
+  .jumbotron.container {
+    margin-top: 0;
+  }
+
+  .col-7,
+  .col-8,
+  .col-10,
+  .img-responsive {
+    all: unset;
+  }
+
+  img.img-responsive {
+    width: 13rem;
+    height: auto;
+    text-align: center;
+  }
+  .col-7.main-content {
+    width: 100%;
+  }
+
+  .col-7#main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  p.lead {
+    text-align: center;
+  }
+  #mobile-message {
+    display: block;
+    font-size: large;
+    width: 100%;
+    font-weight: bolder;
+    text-align: center;
+    color: red;
+    text-decoration: underline;
   }
 }
 
